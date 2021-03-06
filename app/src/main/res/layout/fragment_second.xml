@@ -46,4 +46,12 @@
         tools:layout_editor_absoluteY="113dp"
         tools:src="@tools:sample/avatars" />
 
+    <ImageButton
+        android:id="@+id/button_second"
+        android:layout_width="50dp"
+        android:layout_height="35dp"
+        android:src="@drawable/abc_vector_test"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="0dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
