@@ -5,81 +5,8 @@
       <config />
     </shared>
   </component>
-  <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
-  </component>
-  <component name="BranchesTreeState">
-    <expand>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-    </expand>
-    <select />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="f0fcb2ef-aa74-4340-a964-c18201f526d6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/proguard-rules.pro" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/example/myapplication/ExampleInstrumentedTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/FirstFragment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/MainActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/SecondFragment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/calendarview.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/content_main.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_first.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_second.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/menu_main.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-night/themes.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/com/example/myapplication/ExampleUnitTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" />
-    </list>
+    <list default="true" id="54ad94de-58a1-452a-8d5a-c4211ebc5e0e" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -91,34 +18,24 @@
       <ProjectState />
     </projectState>
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="layoutResourceFile" />
-      </list>
-    </option>
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="ProjectId" id="1piNrJYWosses1uuKjsHkAE2g4O" />
+  <component name="ProjectId" id="1pivM5uh43xXwnraveqK7ieHp8Y" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_3a_API_30_x86" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2021-03-13T19:14:51.558Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_API_26" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2021-03-14T01:31:42.673Z" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../CISC4900/Duelt" />
   </component>
   <component name="RecentsManager">
     <key name="android.template.730425808">
-      <recent name="com.example.myapplication" />
+      <recent name="com.example.duelt" />
     </key>
-    <key name="android.template.-1485531716">
-      <recent name="com.example.myapplication" />
+    <key name="android.template.1427674040">
+      <recent name="com.example.duelt" />
     </key>
   </component>
   <component name="RunManager">
@@ -130,7 +47,7 @@
       </method>
     </configuration>
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
-      <module name="My_Application.app" />
+      <module name="Duelt.app" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
       <option name="DEPLOY_AS_INSTANT" value="false" />
@@ -192,54 +109,38 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="f0fcb2ef-aa74-4340-a964-c18201f526d6" name="Default Changelist" comment="" />
-      <created>1615662147264</created>
+      <changelist id="54ad94de-58a1-452a-8d5a-c4211ebc5e0e" name="Default Changelist" comment="" />
+      <created>1615678673540</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1615662147264</updated>
+      <updated>1615678673540</updated>
     </task>
     <servers />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="oldMeFiltersMigrated" value="true" />
-  </component>
   <component name="WindowStateProjectService">
-    <state x="463" y="139" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1615681912171">
+    <state x="149" y="137" width="1291" height="584" key="AVDManager" timestamp="1615685509613">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="463" y="139" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1615681912171" />
-    <state x="314" y="147" key="AndroidCreateResourceFileDialog" timestamp="1615663019429">
+    <state x="149" y="137" width="1291" height="584" key="AVDManager/0.0.1536.824@0.0.1536.824" timestamp="1615685509613" />
+    <state x="551" y="161" key="FileChooserDialogImpl" timestamp="1615686435668">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="314" y="147" key="AndroidCreateResourceFileDialog/0.0.1536.824@0.0.1536.824" timestamp="1615663019429" />
-    <state x="513" y="146" key="FileChooserDialogImpl" timestamp="1615678582720">
+    <state x="551" y="161" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1615686435668" />
+    <state width="715" height="128" key="GridCell.Tab.0.bottom" timestamp="1615686147635">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="513" y="146" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1615678582720" />
-    <state width="1340" height="194" key="GridCell.Tab.0.bottom" timestamp="1615681830739">
+    <state width="715" height="128" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1615686147635" />
+    <state width="715" height="128" key="GridCell.Tab.0.center" timestamp="1615686147634">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1340" height="194" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1615681830739" />
-    <state width="1340" height="194" key="GridCell.Tab.0.center" timestamp="1615681830739">
+    <state width="715" height="128" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1615686147634" />
+    <state width="715" height="128" key="GridCell.Tab.0.left" timestamp="1615686147634">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1340" height="194" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1615681830739" />
-    <state width="1340" height="194" key="GridCell.Tab.0.left" timestamp="1615681830739">
+    <state width="715" height="128" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1615686147634" />
+    <state width="715" height="128" key="GridCell.Tab.0.right" timestamp="1615686147635">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1340" height="194" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1615681830739" />
-    <state width="1340" height="194" key="GridCell.Tab.0.right" timestamp="1615681830739">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1340" height="194" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1615681830739" />
+    <state width="715" height="128" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1615686147635" />
   </component>
 </project>
