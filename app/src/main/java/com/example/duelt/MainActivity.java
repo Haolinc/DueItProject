@@ -19,7 +19,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-
+//testing
+    
     public void jumpToMini(View v){
         Intent i = new Intent(this, MiniActivity.class);
         startActivity(i);
