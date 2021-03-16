@@ -14,21 +14,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void jumpToMemo(View v) {
+    public void jumpToMemo(View v){
         Intent i = new Intent(this, MemoActivity.class);
         startActivity(i);
     }
 
 
-    public void jumpToMini(View v) {
+    public void jumpToMini(View v){
         Intent i = new Intent(this, MiniActivity.class);
         startActivity(i);
     }
-
-    /*
-    private void createDatabase() {
-        SQLiteDatabase database = openOrCreateDatabase("memotexts.db", MODE_PRIVATE, null);
-        database.execSQL("CREATE NEW MEMO IF NOT EXISTS(memo TEXT, memo_date, memo_duedate);");
-        database.close();
-    }*/
 }
