@@ -58,7 +58,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="103dp"
+        android:layout_marginTop="80dp"
         android:text="Due date"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,29 +70,38 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="Reminder"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+        app:layout_constraintTop_toBottomOf="@+id/dueDate_scrollview" />
 
     <Button
-        android:id="@+id/checkBoxButton"
+        android:id="@+id/checkBoxCreateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:onClick="createCheckBox"
+        android:onClick="createCheckBoxInDueDate"
         android:text="Create Check Box"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/checkBoxDeleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Delete Check Box"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/dueDate_scrollview"
         android:layout_width="290dp"
-        android:layout_height="171dp"
+        android:layout_height="200dp"
         android:layout_marginTop="11dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -101,6 +110,23 @@
 
         <LinearLayout
             android:id="@+id/dueDate_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <ScrollView
+        android:id="@+id/reminder_scrollview"
+        android:layout_width="290dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="11dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+        <LinearLayout
+            android:id="@+id/reminder_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
