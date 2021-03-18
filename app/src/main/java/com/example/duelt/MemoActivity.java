@@ -67,4 +67,7 @@ public class MemoActivity extends AppCompatActivity {
         return this.text;
     }
 
+   // public void getDate(View view) {
+    //  getDate();
+    //}
 }
