@@ -14,7 +14,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class MemoActivity extends AppCompatActivity {
+public class MemoActivity extends AppCompatActivity implements Serializable {
     //test code
     private Date date;
     private String text;
