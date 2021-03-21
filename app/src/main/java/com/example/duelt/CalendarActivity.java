@@ -16,10 +16,8 @@ import android.widget.TimePicker;
 
 public class CalendarActivity extends AppCompatActivity {
     private CalendarView mCalendarView;
-    private CalenderTimer mCalendarTimer;
     private EditText eventTitleInput;
     private EditText eventDetailInput;
-    private TextView selectTimeView;
     //data to store information about date and event
     private int mYear, mMonth, mDay, mHour, mMinute;
     private String eventTitle;
@@ -31,7 +29,6 @@ public class CalendarActivity extends AppCompatActivity {
         mCalendarView = (CalendarView) findViewById(R.id.calendarView);
         eventTitleInput = (EditText)findViewById(R.id.EventTitle);
         eventDetailInput = (EditText)findViewById(R.id.EventDetail);
-        selectTimeView = (TextView) findViewById(R.id.SelectTime);
 
         //get user select date in CalenderView and store them
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -40,19 +37,13 @@ public class CalendarActivity extends AppCompatActivity {
                 mYear = year;
                 mMonth = month;
                 mDay = dayOfMonth;
-            }
-        });
-        //create  TimePickerDialog  to user input about time in hour and minute
-        selectTimeView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(CalendarActivity.this,
                         new TimePickerDialog.OnTimeSetListener() {
-                           @Override
-                           public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                              mHour = hourOfDay;
-                              mMinute = minute;
-                           }
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                mHour = hourOfDay;
+                                mMinute = minute;
+                            }
                         }, 24,0,true
                 );
                 timePickerDialog.updateTime(mHour,mMinute);

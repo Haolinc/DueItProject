@@ -45,13 +45,14 @@
         android:id="@+id/EventTitle"
         android:layout_width="292dp"
         android:layout_height="41dp"
+        android:layout_marginBottom="24dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="event title"
         app:layout_constraintBottom_toTopOf="@+id/EventDetail"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SelectTime" />
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/back"
@@ -64,16 +65,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/SelectTime"
-        android:layout_width="212dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="28dp"
-        android:gravity="center"
-        android:text="Select Time"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendarView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

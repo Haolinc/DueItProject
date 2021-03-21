@@ -13,7 +13,7 @@ public class MiniActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mini);
     }
     public void back(View v){
-
         finish();
     }
+
 }
