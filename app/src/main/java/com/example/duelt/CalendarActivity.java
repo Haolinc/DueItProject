@@ -5,7 +5,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,19 +18,22 @@ import android.widget.TimePicker;
 
 public class CalendarActivity extends AppCompatActivity {
     private CalendarView mCalendarView;
-    private EditText eventTitleInput;
-    private EditText eventDetailInput;
+    //private EditText eventTitleInput;
+    //private EditText eventDetailInput;
     //data to store information about date and event
     private int mYear, mMonth, mDay, mHour, mMinute;
-    private String eventTitle;
-    private String eventDetail;
+    Context context= this;
+    //private String eventTitle;
+    //private String eventDetail;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
         mCalendarView = (CalendarView) findViewById(R.id.calendarView);
-        eventTitleInput = (EditText)findViewById(R.id.EventTitle);
-        eventDetailInput = (EditText)findViewById(R.id.EventDetail);
+        //eventTitleInput = (EditText)findViewById(R.id.EventTitle);
+        //eventDetailInput = (EditText)findViewById(R.id.EventDetail);
 
         //get user select date in CalenderView and store them
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -43,35 +48,18 @@ public class CalendarActivity extends AppCompatActivity {
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                                 mHour = hourOfDay;
                                 mMinute = minute;
+                                startActivity(new Intent(context, TextEntering.class));
                             }
                         }, 24,0,true
                 );
                 timePickerDialog.updateTime(mHour,mMinute);
                 timePickerDialog.show();
             }
+
         });
     }
     public void back(View v){
         finish();
-    }
-
-    public void saveEvent(View v){
-        eventDetail = eventDetailInput.getText().toString();
-        eventTitle = eventTitleInput.getText().toString();
-
-        //testing
-        AlertDialog alertDialog = new AlertDialog.Builder(CalendarActivity.this).create();
-        alertDialog.setTitle(eventTitle);
-        alertDialog.setMessage(mYear + "/" + mMonth+"/"+ mDay + "  "+ mHour + ": " + mMinute +"\n" + eventDetail );
-
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Cancel",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        alertDialog.cancel();
-                    }
-                });
-        alertDialog.show();
     }
 
 

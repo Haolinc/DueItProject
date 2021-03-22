@@ -29,6 +29,10 @@ public class MemoActivity extends AppCompatActivity implements Serializable {
         Intent i = new Intent(this, CalendarActivity.class);
         startActivity(i);
     }
+    public void jumpToTextEnter(View v){
+        Intent i = new Intent(this, TextEntering.class);
+        startActivity(i);
+    }
 
     public void back(View v){
 
