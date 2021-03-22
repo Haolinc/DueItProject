@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -13,12 +14,23 @@ public class TextEntering extends AppCompatActivity {
     private String eventDetail;
     private EditText eventTitleInput;
     private EditText eventDetailInput;
+    private int year, month, day, hour, minute;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_entering);
         eventTitleInput = findViewById(R.id.eventTitle);
         eventDetailInput = findViewById(R.id.eventDetail);
+
+        //get date from calendarActivity
+        Intent intent = getIntent();
+        year = intent.getIntExtra(CalendarActivity.EXTRA_Year, 0);
+        month = intent.getIntExtra(CalendarActivity.EXTRA_Month, 0);
+        day = intent.getIntExtra(CalendarActivity.EXTRA_Day, 0);
+        hour= intent.getIntExtra(CalendarActivity.EXTRA_Hour, 0);
+        minute = intent.getIntExtra(CalendarActivity.EXTRA_Minute, 0);
+
     }
 
     public void back(View v){
@@ -32,8 +44,8 @@ public class TextEntering extends AppCompatActivity {
         //testing
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle(eventTitle);
-        //alertDialog.setMessage(mYear + "/" + mMonth+"/"+ mDay + "  "+ mHour + ": " + mMinute +"\n" + eventDetail );
-        alertDialog.setMessage(eventDetail);
+        alertDialog.setMessage(year + "/" + month+"/"+ day + "  "+ hour + ": " + minute +"\n" + eventDetail );
+        //alertDialog.setMessage(eventDetail);
 
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Cancel",
                 new DialogInterface.OnClickListener() {

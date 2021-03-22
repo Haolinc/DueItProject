@@ -22,6 +22,12 @@ public class CalendarActivity extends AppCompatActivity {
     //private EditText eventDetailInput;
     //data to store information about date and event
     private int mYear, mMonth, mDay, mHour, mMinute;
+
+    public static final String EXTRA_Year = "com.example.duelt.EXTRA_Year";
+    public static final String EXTRA_Month = "com.example.duelt.EXTRA_Month";
+    public static final String EXTRA_Day = "com.example.duelt.EXTRA_Day";
+    public static final String EXTRA_Hour = "com.example.duelt.EXTRA_Hour";
+    public static final String EXTRA_Minute = "com.example.duelt.EXTRA_Minute";
     Context context= this;
     //private String eventTitle;
     //private String eventDetail;
@@ -48,7 +54,14 @@ public class CalendarActivity extends AppCompatActivity {
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                                 mHour = hourOfDay;
                                 mMinute = minute;
-                                startActivity(new Intent(context, TextEntering.class));
+                                //pass data of date to textEnter activity
+                                Intent intent = new Intent(context, TextEntering.class);
+                                intent.putExtra(EXTRA_Year, mYear);
+                                intent.putExtra(EXTRA_Month, mMonth);
+                                intent.putExtra(EXTRA_Day, mDay);
+                                intent.putExtra(EXTRA_Hour, mHour);
+                                intent.putExtra(EXTRA_Minute, mMinute);
+                                startActivity(intent);
                             }
                         }, 24,0,true
                 );
