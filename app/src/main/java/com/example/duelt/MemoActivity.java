@@ -3,22 +3,31 @@ package com.example.duelt;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
 
 
 /*test code*/
+import com.example.duelt.db.DatabaseHelper;
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class MemoActivity extends AppCompatActivity implements Serializable {
     //test code
     private Date date;
     private String text;
     private static DateFormat dateFormate = new SimpleDateFormat("dd/MM/yyy 'at' hh:mm aaa");
+
+    ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +48,11 @@ public class MemoActivity extends AppCompatActivity implements Serializable {
         finish();
     }
 
+    public void ViewAll(View v){
+        DatabaseHelper databaseHelper = new DatabaseHelper(MemoActivity.this);
+        List<EventDateModel> list = databaseHelper.getAll();
+        Toast.makeText(MemoActivity.this, list.toString(), Toast.LENGTH_LONG).show();
+    }
 
     //testcode
 

@@ -9,13 +9,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.duelt.db.DatabaseHelper;
+
+import java.util.Date;
+
 public class TextEntering extends AppCompatActivity {
     private String eventTitle;
     private String eventDetail;
     private EditText eventTitleInput;
     private EditText eventDetailInput;
     private int year, month, day, hour, minute;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,12 +43,16 @@ public class TextEntering extends AppCompatActivity {
     public void saveEvent(View v){
         eventDetail = eventDetailInput.getText().toString();
         eventTitle = eventTitleInput.getText().toString();
+        EventDateModel eventDateModel = new EventDateModel(eventTitle, eventDetail, year,month,day,hour,minute);
+
+        //insert into database
+        DatabaseHelper databaseHelper = new DatabaseHelper(TextEntering.this);
+        databaseHelper.addOne(eventDateModel);
 
         //testing
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle(eventTitle);
-        alertDialog.setMessage(year + "/" + month+"/"+ day + "  "+ hour + ": " + minute +"\n" + eventDetail );
-        //alertDialog.setMessage(eventDetail);
+        alertDialog.setTitle("alert");
+        alertDialog.setMessage(eventDateModel.toString());
 
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Cancel",
                 new DialogInterface.OnClickListener() {
