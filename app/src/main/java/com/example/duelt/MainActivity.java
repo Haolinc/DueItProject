@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void jumpToTP(View v){
-        Intent i = new Intent(this, treatmentActivity.class);
+        Intent i = new Intent(this, TreatmentActivity.class);
         startActivity(i);
     }
 
