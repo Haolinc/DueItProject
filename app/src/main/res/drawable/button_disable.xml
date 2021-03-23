@@ -3,6 +3,7 @@
     android:shape="rectangle">
 
     <solid
+        android:angle="90"
         android:color="#b8b7b5"/>
 
 

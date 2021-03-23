@@ -36,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void jumpToTP(View v){
+        Intent i = new Intent(this, treatmentActivity.class);
+        startActivity(i);
+    }
 
     //use ScrollView as parent and call linearlayout for action, change ScrollView values in xml files
     //Orientation is set in xml file
