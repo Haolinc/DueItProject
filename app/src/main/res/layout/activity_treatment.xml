@@ -8,20 +8,20 @@
     android:orientation="vertical"
     tools:context=".TreatmentActivity">
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
+
         android:id="@+id/custom_buttonblue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/custom_buttonblue"
         android:text="Press me"
-        app:backgroundTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.857" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
