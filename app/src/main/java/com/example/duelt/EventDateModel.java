@@ -13,12 +13,12 @@ public class EventDateModel {
         this.eventTitle = eventTitle;
         this.eventDetail = eventDetail;
         this.year = year;
-        this.month = month;
+        this.month = month ;
         this.day = day;
         this.hour = hour;
         this.minute = minute;
         date = new Date(year, month, day, hour, minute);
-        timeForOrder =  hour + day*100 + month * 10000 + year*1000000;
+        timeForOrder =  minute + hour*100 + day*10000 + month * 1000000 + year*100000000;
     }
 
     public EventDateModel() {
@@ -41,7 +41,7 @@ public class EventDateModel {
     }
 
     public int getMonth() {
-        return month+1;
+        return month;
     }
 
     public int getDay() {
@@ -94,6 +94,7 @@ public class EventDateModel {
     }
 
     public String getTitleAndDate() {
-        return eventTitle+ " " + month + "/" + day + "  " + hour + ":" + minute;
+        int correctedMonth = month +1;
+        return eventTitle+ " " + correctedMonth  + "/" + day + "  " + hour + ":" + minute;
     }
 }

@@ -64,8 +64,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean deleteOne(EventDateModel eventDateModel){
         SQLiteDatabase db = this.getWritableDatabase();
         String quertyString = "DELETE FROM " +
-                //TABLE_NAME+ " WHERE "  + YEAR_COLUMN + " = " + eventDateModel.getYear() + ";";
-                TABLE_NAME + " WHERE " + TIME_FOR_ORDER_COLUMN + " = " + eventDateModel.getTimeForOrder() + ";" ;
+                TABLE_NAME+ " WHERE "  + YEAR_COLUMN + " = " + eventDateModel.getYear() + ";";
+               // TABLE_NAME + " WHERE " + TIME_FOR_ORDER_COLUMN + " = " + eventDateModel.getTimeForOrder() + ";" ;
 
         Cursor cursor = db.rawQuery(quertyString, null);
 
@@ -74,7 +74,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.close();
             return true;
         }
-
         else {
             db.close();
             return false;
@@ -86,6 +85,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String queryString = "DELETE FROM "+TABLE_NAME + ";";
         Cursor cursor = db.rawQuery(queryString, null);
+        db.close();
     }
 
     public List<EventDateModel> getAll(){
@@ -98,10 +98,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             do{
                 int year = cursor.getInt(1);
-                int month = cursor.getInt(2);
+                int month = cursor.getInt(2) ;
                 int day = cursor.getInt(3);
                 int hour = cursor.getInt(4);
-                int minute = cursor.getInt(5);
+                int minute = cursor.getInt(5) ;
                 String eventTitle = cursor.getString(6);
                 String eventDetail = cursor.getString(7);
 
