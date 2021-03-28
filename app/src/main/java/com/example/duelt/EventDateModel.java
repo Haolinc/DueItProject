@@ -7,7 +7,6 @@ public class EventDateModel {
     private String eventDetail;
     private int year, month, day, hour, minute;
     private int timeForOrder;
-    private Date date;
 
     public EventDateModel(String eventTitle, String eventDetail, int year, int month, int day, int hour, int minute) {
         this.eventTitle = eventTitle;
@@ -17,8 +16,7 @@ public class EventDateModel {
         this.day = day;
         this.hour = hour;
         this.minute = minute;
-        date = new Date(year, month, day, hour, minute);
-        timeForOrder =  minute + hour*100 + day*10000 + month * 1000000 + year*100000000;
+        timeForOrder =   minute + hour*100 + day*10000 + month * 1000000 + year*100000000;
     }
 
     public EventDateModel() {
@@ -94,7 +92,7 @@ public class EventDateModel {
     }
 
     public String getTitleAndDate() {
-        int correctedMonth = month +1;
+        int correctedMonth = month ;
         return eventTitle+ " " + correctedMonth  + "/" + day + "  " + hour + ":" + minute;
     }
 }

@@ -33,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTableStatement = "CREATE TABLE " + TABLE_NAME + " ( " + TIME_FOR_ORDER_COLUMN
-                + " INT, " + YEAR_COLUMN + " INT, " + MONTH_COLUMN + " INT, " + DAY_COLUMN +
+                + " BIGINT, " + YEAR_COLUMN + " INT, " + MONTH_COLUMN + " INT, " + DAY_COLUMN +
                 " INT, " + HOUR_COLUMN + " INT, " + MINUTE_COLUMN + " INT, " + EVENT_TITLE_COLUMN +
                 " TEXT, " + EVENT_DETAIL_COLUMN + " TEXT);";
         db.execSQL(createTableStatement);
@@ -53,6 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(MONTH_COLUMN, eventDateModel.getMonth());
         cv.put(DAY_COLUMN, eventDateModel.getDay());
         cv.put(HOUR_COLUMN, eventDateModel.getHour());
+        cv.put(MINUTE_COLUMN,eventDateModel.getMinute());
         cv.put(EVENT_TITLE_COLUMN, eventDateModel.getEventTitle());
         cv.put(EVENT_DETAIL_COLUMN, eventDateModel.getEventDetail());
 
@@ -64,17 +65,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean deleteOne(EventDateModel eventDateModel){
         SQLiteDatabase db = this.getWritableDatabase();
         String quertyString = "DELETE FROM " +
-                TABLE_NAME+ " WHERE "  + YEAR_COLUMN + " = " + eventDateModel.getYear() + ";";
-               // TABLE_NAME + " WHERE " + TIME_FOR_ORDER_COLUMN + " = " + eventDateModel.getTimeForOrder() + ";" ;
+               //TABLE_NAME+ " WHERE "  + YEAR_COLUMN + " = " + eventDateModel.getYear() + ";";
+                TABLE_NAME + " WHERE " + TIME_FOR_ORDER_COLUMN + " = " + eventDateModel.getTimeForOrder() + ";" ;
 
         Cursor cursor = db.rawQuery(quertyString, null);
 
 
         if (cursor.moveToFirst()){
+            cursor.close();
             db.close();
             return true;
         }
         else {
+            cursor.close();
             db.close();
             return false;
         }
