@@ -6,7 +6,7 @@ public class EventDateModel {
     private String eventTitle;
     private String eventDetail;
     private int year, month, day, hour, minute;
-    private long timeForOrder;
+    private int timeForOrder;
     private Date date;
 
     public EventDateModel(String eventTitle, String eventDetail, int year, int month, int day, int hour, int minute) {
@@ -18,7 +18,7 @@ public class EventDateModel {
         this.hour = hour;
         this.minute = minute;
         date = new Date(year, month, day, hour, minute);
-        timeForOrder = date.getTime();
+        timeForOrder =  hour + day*100 + month * 10000 + year*1000000;
     }
 
     public EventDateModel() {
@@ -28,7 +28,7 @@ public class EventDateModel {
         return eventTitle;
     }
 
-    public long getTimeForOrder() {
+    public int getTimeForOrder() {
         return timeForOrder;
     }
 
@@ -41,7 +41,7 @@ public class EventDateModel {
     }
 
     public int getMonth() {
-        return month;
+        return month+1;
     }
 
     public int getDay() {
@@ -91,5 +91,9 @@ public class EventDateModel {
                         year + "/" + month+"/"+ day + "  "+ hour + ": " + minute +"\n"
                         + eventDetail
                 ;
+    }
+
+    public String getTitleAndDate() {
+        return eventTitle+ " " + month + "/" + day + "  " + hour + ":" + minute;
     }
 }

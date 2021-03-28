@@ -51,7 +51,7 @@ public class MemoActivity extends AppCompatActivity implements Serializable {
     public void ViewAll(View v){
         DatabaseHelper databaseHelper = new DatabaseHelper(MemoActivity.this);
         List<EventDateModel> list = databaseHelper.getAll();
-        Toast.makeText(MemoActivity.this, list.toString(), Toast.LENGTH_LONG).show();
+        Toast.makeText(MemoActivity.this, list.toString(), Toast.LENGTH_SHORT).show();
     }
 
     //testcode
@@ -64,6 +64,7 @@ public class MemoActivity extends AppCompatActivity implements Serializable {
         this.date = new Date(time);
         this.text = text;
     }
+
 
     public String getDate(){
         return dateFormate.format(date);

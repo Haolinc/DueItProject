@@ -33,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTableStatement = "CREATE TABLE " + TABLE_NAME + " ( " + TIME_FOR_ORDER_COLUMN
-                + " BIGINT, " + YEAR_COLUMN + " INT, " + MONTH_COLUMN + " INT, " + DAY_COLUMN +
+                + " INT, " + YEAR_COLUMN + " INT, " + MONTH_COLUMN + " INT, " + DAY_COLUMN +
                 " INT, " + HOUR_COLUMN + " INT, " + MINUTE_COLUMN + " INT, " + EVENT_TITLE_COLUMN +
                 " TEXT, " + EVENT_DETAIL_COLUMN + " TEXT);";
         db.execSQL(createTableStatement);
@@ -63,12 +63,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //delete event by its date
     public boolean deleteOne(EventDateModel eventDateModel){
         SQLiteDatabase db = this.getWritableDatabase();
-        String quertyString = "DELETE FROM " +TABLE_NAME+ " WHERE " +TIME_FOR_ORDER_COLUMN + " = " + eventDateModel.getTimeForOrder();
+        String quertyString = "DELETE FROM " +
+                //TABLE_NAME+ " WHERE "  + YEAR_COLUMN + " = " + eventDateModel.getYear() + ";";
+                TABLE_NAME + " WHERE " + TIME_FOR_ORDER_COLUMN + " = " + eventDateModel.getTimeForOrder() + ";" ;
 
         Cursor cursor = db.rawQuery(quertyString, null);
 
-        if (cursor.moveToFirst()) return true;
-        else return false;
+
+        if (cursor.moveToFirst()){
+            db.close();
+            return true;
+        }
+
+        else {
+            db.close();
+            return false;
+        }
+
+    }
+
+    public void deleteAll() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String queryString = "DELETE FROM "+TABLE_NAME + ";";
+        Cursor cursor = db.rawQuery(queryString, null);
     }
 
     public List<EventDateModel> getAll(){

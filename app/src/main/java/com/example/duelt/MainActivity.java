@@ -15,12 +15,24 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.example.duelt.db.DatabaseHelper;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateCheckBox();
     }
 
     public void jumpToMemo(View v){
@@ -43,12 +55,12 @@ public class MainActivity extends AppCompatActivity {
 
     //use ScrollView as parent and call linearlayout for action, change ScrollView values in xml files
     //Orientation is set in xml file
-    public void createCheckBoxInDueDate(View v) {
+    public void createCheckBoxInDueDate(EventDateModel edm) {
         CheckBox cb = new CheckBox(this);
         LinearLayout dueDate = findViewById(R.id.dueDate_layout);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-2, -2);  //wrap_content
 
-        cb.setText("new");
+        cb.setText(edm.getTitleAndDate());
         cb.setLayoutParams(lp);
         cb.setGravity(Gravity.CENTER_VERTICAL);
         cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){      //when checked
@@ -63,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dueDate.removeView(cb);   //click to remove checkbox view
+
+                                    updateCheckBox();
                                 }
                             });
                     alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "No",
@@ -73,11 +87,45 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                     alertDialog.show();
+                    //cb.setChecked(false);
                 }
             }
         });
+
         dueDate.addView(cb);
 
+    }
+
+    public void deleteData(View v) {
+        DatabaseHelper dh = new DatabaseHelper(this);
+        List<EventDateModel> list = dh.getAll();
+        //Toast.makeText(this, "1. "+Long.toString(list.get(0).getTimeForOrder()) + " 2. " + Long.toString(list.get(1).getTimeForOrder()) + " 3. " + Long.toString(list.get(2).getTimeForOrder()), Toast.LENGTH_LONG).show();
+
+        //Toast.makeText(this, Long.toString(list.get(3).getTimeForOrder()), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, Boolean.toString(dh.deleteOne(list.get(0))) , Toast.LENGTH_SHORT).show();
+
+    }
+
+    public void updateCheckBox() {
+        DatabaseHelper dh = new DatabaseHelper(this);
+        List<EventDateModel> list = dh.getAll();
+        removeAllViews();
+        createCheckBox();
+
+    }
+    public void createCheckBox() {
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        List<EventDateModel> list = databaseHelper.getAll();
+        for (int i=0; i<list.size(); i++){
+            createCheckBoxInDueDate(list.get(i));
+        }
+
+    }
+    public void removeAllViews() {
+        LinearLayout dueDate = findViewById(R.id.dueDate_layout);
+        dueDate.removeAllViews();
+        LinearLayout reminder = findViewById(R.id.reminder_layout);
+        reminder.removeAllViews();
     }
 
     public void deleteCheckBoxInDueDate(View v){
@@ -90,12 +138,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void createCheckBoxInReminder(View v) {
         CheckBox cb = new CheckBox(this);
-        LinearLayout dueDate = findViewById(R.id.reminder_layout);
+        LinearLayout reminder = findViewById(R.id.reminder_layout);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-2, -2);  //wrap_content
 
         cb.setText("new");
         cb.setLayoutParams(lp);
         cb.setGravity(Gravity.CENTER_VERTICAL);
-        dueDate.addView(cb);
+        reminder.addView(cb);
     }
 }

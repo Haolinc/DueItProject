@@ -49,6 +49,8 @@ public class TextEntering extends AppCompatActivity {
         DatabaseHelper databaseHelper = new DatabaseHelper(TextEntering.this);
         databaseHelper.addOne(eventDateModel);
 
+        //make a checkbox in main activity
+
         //testing
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle("alert");
