@@ -55,8 +55,9 @@ public class MainActivity extends AppCompatActivity {
 
     //use ScrollView as parent and call linearlayout for action, change ScrollView values in xml files
     //Orientation is set in xml file
-    public void createCheckBoxInDueDate(EventDateModel edm) {
+    private void createCheckBoxInDueDate(EventDateModel edm) {
         CheckBox cb = new CheckBox(this);
+        DatabaseHelper dh = new DatabaseHelper(this);        //for deletion in onclick
         LinearLayout dueDate = findViewById(R.id.dueDate_layout);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-2, -2);  //wrap_content
 
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dueDate.removeView(cb);   //click to remove checkbox view
-
+                                    dh.deleteOne(edm);
                                     updateCheckBox();
                                 }
                             });
@@ -86,6 +87,15 @@ public class MainActivity extends AppCompatActivity {
                                     cb.setChecked(false);
                                 }
                             });
+                    alertDialog.setCanceledOnTouchOutside(true);
+                    alertDialog.setOnCancelListener(
+                            new DialogInterface.OnCancelListener() {
+                                @Override
+                                public void onCancel(DialogInterface dialog) {
+                                    cb.setChecked(false);
+                                }
+                            }
+                    );
                     alertDialog.show();
                     //cb.setChecked(false);
                 }
@@ -96,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void deleteData(View v) {
+    private void deleteData(View v) {
         DatabaseHelper dh = new DatabaseHelper(this);
         List<EventDateModel> list = dh.getAll();
         //Toast.makeText(this, "1. "+Long.toString(list.get(0).getTimeForOrder()) + " 2. " + Long.toString(list.get(1).getTimeForOrder()) + " 3. " + Long.toString(list.get(2).getTimeForOrder()), Toast.LENGTH_LONG).show();
@@ -106,14 +116,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void updateCheckBox() {
+    private void updateCheckBox() {
         DatabaseHelper dh = new DatabaseHelper(this);
         List<EventDateModel> list = dh.getAll();
         removeAllViews();
         createCheckBox();
 
     }
-    public void createCheckBox() {
+    private void createCheckBox() {
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         List<EventDateModel> list = databaseHelper.getAll();
         for (int i=0; i<list.size(); i++){
@@ -121,22 +131,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    public void removeAllViews() {
+    private void removeAllViews() {
         LinearLayout dueDate = findViewById(R.id.dueDate_layout);
         dueDate.removeAllViews();
         LinearLayout reminder = findViewById(R.id.reminder_layout);
         reminder.removeAllViews();
     }
 
-    public void deleteCheckBoxInDueDate(View v){
 
-    }
-
-    public void deleteOnCheck(View v){
-
-    }
-
-    public void createCheckBoxInReminder(View v) {
+    private void createCheckBoxInReminder(View v) {
         CheckBox cb = new CheckBox(this);
         LinearLayout reminder = findViewById(R.id.reminder_layout);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-2, -2);  //wrap_content

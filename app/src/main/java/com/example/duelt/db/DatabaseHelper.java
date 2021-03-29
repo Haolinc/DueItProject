@@ -84,10 +84,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+
     public void deleteAll() {
         SQLiteDatabase db = this.getWritableDatabase();
         String queryString = "DELETE FROM "+TABLE_NAME + ";";
         Cursor cursor = db.rawQuery(queryString, null);
+        cursor.close();
         db.close();
     }
 

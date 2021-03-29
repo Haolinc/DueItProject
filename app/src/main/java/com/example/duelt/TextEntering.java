@@ -3,11 +3,13 @@ package com.example.duelt;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.view.inputmethod.InputMethodManager;
 
 import com.example.duelt.db.DatabaseHelper;
 
@@ -39,6 +41,12 @@ public class TextEntering extends AppCompatActivity {
     public void back(View v){
         finish();
     }
+
+    public void hideSoftKeyboard(View v) {
+        InputMethodManager inputMethodManager = (InputMethodManager)  this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
+    }
+
 
     public void saveEvent(View v){
         eventDetail = eventDetailInput.getText().toString();
