@@ -132,6 +132,7 @@
             android:layout_toEndOf="@id/buttonToMemo"
             android:text="Daily routine"
             android:textSize="8sp"
+            android:onClick="jumpToDaily"
             app:layout_constraintHeight_percent="0.25"
             app:layout_constraintWidth_percent="0.25" />
 

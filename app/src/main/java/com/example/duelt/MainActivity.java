@@ -39,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this, MemoActivity.class);
         startActivity(i);
     }
-
-
 //testing
     
     public void jumpToMini(View v){
@@ -50,6 +48,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void jumpToTP(View v){
         Intent i = new Intent(this, TreatmentActivity.class);
+        startActivity(i);
+    }
+
+    public void jumpToDaily(View v){
+        Intent i = new Intent(this, DailyActivity.class);
         startActivity(i);
     }
 
