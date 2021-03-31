@@ -39,6 +39,7 @@ public class TreatmentActivity extends AppCompatActivity {
         v.setVisibility(View.GONE);
         gifImageView = (GifImageView)findViewById(R.id.countDown3);
         gifImageView.setVisibility(View.VISIBLE);
+        //gifImageView.start();
     }
     
 }
