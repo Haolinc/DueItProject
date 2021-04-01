@@ -19,6 +19,17 @@ public class EventDateModel {
         timeForOrder =   minute + hour*100 + day*10000 + month * 1000000 + year*100000000;
     }
 
+    public EventDateModel(int year, int month, int day, int hour, int minute) {
+        this.year = year;
+        this.month = month;
+        this.day = day;
+        this.hour = hour;
+        this.minute = minute;
+        this.eventTitle = "";
+        this.eventDetail = "";
+        timeForOrder =   minute + hour*100 + day*10000 + month * 1000000 + year*100000000;
+    }
+
     public EventDateModel() {
     }
 
@@ -82,17 +93,23 @@ public class EventDateModel {
         this.minute = minute;
     }
 
-    @Override
-    public String toString() {
+
+    public String toStringTimeOnly() {
+        int correctedMonth = month +1 ;
         return
-                "eventTitle= " + eventTitle + "\n" +
-                        year + "/" + month+"/"+ day + "  "+ hour + ": " + minute +"\n"
-                        + eventDetail
-                ;
+                year + "/" + correctedMonth +"/"+ day + "  "+ hour + ": " + minute +"\n";
     }
 
     public String getTitleAndDate() {
-        int correctedMonth = month ;
+        int correctedMonth = month +1 ;
         return eventTitle+ " " + correctedMonth  + "/" + day + "  " + hour + ":" + minute;
+    }
+
+    public boolean isEqualInTime(EventDateModel edm){
+        return this.year == edm.year
+                && this.month == edm.month
+                && this.day == edm.day
+                && this.hour == edm.hour
+                && this.minute == edm.minute;
     }
 }
