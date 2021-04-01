@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Duelt">
-        <activity android:name=".DailyActivity"></activity>
+        <activity android:name=".treatmentpage"></activity>
+        <activity android:name=".DailyActivity" />
         <activity android:name=".TreatmentActivity" />
         <activity android:name=".TextEntering" />
         <activity android:name=".activity_textEnter" />

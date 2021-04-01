@@ -3,6 +3,7 @@ package com.example.duelt;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -36,10 +37,8 @@ public class TreatmentActivity extends AppCompatActivity {
     }
 
     public void onClick(View v){
-        v.setVisibility(View.GONE);
-        gifImageView = (GifImageView)findViewById(R.id.countDown3);
-        gifImageView.setVisibility(View.VISIBLE);
-        //gifImageView.start();
+        Intent i = new Intent(this, treatmentpage.class);
+        startActivity(i);
     }
     
 }
