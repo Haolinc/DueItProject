@@ -37,11 +37,12 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/gifImageView"
             android:layout_width="250dp"
             android:layout_height="250dp"
             android:src="@drawable/countdowncharactertest"
-            app:layout_constraintBottom_toTopOf="@+id/countdown_text"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,26 +60,36 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.648" />
+            app:layout_constraintTop_toBottomOf="@+id/gifImageView" />
+
+        <TextView
+            android:id="@+id/countDown_distext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Keep on working, you still have"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toTopOf="@+id/countdown_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gifImageView" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_pause_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="start"
-            android:background="@drawable/custom_buttonblue"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
+            android:background="@drawable/custom_buttonblue"
+            android:text="start"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/countdown_text"
-            app:layout_constraintVertical_bias="0.424" />
-
+            app:layout_constraintVertical_bias="0.646" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
