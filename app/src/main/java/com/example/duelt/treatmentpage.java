@@ -2,6 +2,7 @@ package com.example.duelt;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -11,12 +12,12 @@ import android.widget.TextView;
 import java.util.Locale;
 
 public class treatmentpage extends AppCompatActivity {
-    private static final long START_TIME_IN_MILLIS = 900000;
+    private static final long START_TIME_IN_MILLIS = 3600000;
 
     private TextView mCountDown;
+    private TextView mCountDownDisplay;
     private Button mButtonStartPause;
-    private Button mButtonBack;
-
+    //MediaPlayer alarmSoundMP = MediaPlayer.create(this, R.raw.alarmclock);
     private CountDownTimer mCountDownTimer;
 
     private boolean mTimerRunning;
@@ -27,11 +28,13 @@ public class treatmentpage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_treatmentpage);
+        final MediaPlayer alarmSoundMP = MediaPlayer.create(this, R.raw.alarmclock);
+
 
         mCountDown = findViewById(R.id.countdown_text);
+        mCountDownDisplay = findViewById(R.id.countDown_distext);
 
         mButtonStartPause = findViewById(R.id.button_pause_start);
-        mButtonBack = findViewById(R.id.button_back);
 
         mButtonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,7 +42,7 @@ public class treatmentpage extends AppCompatActivity {
                 if (mTimerRunning) {
                     pauseTimer();
                 } else {
-                    startTimer();
+                    startTimer(alarmSoundMP);
                 }
             }
         });
@@ -47,12 +50,20 @@ public class treatmentpage extends AppCompatActivity {
         updateCountDownText();
     }
 
-    private void startTimer(){
+    private void startTimer(MediaPlayer alarmSoundMP){
         mCountDownTimer = new CountDownTimer(mTimeLeftInMillis,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 mTimeLeftInMillis = millisUntilFinished;
                 updateCountDownText();
+                if(mTimeLeftInMillis<3590000){
+                    updateText();
+                    alarmSoundMP.start();
+                }
+                if(mTimeLeftInMillis<1800000){
+                    updateText2();
+                    alarmSoundMP.start();
+                }
             }
 
             @Override
@@ -61,7 +72,6 @@ public class treatmentpage extends AppCompatActivity {
                 mButtonStartPause.setVisibility((View.INVISIBLE));
             }
         }.start();
-
         mTimerRunning = true;
         mButtonStartPause.setText("pause");
     }
@@ -80,6 +90,14 @@ public class treatmentpage extends AppCompatActivity {
         String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes,seconds);
 
         mCountDown.setText(timeLeftFormatted);
+    }
+
+    private void updateText(){
+        mCountDownDisplay.setText("you will have a five minute break");
+    }
+
+    private void updateText2(){
+        mCountDownDisplay.setText("Keep on working, you still have");
     }
 
     public void back(View v){
