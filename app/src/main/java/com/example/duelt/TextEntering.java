@@ -64,7 +64,7 @@ public class TextEntering extends AppCompatActivity {
         alertDialog.setTitle("alert");
         alertDialog.setMessage(eventDateModel.toString());
 
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Cancel",
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Okay",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

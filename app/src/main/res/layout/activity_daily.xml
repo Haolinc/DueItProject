@@ -15,4 +15,26 @@
         android:onClick="back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TimePicker
+        android:id="@+id/datePicker1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="151dp"
+        android:timePickerMode="spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backButton" />
+
+    <Button
+        android:id="@+id/setTimeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set Alarm"
+        android:onClick="setAlarm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/datePicker1" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
