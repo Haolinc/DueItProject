@@ -30,11 +30,13 @@ public class DailyActivity extends AppCompatActivity {
 
     public void setAlarm(View view) {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(tp.)
+        calendar.set(Calendar.HOUR_OF_DAY, tp.getCurrentHour());
+        calendar.set(Calendar.MINUTE, tp.getCurrentMinute());
         AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+
         Intent i = new Intent(this, AlarmReceiver.class);
-        PendingIntent pi = PendingIntent.getBroadcast(this, 1, i, 0);
-        am.setExact(AlarmManager.RTC_WAKEUP, 1000, pi);
+        PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, 0);
+        am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis()-3000, pi);
     }
     public void cancelAlarm(View view) {
         AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
@@ -42,4 +44,6 @@ public class DailyActivity extends AppCompatActivity {
         PendingIntent pi = PendingIntent.getBroadcast(this, 1, i, 0);
         am.cancel(pi);
     }
+
+
 }
