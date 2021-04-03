@@ -10,12 +10,8 @@ import android.view.View;
 import android.widget.Toast;
 
 public class AlarmReceiver extends BroadcastReceiver {
-    private MyBroadcastListener listener;
-
     @Override
     public void onReceive(Context context, Intent i){
-        listener = (MyBroadcastListener)  context;
-        listener.changeText("some thing");
-        //Toast.makeText(context, "Alarm waked", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Alarm waked", Toast.LENGTH_LONG).show();
     }
 }
