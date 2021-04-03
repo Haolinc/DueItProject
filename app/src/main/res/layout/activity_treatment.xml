@@ -9,7 +9,7 @@
     tools:context=".TreatmentActivity"
     tools:ignore="MissingClass">
 
-    <pl.droidsonroids.gif.GifImageView
+    <!--<pl.droidsonroids.gif.GifImageView
         android:id="@+id/countDown3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,25 +17,57 @@
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <!--android:src="@drawable/countdownfrom3"
+
+        android:src="@drawable/countdownfrom3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"-->
-
-
-    <androidx.appcompat.widget.AppCompatButton
-
-        android:id="@+id/btnStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/custom_buttonblue"
-        android:onClick="onClick"
-        android:text="Start"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.937" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/startText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="44dp"
+            android:text="press GO to start"
+            android:textSize="20dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/btnStart"
+            app:layout_constraintEnd_toEndOf="@id/go321button"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/go321button"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            android:onClick="onClick"
+            app:layout_constraintBottom_toTopOf="@+id/startText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+
+            android:id="@+id/btnStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_buttonblue"
+            android:onClick="startAnimation"
+            android:text="Start"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.937" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button4"

@@ -2,6 +2,7 @@ package com.example.duelt;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -56,11 +57,11 @@ public class treatmentpage extends AppCompatActivity {
             public void onTick(long millisUntilFinished) {
                 mTimeLeftInMillis = millisUntilFinished;
                 updateCountDownText();
-                if(mTimeLeftInMillis<3590000){
+                if(mTimeLeftInMillis==2100000){
                     updateText();
                     alarmSoundMP.start();
                 }
-                if(mTimeLeftInMillis<1800000){
+                if(mTimeLeftInMillis==1800000){
                     updateText2();
                     alarmSoundMP.start();
                 }
@@ -101,6 +102,7 @@ public class treatmentpage extends AppCompatActivity {
     }
 
     public void back(View v){
-        finish();
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
     }
 }
