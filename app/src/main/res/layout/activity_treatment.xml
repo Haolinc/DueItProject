@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:orientation="vertical"
-    tools:context=".TreatmentActivity"
-    tools:ignore="MissingClass">
+    tools:context=".TreatmentActivity">
 
     <!--<pl.droidsonroids.gif.GifImageView
         android:id="@+id/countDown3"

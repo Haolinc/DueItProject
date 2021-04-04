@@ -1,8 +1,17 @@
 package com.example.duelt;
 
-public class petcon {
-    int hungriness, mood, exp,level = 1;
+public class petModel {
+    private int hungriness;
+    private int  mood;
+    private int exp;
+    private int level = 1;
 
+    public petModel(int hungriness, int mood, int exp, int level){
+        this.hungriness = hungriness;
+        this.mood = mood;
+        this.exp = exp;
+        this.level = level;
+    }
     //feed the pet, hungriness will increase by 5
     public void feed(){
         hungriness += 5;
@@ -40,6 +49,7 @@ public class petcon {
         }
     }
 
+
     //getter
     public int getHungriness(){
         return hungriness;
@@ -52,5 +62,23 @@ public class petcon {
     public int getLv(){
         return level;
     }
-    //public int
+
+    public int getExp() { return exp; }
+
+    //setter
+    public void setHungriness(int hungriness){
+        this.hungriness = hungriness;
+    }
+
+    public void setMood(int mood) {
+        this.mood = mood;
+    }
+
+    public void setLv(int level) {
+        this.level = level;
+    }
+
+    public void setExp(int Exp) {
+        this.exp = exp;
+    }
 }
