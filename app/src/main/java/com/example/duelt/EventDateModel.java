@@ -30,7 +30,16 @@ public class EventDateModel {
         timeForOrder =   minute + hour*100 + day*10000 + month * 1000000 + year*100000000;
     }
 
-    public EventDateModel() {
+    //constructor for daily routine
+    public EventDateModel(String eventTitle, int hour, int minute) {
+        this.year = 0;
+        this.month = 0;
+        this.day = 0;
+        this.eventDetail = "";
+        this.eventTitle = eventTitle;
+        this.hour= hour;
+        this.minute=minute;
+        this.timeForOrder = hour*100 + minute;
     }
 
     public String getEventTitle() {
@@ -103,6 +112,10 @@ public class EventDateModel {
     public String getTitleAndDate() {
         int correctedMonth = month +1 ;
         return eventTitle+ " " + correctedMonth  + "/" + day + "  " + hour + ":" + minute;
+    }
+
+    public String getDailyRoutineString(){
+        return eventTitle + " " + hour + ":" + minute;
     }
 
     public boolean isEqualInTime(EventDateModel edm){

@@ -124,11 +124,11 @@ public class MainActivity extends AppCompatActivity {
         List<EventDateModel> list = dh.getAll();
         removeAllViews();
         createCheckBox();
-
     }
+
     private void createCheckBox() {
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
-        List<EventDateModel> list = databaseHelper.getAll();
+        List<EventDateModel> list = databaseHelper.getDueDateReminder();
         for (int i=0; i<list.size(); i++){
             createCheckBoxInDueDate(list.get(i));
         }
