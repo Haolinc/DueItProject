@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-2, -2);  //wrap_content
 
         cb.setText(edm.getTitleAndDate());
+        cb.setId(edm.getID());
         cb.setLayoutParams(lp);
         cb.setGravity(Gravity.CENTER_VERTICAL);
         cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){      //when checked

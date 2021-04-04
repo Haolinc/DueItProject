@@ -25,6 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String MINUTE_COLUMN = "MINUTE";
     private static final String EVENT_TITLE_COLUMN = "EVENT_TITLE";
     private static final String EVENT_DETAIL_COLUMN = "EVENT_DETAIL";
+    private static final String ID_COLUMN = "ID";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE, null, VERSION);
@@ -35,13 +36,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String createTableStatement = "CREATE TABLE " + TABLE_NAME + " ( " + TIME_FOR_ORDER_COLUMN
                 + " BIGINT, " + YEAR_COLUMN + " INT, " + MONTH_COLUMN + " INT, " + DAY_COLUMN +
                 " INT, " + HOUR_COLUMN + " INT, " + MINUTE_COLUMN + " INT, " + EVENT_TITLE_COLUMN +
-                " TEXT, " + EVENT_DETAIL_COLUMN + " TEXT);";
+                " TEXT, " + EVENT_DETAIL_COLUMN + " TEXT, " + ID_COLUMN  + " INT UNIQUE);";
+//        String insertStatement = "INSERT INTO " + TABLE_NAME + " (" + ID_COLUMN + ") VALUES (-2);";
         db.execSQL(createTableStatement);
+//        db.execSQL(insertStatement);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        onCreate(db);
     }
 
     public void addOne(EventDateModel eventDateModel){
@@ -56,21 +60,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(MINUTE_COLUMN,eventDateModel.getMinute());
         cv.put(EVENT_TITLE_COLUMN, eventDateModel.getEventTitle());
         cv.put(EVENT_DETAIL_COLUMN, eventDateModel.getEventDetail());
+        cv.put(ID_COLUMN, eventDateModel.getID());
 
         db.insert(TABLE_NAME, null, cv);
         db.close();
     }
 
-    //delete event by its date
+    //delete event by its ID
     public boolean deleteOne(EventDateModel eventDateModel){
         SQLiteDatabase db = this.getWritableDatabase();
-        String quertyString = "DELETE FROM " +
+        String queryString = "DELETE FROM " +
                //TABLE_NAME+ " WHERE "  + YEAR_COLUMN + " = " + eventDateModel.getYear() + ";";
-                TABLE_NAME + " WHERE " + TIME_FOR_ORDER_COLUMN + " = " + eventDateModel.getTimeForOrder() + ";" ;
-
-        Cursor cursor = db.rawQuery(quertyString, null);
-
-
+                TABLE_NAME + " WHERE " + ID_COLUMN + " = " + eventDateModel.getID() + ";" ;
+        Cursor cursor = db.rawQuery(queryString, null);
         if (cursor.moveToFirst()){
             cursor.close();
             db.close();
@@ -81,7 +83,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.close();
             return false;
         }
+    }
 
+    public boolean deleteOne(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String queryString = "DELETE FROM " +
+                //TABLE_NAME+ " WHERE "  + YEAR_COLUMN + " = " + eventDateModel.getYear() + ";";
+                TABLE_NAME + " WHERE " + ID_COLUMN + " = " + id + ";" ;
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()){
+            cursor.close();
+            db.close();
+            return true;
+        }
+        else {
+            cursor.close();
+            db.close();
+            return false;
+        }
     }
 
 
@@ -109,8 +128,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 int minute = cursor.getInt(5) ;
                 String eventTitle = cursor.getString(6);
                 String eventDetail = cursor.getString(7);
+                int id = cursor.getInt(8);
 
-                EventDateModel eventDateModel = new EventDateModel(eventTitle, eventDetail, year,month,day,hour,minute);
+                EventDateModel eventDateModel = new EventDateModel(eventTitle, eventDetail, year,month,day,hour,minute, id);
                 eventDateModelsList.add(eventDateModel);
 
             }while (cursor.moveToNext());
@@ -137,8 +157,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 int minute = cursor.getInt(5) ;
                 String eventTitle = cursor.getString(6);
                 String eventDetail = cursor.getString(7);
+                int id = cursor.getInt(8);
 
-                EventDateModel eventDateModel = new EventDateModel(eventTitle, eventDetail, year,month,day,hour,minute);
+                EventDateModel eventDateModel = new EventDateModel(eventTitle, eventDetail, year,month,day,hour,minute,id);
                 eventDateModelsList.add(eventDateModel);
 
             }while (cursor.moveToNext());
@@ -165,8 +186,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 int minute = cursor.getInt(5) ;
                 String eventTitle = cursor.getString(6);
                 String eventDetail = cursor.getString(7);
+                int id = cursor.getInt(8);
 
-                EventDateModel eventDateModel = new EventDateModel(eventTitle, eventDetail, year,month,day,hour,minute);
+                EventDateModel eventDateModel = new EventDateModel(eventTitle, eventDetail, year,month,day,hour,minute, id);
                 eventDateModelsList.add(eventDateModel);
 
             }while (cursor.moveToNext());
@@ -175,5 +197,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return eventDateModelsList;
+    }
+
+    public List<Integer> getIDFromDatabase(){
+        List<Integer> idList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT " + ID_COLUMN + " From  "+TABLE_NAME, null);
+
+        if(cursor.moveToFirst()){
+
+            do{
+                int id = cursor.getInt(cursor.getColumnIndex("ID"));
+                idList.add(id);
+
+            }while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return idList;
     }
 }

@@ -13,7 +13,9 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.example.duelt.db.DatabaseHelper;
 
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 public class TextEntering extends AppCompatActivity {
     private String eventTitle;
@@ -21,6 +23,7 @@ public class TextEntering extends AppCompatActivity {
     private EditText eventTitleInput;
     private EditText eventDetailInput;
     private int year, month, day, hour, minute;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,14 +50,28 @@ public class TextEntering extends AppCompatActivity {
         inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
     }
 
+    private int checkForID(List<Integer> idFromDatabase){
+        Collections.sort(idFromDatabase);
+        for (int i=0;i<idFromDatabase.size();i++){
+            if (i != idFromDatabase.get(i)){
+                idFromDatabase.add(i);
+                return i;
+            }
+        }
+        return -1;
+    }
 
     public void saveEvent(View v){
+        DatabaseHelper databaseHelper = new DatabaseHelper(TextEntering.this);
         eventDetail = eventDetailInput.getText().toString();
         eventTitle = eventTitleInput.getText().toString();
-        EventDateModel eventDateModel = new EventDateModel(eventTitle, eventDetail, year,month,day,hour,minute);
+//        List<Integer> idFromDatabase = databaseHelper.getIDFromDatabase();
+//        int id = checkForID(idFromDatabase);
+
+        EventDateModel eventDateModel = new EventDateModel(eventTitle, eventDetail, year,month,day,hour,minute,this);
 
         //insert into database
-        DatabaseHelper databaseHelper = new DatabaseHelper(TextEntering.this);
+
         databaseHelper.addOne(eventDateModel);
 
         //make a checkbox in main activity

@@ -1,14 +1,21 @@
 package com.example.duelt;
 
+import android.content.Context;
+import android.widget.Toast;
+
+import com.example.duelt.db.DatabaseHelper;
+
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 public class EventDateModel {
     private String eventTitle;
     private String eventDetail;
     private int year, month, day, hour, minute;
-    private int timeForOrder;
+    private int timeForOrder, ID;
 
-    public EventDateModel(String eventTitle, String eventDetail, int year, int month, int day, int hour, int minute) {
+    public EventDateModel(String eventTitle, String eventDetail, int year, int month, int day, int hour, int minute, Context ctx) {
         this.eventTitle = eventTitle;
         this.eventDetail = eventDetail;
         this.year = year;
@@ -17,8 +24,22 @@ public class EventDateModel {
         this.hour = hour;
         this.minute = minute;
         timeForOrder =   minute + hour*100 + day*10000 + month * 1000000 + year*100000000;
+        this.ID = autoAssignID(ctx);
     }
 
+    public EventDateModel(String eventTitle, String eventDetail, int year, int month, int day, int hour, int minute, int id) {
+        this.eventTitle = eventTitle;
+        this.eventDetail = eventDetail;
+        this.year = year;
+        this.month = month ;
+        this.day = day;
+        this.hour = hour;
+        this.minute = minute;
+        timeForOrder =   minute + hour*100 + day*10000 + month * 1000000 + year*100000000;
+        this.ID = id;
+    }
+
+    //get system date
     public EventDateModel(int year, int month, int day, int hour, int minute) {
         this.year = year;
         this.month = month;
@@ -28,10 +49,11 @@ public class EventDateModel {
         this.eventTitle = "";
         this.eventDetail = "";
         timeForOrder =   minute + hour*100 + day*10000 + month * 1000000 + year*100000000;
+        this.ID = -1;
     }
 
     //constructor for daily routine
-    public EventDateModel(String eventTitle, int hour, int minute) {
+    public EventDateModel(String eventTitle, int hour, int minute, Context ctx) {
         this.year = 0;
         this.month = 0;
         this.day = 0;
@@ -40,6 +62,7 @@ public class EventDateModel {
         this.hour= hour;
         this.minute=minute;
         this.timeForOrder = hour*100 + minute;
+        this.ID = autoAssignID(ctx);
     }
 
     public String getEventTitle() {
@@ -48,6 +71,10 @@ public class EventDateModel {
 
     public int getTimeForOrder() {
         return timeForOrder;
+    }
+
+    public int getID(){
+        return ID;
     }
 
     public String getEventDetail() {
@@ -103,6 +130,18 @@ public class EventDateModel {
     }
 
 
+    private int autoAssignID(Context ctx){
+        DatabaseHelper databaseHelper = new DatabaseHelper(ctx);
+        List<Integer> idFromDatabase= databaseHelper.getIDFromDatabase();
+        Collections.sort(idFromDatabase);
+        for (int i=0;i<idFromDatabase.size();i++){
+            if (i != idFromDatabase.get(i)){
+                idFromDatabase.add(i);
+                return i;
+            }
+        }
+        return idFromDatabase.size();
+    }
     public String toStringTimeOnly() {
         int correctedMonth = month +1 ;
         return

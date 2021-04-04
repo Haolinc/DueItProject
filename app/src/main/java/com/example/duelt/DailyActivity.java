@@ -19,16 +19,20 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.duelt.db.DatabaseHelper;
 
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class DailyActivity extends AppCompatActivity {
     private TimePicker tp;
     TextView alarmStatus;
     String viewText;
+    DatabaseHelper databaseHelper = new DatabaseHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,7 @@ public class DailyActivity extends AppCompatActivity {
         alarmStatus = findViewById(R.id.alarm_status);
         tp = findViewById(R.id.datePicker1);
         createCheckBox();
+
     }
     public void back(View v){
         finish();
@@ -50,27 +55,24 @@ public class DailyActivity extends AppCompatActivity {
 
         viewText = "Set Alarm Time At: " + tp.getCurrentHour() + ":" + tp.getCurrentMinute();
         alarmStatus.setText(viewText);
-        Intent i = new Intent(this, AlarmReceiver.class);
-        i.putExtra("textView", viewText);
-        PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, 0);
-        am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis()-3000, pi);
-
         EditText et = findViewById(R.id.daily_routine_title);
 
-        EventDateModel edm = new EventDateModel(et.getText().toString(), tp.getCurrentHour(), tp.getCurrentMinute());
+        EventDateModel edm = new EventDateModel(et.getText().toString(), tp.getCurrentHour(), tp.getCurrentMinute(), this);
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         databaseHelper.addOne(edm);
-        addCheckBox(edm);
 
+        Intent i = new Intent(this, AlarmReceiver.class);
+        i.putExtra("EDMID", edm.getID());
+        PendingIntent pi = PendingIntent.getBroadcast(this, edm.getID(), i, 0);
+        am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis()-3000, pi);
+
+        addCheckBox(edm);
     }
 
     private void createCheckBox(){
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
         List<EventDateModel> list = databaseHelper.getDailyRoutine();
-
         for (int i=0; i<list.size(); i++){
             addCheckBox(list.get(i));
-            Log.i("line 74",(list.get(i).getTimeForOrder()+"\n"));
         }
     }
     private void addCheckBox(EventDateModel edm) {
@@ -95,6 +97,7 @@ public class DailyActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int which) {
                                     daily_routine_checkbox.removeView(cb);   //click to remove checkbox view
                                     dh.deleteOne(edm);
+                                    cancelAlarm(edm.getID());
                                     updateView();
                                 }
                             });
@@ -122,15 +125,26 @@ public class DailyActivity extends AppCompatActivity {
         daily_routine_checkbox.addView(cb);
     }
 
-    public void cancelAlarm(View view) {
+    public void cancelAlarm(int requestedCode) {
         AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(this, AlarmReceiver.class);
         viewText = "None";
         alarmStatus.setText(viewText);
-        PendingIntent pi = PendingIntent.getBroadcast(this, 1, i, 0);
+        PendingIntent pi = PendingIntent.getBroadcast(this, requestedCode, i, 0);
         am.cancel(pi);
     }
 
+    private int checkForID(){
+        List<Integer> idFromDatabase = databaseHelper.getIDFromDatabase();
+        Collections.sort(idFromDatabase);
+        for (int i=0;i<idFromDatabase.size();i++){
+            if (i != idFromDatabase.get(i)){
+                idFromDatabase.add(i);
+                return i;
+            }
+        }
+        return -1;
+    }
     private void deleteView() {
         LinearLayout daily_routine_layout = findViewById(R.id.daily_routine_checkbox);
         daily_routine_layout.removeAllViews();
