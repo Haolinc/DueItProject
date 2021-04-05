@@ -3,8 +3,11 @@ package com.example.duelt;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -102,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dueDate.removeView(cb);   //click to remove checkbox view
+                                    cancelAlarm(edm.getID());
                                     dh.deleteOne(edm);
                                     updateCheckBox();
                                 }
@@ -171,5 +175,12 @@ public class MainActivity extends AppCompatActivity {
         cb.setLayoutParams(lp);
         cb.setGravity(Gravity.CENTER_VERTICAL);
         reminder.addView(cb);
+    }
+
+    public void cancelAlarm(int requestedCode) {
+        AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        Intent i = new Intent(this, MemoAlarmReceiver.class);
+        PendingIntent pi = PendingIntent.getBroadcast(this, requestedCode, i, 0);
+        am.cancel(pi);
     }
 }

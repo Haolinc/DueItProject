@@ -4,6 +4,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +16,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.example.duelt.db.DatabaseHelper;
 
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +27,7 @@ public class TextEntering extends AppCompatActivity {
     private EditText eventTitleInput;
     private EditText eventDetailInput;
     private int year, month, day, hour, minute;
+    EventDateModel eventDateModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +60,8 @@ public class TextEntering extends AppCompatActivity {
         eventDetail = eventDetailInput.getText().toString();
         eventTitle = eventTitleInput.getText().toString();
 
-        EventDateModel eventDateModel = new EventDateModel(eventTitle, eventDetail, year,month,day,hour,minute,this);
-
+        eventDateModel = new EventDateModel(eventTitle, eventDetail, year,month,day,hour,minute,this);
+        setAlarm(v);
         //insert into database
 
         databaseHelper.addOne(eventDateModel);
@@ -66,7 +71,7 @@ public class TextEntering extends AppCompatActivity {
         //testing
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle("alert");
-        alertDialog.setMessage(eventDateModel.toString());
+        alertDialog.setMessage(eventDateModel.getTitleAndDate());
 
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Okay",
                 new DialogInterface.OnClickListener() {
@@ -76,5 +81,25 @@ public class TextEntering extends AppCompatActivity {
                     }
                 });
         alertDialog.show();
+    }
+
+    public void setAlarm(View view) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+        calendar.set(Calendar.MONTH, month);
+        AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+
+        Intent i = new Intent(this, MemoAlarmReceiver.class);
+        i.putExtra("EDMID", eventDateModel.getID() );
+        i.putExtra("TITLE", eventDateModel.getEventTitle() );
+        i.putExtra("DETAIL", eventDateModel.getEventDetail());
+
+        PendingIntent pi = PendingIntent.getBroadcast(this, eventDateModel.getID() , i, 0);
+        am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi);
+
     }
 }

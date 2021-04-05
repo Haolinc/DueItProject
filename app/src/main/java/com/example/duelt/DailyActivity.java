@@ -50,6 +50,7 @@ public class DailyActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, tp.getCurrentHour());
         calendar.set(Calendar.MINUTE, tp.getCurrentMinute());
+        calendar.set(Calendar.SECOND, 0);
         AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 
         EditText et = findViewById(R.id.daily_routine_title);
@@ -61,7 +62,7 @@ public class DailyActivity extends AppCompatActivity {
         Intent i = new Intent(this, AlarmReceiver.class);
         i.putExtra("EDMID", edm.getID());
         PendingIntent pi = PendingIntent.getBroadcast(this, edm.getID(), i, 0);
-        am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis()-3000, pi);
+        am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi);
 
         addCheckBox(edm);
     }
