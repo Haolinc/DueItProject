@@ -27,7 +27,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String CHANNEL_1_ID = "channel1";
+    protected static final String CHANNEL_1_ID = "channel1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
