@@ -14,23 +14,71 @@
         app:layout_constraintVertical_bias="0.58"
         tools:layout_editor_absoluteX="0dp">
 
+
+        <TextView
+            android:id="@+id/pet_hungriness"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:text="pet hungriness"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/pet_mood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="pet mood"
+            app:layout_constraintBottom_toTopOf="@+id/imageView2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pet_hungriness"
+            app:layout_constraintVertical_bias="0.112" />
+
+
+        <TextView
+            android:id="@+id/pet_exp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:text="pet exp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pet_mood" />
+
+        <TextView
+            android:id="@+id/pet_lv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="pet lv"
+            app:layout_constraintBottom_toTopOf="@+id/imageView2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintVertical_bias="0.234" />
+
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:srcCompat="@drawable/pet_broad_image"
-            tools:layout_editor_absoluteX="0dp" />
+            app:layout_constraintEnd_toEndOf="@+id/button7"
+            app:layout_constraintStart_toEndOf="@+id/button7"
+            app:srcCompat="@drawable/pet_broad_image" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/pet_button_1"
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            android:text="F e e d"
-            android:textColor="@color/white"
-            android:textAllCaps="false"
             android:background="@drawable/pet_button_1"
+            android:text="F e e d"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.075"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,6 +86,45 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btn_hungry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="hungry"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_mood"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_mood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="mood"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_lv"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_lv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="level"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.702"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_exp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="exp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_lv" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,7 @@ package com.example.duelt;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -16,4 +17,8 @@ public class MiniActivity extends AppCompatActivity {
         finish();
     }
 
+    public void onclik(View v){
+        Intent i = new Intent(this, Minigame.class);
+        startActivity(i);
+    }
 }

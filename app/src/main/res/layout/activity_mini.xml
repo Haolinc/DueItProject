@@ -67,6 +67,7 @@
         android:layout_marginStart="157dp"
         android:layout_marginTop="70dp"
         android:layout_marginEnd="161dp"
+        android:onClick="onclik"
         android:text="Data transfer test"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
