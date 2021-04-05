@@ -13,5 +13,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         Toast.makeText(context, "Alarm waked", Toast.LENGTH_LONG).show();
         DatabaseHelper databaseHelper = new DatabaseHelper(context);
         databaseHelper.deleteOne(i.getIntExtra("EDMID", 0));
+        Intent i2= new Intent(context, PopWindow.class);
+        i2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        context.startActivity(i2);
     }
 }

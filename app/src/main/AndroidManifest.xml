@@ -35,6 +35,9 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <activity android:name=".PopWindow" android:theme="@style/AppTheme.CustomTheme">
+
+        </activity>
     </application>
 
 </manifest>
