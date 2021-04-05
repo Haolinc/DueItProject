@@ -1,6 +1,7 @@
 package com.example.duelt;
 
 import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -19,12 +20,16 @@ public class MemoAlarmReceiver  extends BroadcastReceiver {
         DatabaseHelper databaseHelper = new DatabaseHelper(context);
         notificationManagerCompat = NotificationManagerCompat.from(context);
 
+        Intent activityIntent = new Intent(context, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, activityIntent,0);
+
         Notification notification = new NotificationCompat.Builder(context, CHANNEL_1_ID)
                 .setSmallIcon(R.drawable.ic_baseline_looks_one_24)
                 .setContentTitle(i.getStringExtra("TITLE"))
                 .setContentText(i.getStringExtra("DETAIL"))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setContentIntent(pendingIntent)
                 .build();
         notificationManagerCompat.notify(1,notification);
         databaseHelper.deleteOne(i.getIntExtra("EDMID", 0));
