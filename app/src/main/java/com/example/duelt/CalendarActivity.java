@@ -18,8 +18,6 @@ import android.widget.TimePicker;
 
 public class CalendarActivity extends AppCompatActivity {
     private CalendarView mCalendarView;
-    //private EditText eventTitleInput;
-    //private EditText eventDetailInput;
     //data to store information about date and event
     private int mYear, mMonth, mDay, mHour, mMinute;
 
@@ -29,8 +27,6 @@ public class CalendarActivity extends AppCompatActivity {
     public static final String EXTRA_Hour = "com.example.duelt.EXTRA_Hour";
     public static final String EXTRA_Minute = "com.example.duelt.EXTRA_Minute";
     Context context= this;
-    //private String eventTitle;
-    //private String eventDetail;
 
 
     @Override
@@ -38,8 +34,6 @@ public class CalendarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
         mCalendarView = (CalendarView) findViewById(R.id.calendarView);
-        //eventTitleInput = (EditText)findViewById(R.id.EventTitle);
-        //eventDetailInput = (EditText)findViewById(R.id.EventDetail);
 
         //get user select date in CalenderView and store them
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {

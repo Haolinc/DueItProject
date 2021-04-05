@@ -76,11 +76,11 @@ public class PetDatabaseHelper extends SQLiteOpenHelper {
                 int level = cursor.getInt(4);
                 String name = cursor.getString(5);
 
-                PetModel petStat = new PetModel(hunger, mood, exp, level, name);
-                petStatList.add(petStat);
+        PetModel petStat = new PetModel(hunger, mood, exp, level, name);
+        petStatList.add(petStat);
 
-            }while (cursor.moveToNext());
-        }
+    }while (cursor.moveToNext());
+}
 
         cursor.close();
         db.close();

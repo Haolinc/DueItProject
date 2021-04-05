@@ -50,23 +50,10 @@ public class TextEntering extends AppCompatActivity {
         inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
     }
 
-    private int checkForID(List<Integer> idFromDatabase){
-        Collections.sort(idFromDatabase);
-        for (int i=0;i<idFromDatabase.size();i++){
-            if (i != idFromDatabase.get(i)){
-                idFromDatabase.add(i);
-                return i;
-            }
-        }
-        return -1;
-    }
-
     public void saveEvent(View v){
         DatabaseHelper databaseHelper = new DatabaseHelper(TextEntering.this);
         eventDetail = eventDetailInput.getText().toString();
         eventTitle = eventTitleInput.getText().toString();
-//        List<Integer> idFromDatabase = databaseHelper.getIDFromDatabase();
-//        int id = checkForID(idFromDatabase);
 
         EventDateModel eventDateModel = new EventDateModel(eventTitle, eventDetail, year,month,day,hour,minute,this);
 

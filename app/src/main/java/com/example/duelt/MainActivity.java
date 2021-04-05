@@ -123,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
                             }
                     );
                     alertDialog.show();
-                    //cb.setChecked(false);
                 }
             }
         });
@@ -135,8 +134,6 @@ public class MainActivity extends AppCompatActivity {
     private void deleteData(View v) {
         DatabaseHelper dh = new DatabaseHelper(this);
         List<EventDateModel> list = dh.getAll();
-        //Toast.makeText(this, "1. "+Long.toString(list.get(0).getTimeForOrder()) + " 2. " + Long.toString(list.get(1).getTimeForOrder()) + " 3. " + Long.toString(list.get(2).getTimeForOrder()), Toast.LENGTH_LONG).show();
-
         Toast.makeText(this, Integer.toString(list.get(0).getTimeForOrder()), Toast.LENGTH_SHORT).show();
         Toast.makeText(this, Boolean.toString(dh.deleteOne(list.get(0))) , Toast.LENGTH_SHORT).show();
 
