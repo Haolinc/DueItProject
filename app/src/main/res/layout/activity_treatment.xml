@@ -64,7 +64,7 @@
             android:id="@+id/btnStart"
             android:layout_width="200dp"
             android:layout_height="40dp"
-            android:background="@drawable/treatment_start_button"
+            android:background="@drawable/treatment_start_button_list"
             android:onClick="startAnimation"
             android:text="S t a r t"
             android:textAlignment="center"
@@ -81,16 +81,15 @@
             android:layout_height="250dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:srcCompat="@drawable/treatment_broad"
-            tools:layout_editor_absoluteX="0dp" />
+            tools:layout_editor_absoluteX="0dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/custom_buttonblue"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/btn_back_circle_list"
         android:onClick="back"
-        android:text="back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.049"
