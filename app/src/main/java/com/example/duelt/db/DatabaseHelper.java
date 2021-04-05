@@ -37,9 +37,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + " BIGINT, " + YEAR_COLUMN + " INT, " + MONTH_COLUMN + " INT, " + DAY_COLUMN +
                 " INT, " + HOUR_COLUMN + " INT, " + MINUTE_COLUMN + " INT, " + EVENT_TITLE_COLUMN +
                 " TEXT, " + EVENT_DETAIL_COLUMN + " TEXT, " + ID_COLUMN  + " INT UNIQUE);";
-//        String insertStatement = "INSERT INTO " + TABLE_NAME + " (" + ID_COLUMN + ") VALUES (-2);";
         db.execSQL(createTableStatement);
-//        db.execSQL(insertStatement);
     }
 
     @Override
