@@ -72,7 +72,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + MOOD_COLUMN + " = " + pet.getMood() + ", "
                 + EXP_COLUMN + " = " + pet.getExp() + ", "
                 + LEVEL_COLUMN + " = " + pet.getLv()
-                + " WHERE " + NAME_COLUMN + " = " + pet.getName() + ";");
+                + " WHERE " + NAME_COLUMN + " = '" + pet.getName() + "';");
         db.close();
     }
 
