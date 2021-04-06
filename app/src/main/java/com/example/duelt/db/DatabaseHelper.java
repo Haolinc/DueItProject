@@ -315,6 +315,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return eventDateModelsList;
     }
 
+    public EventDateModel getOne(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        EventDateModel eventDateModel;
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TIME_TABLE_NAME + " WHERE " + ID_COLUMN + " = " + id + ";", null);
+        cursor.moveToFirst();
+                int year = cursor.getInt(cursor.getColumnIndex(YEAR_COLUMN));
+                int month = cursor.getInt(cursor.getColumnIndex(MONTH_COLUMN)) ;
+                int day = cursor.getInt(cursor.getColumnIndex(DAY_COLUMN));
+                int hour = cursor.getInt(cursor.getColumnIndex(HOUR_COLUMN));
+                int minute = cursor.getInt(cursor.getColumnIndex(MINUTE_COLUMN)) ;
+                String eventTitle = cursor.getString(cursor.getColumnIndex(EVENT_TITLE_COLUMN));
+                String eventDetail = cursor.getString(cursor.getColumnIndex(EVENT_DETAIL_COLUMN));
+                eventDateModel = new EventDateModel(eventTitle, eventDetail, year,month,day,hour,minute,id);
+        cursor.close();
+        db.close();
+        return eventDateModel;
+    }
+
     public List<EventDateModel> getAll(){
         List<EventDateModel> eventDateModelsList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();

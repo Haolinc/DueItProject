@@ -15,6 +15,18 @@ public class EventDateModel {
     private int year, month, day, hour, minute;
     private int timeForOrder, ID;
 
+    public EventDateModel() {
+        this.eventTitle = "ERROR";
+        this.eventDetail = "ERROR";
+        this.year = -1;
+        this.month = -1;
+        this.day = -1;
+        this.hour = -1;
+        this.minute = -1;
+        timeForOrder = -1;
+        this.ID = -1;
+    }
+
     public EventDateModel(String eventTitle, String eventDetail, int year, int month, int day, int hour, int minute, Context ctx) {
         this.eventTitle = eventTitle;
         this.eventDetail = eventDetail;
