@@ -164,4 +164,13 @@ public class EventDateModel {
                 && this.hour == edm.hour
                 && this.minute == edm.minute;
     }
+
+    public boolean isLessThanInTime(EventDateModel edm){
+        if(this.year < edm.year)return true;
+        else if(this.month < edm.month) return true;
+        else if(this.day < edm.day) return true;
+        else if(this.hour < edm.hour) return true;
+        else if(this.minute <= edm.minute) return true;
+        else return false;
+    }
 }

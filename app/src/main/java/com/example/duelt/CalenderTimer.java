@@ -8,32 +8,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class CalenderTimer {
-    //static Timer timer;
-
-    final static String TAG = "CalendarActivity";
 
     public CalenderTimer(){
-       // timer = new Timer();
     }
-    /*
-    public void scheduleEvent(int year, int month, int day, String event){
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                Log.d(TAG, event);
-            }
-        };
-
-        Calendar date = Calendar.getInstance();
-        date.set(Calendar.YEAR, year);
-        date.set(Calendar.MONTH, month);
-        date.set(Calendar.DAY_OF_MONTH, month);
-        date.set(Calendar.HOUR_OF_DAY, 0);
-        date.set(Calendar.MINUTE, 0);
-        date.set(Calendar.SECOND, 0);
-
-        timer.schedule(task, date.getTime());
-    }*/
 
     public EventDateModel getSystemDay(){
         Calendar calendar = Calendar.getInstance();

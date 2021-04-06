@@ -15,6 +15,7 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 public class CalendarActivity extends AppCompatActivity {
     private CalendarView mCalendarView;
@@ -26,6 +27,7 @@ public class CalendarActivity extends AppCompatActivity {
     public static final String EXTRA_Day = "com.example.duelt.EXTRA_Day";
     public static final String EXTRA_Hour = "com.example.duelt.EXTRA_Hour";
     public static final String EXTRA_Minute = "com.example.duelt.EXTRA_Minute";
+    private static final String errDateInfo = "Please enter a furture date";
     Context context= this;
 
 
@@ -39,6 +41,7 @@ public class CalendarActivity extends AppCompatActivity {
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+
                 mYear = year;
                 mMonth = month;
                 mDay = dayOfMonth;
@@ -48,6 +51,7 @@ public class CalendarActivity extends AppCompatActivity {
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                                 mHour = hourOfDay;
                                 mMinute = minute;
+                                if(checkDate(year,month,dayOfMonth,hourOfDay,minute)) return;
                                 //pass data of date to textEnter activity
                                 Intent intent = new Intent(context, TextEntering.class);
                                 intent.putExtra(EXTRA_Year, mYear);
@@ -65,6 +69,16 @@ public class CalendarActivity extends AppCompatActivity {
 
         });
     }
+
+    private boolean checkDate(int year, int month, int dayOfMonth, int hourOfDay, int minute) {
+        CalenderTimer ct = new CalenderTimer();
+        EventDateModel currentDay = ct.getSystemDay();
+        EventDateModel date = new EventDateModel(year,month,dayOfMonth,hourOfDay,minute);
+        boolean flag = !currentDay.isLessThanInTime(date);
+        if(flag)  Toast.makeText(this, errDateInfo, Toast.LENGTH_SHORT).show();
+        return flag;
+    }
+
     public void back(View v){
         finish();
     }
