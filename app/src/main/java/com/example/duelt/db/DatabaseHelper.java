@@ -117,9 +117,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
 
             do{
-                int currency = cursor.getInt(1);
-                int food = cursor.getInt(2) ;
-                int toy = cursor.getInt(3);
+                int currency = cursor.getInt(cursor.getColumnIndex(CURRENCY_COLUMN));
+                int food = cursor.getInt(cursor.getColumnIndex(FOOD_COLUMN)) ;
+                int toy = cursor.getInt(cursor.getColumnIndex(TOY_COLUMN));
 
                 itemStat = new ItemModel(currency,food,toy);
 
