@@ -147,7 +147,8 @@ public class Minigame extends AppCompatActivity {
 
 
     public void openShop(View v){
-        Intent i = new Intent(this, ShopPage.class);
-        startActivity(i);
+        /*Intent i = new Intent(this, ShopPage.class);
+        startActivity(i);*/
+        startActivity(new Intent(this,ShopPage.class));
     }
 }
