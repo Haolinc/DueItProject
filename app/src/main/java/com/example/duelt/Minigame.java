@@ -21,7 +21,6 @@ public class Minigame extends AppCompatActivity {
     private Button mExp;
     private Button mLevel;
     private Button mPlay;
-    private Button mShop;
 
     DatabaseHelper petDatabaseHelper = new DatabaseHelper(this);
 
@@ -39,14 +38,7 @@ public class Minigame extends AppCompatActivity {
         mExp = findViewById(R.id.btn_exp);
         mLevel = findViewById(R.id.btn_lv);
         mPlay = findViewById(R.id.btn_play);
-        mShop = findViewById(R.id.btn_shop);
 
-        mShop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Minigame.this, MiniActivity.class));
-            }
-        });
 
         mHungry.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,4 +145,9 @@ public class Minigame extends AppCompatActivity {
         petlv.setText("Dropped table");
     }
 
+
+    public void openShop(View v){
+        Intent i = new Intent(this, ShopPage.class);
+        startActivity(i);
+    }
 }
