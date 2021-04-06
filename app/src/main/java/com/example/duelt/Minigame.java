@@ -2,6 +2,7 @@ package com.example.duelt;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,7 @@ public class Minigame extends AppCompatActivity {
     private Button mExp;
     private Button mLevel;
     private Button mPlay;
+    private Button mShop;
 
     DatabaseHelper petDatabaseHelper = new DatabaseHelper(this);
 
@@ -37,7 +39,14 @@ public class Minigame extends AppCompatActivity {
         mExp = findViewById(R.id.btn_exp);
         mLevel = findViewById(R.id.btn_lv);
         mPlay = findViewById(R.id.btn_play);
+        mShop = findViewById(R.id.btn_shop);
 
+        mShop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Minigame.this, MiniActivity.class));
+            }
+        });
 
         mHungry.setOnClickListener(new View.OnClickListener() {
             @Override

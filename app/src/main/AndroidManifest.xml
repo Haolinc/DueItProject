@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.duelt">
 
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -11,20 +11,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Duelt">
-        <activity android:name=".treatmentpage"/>
+        <activity android:name=".ShopPage"></activity>
+        <activity android:name=".treatmentpage" />
         <activity android:name=".DailyActivity" />
         <activity android:name=".TreatmentActivity" />
         <activity android:name=".TextEntering" />
         <activity android:name=".MiniActivity" />
         <activity android:name=".CalendarActivity" />
         <activity android:name=".MemoActivity" />
-        <activity android:name=".Minigame"/>
+        <activity android:name=".Minigame" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <receiver android:name=".AlarmReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -35,9 +38,10 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <activity android:name=".PopWindow" android:theme="@style/AppTheme.CustomTheme">
 
-        </activity>
+        <activity
+            android:name=".PopWindow"
+            android:theme="@style/AppTheme.CustomTheme"></activity>
     </application>
 
 </manifest>

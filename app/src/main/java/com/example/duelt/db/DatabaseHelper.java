@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 import com.example.duelt.EventDateModel;
+import com.example.duelt.ItemModel;
 import com.example.duelt.PetModel;
 
 import java.util.ArrayList;
@@ -36,6 +37,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String EXP_COLUMN = "EXP";
     private static final String LEVEL_COLUMN = "LEVEL";
 
+    //shop table
+    private static final String ITEM_TABLE_NAME = "ITEM_TABLE";
+    private static final String CURRENCY_COLUMN = "CURRENCY";
+    private static final String FOOD_COLUMN = "FOOD";
+    private static final String TOY_COLUMN = "TOY";
+
+
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE, null, VERSION);
     }
@@ -56,15 +65,74 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + LEVEL_COLUMN + " INT);";
         db.execSQL(createPetTableStatement);
 
+        final String createItemTableStatement = "CREATE TABLE IF NOT EXISTS " + ITEM_TABLE_NAME + " ( "
+                + CURRENCY_COLUMN + " INT, "
+                + FOOD_COLUMN + " INT, "
+                + TOY_COLUMN + " INT);";
+        db.execSQL(createItemTableStatement);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TIME_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + PET_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + ITEM_TABLE_NAME);
         onCreate(db);
     }
+    //item model updateData****************************************************************************************************
+    public void updateItem(ItemModel item){
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL("UPDATE " + ITEM_TABLE_NAME + " SET "
+                + CURRENCY_COLUMN + " = "+ item.getCurrency() + ", "
+                + FOOD_COLUMN + " = " + item.getFood() + ", "
+                + TOY_COLUMN + " = " + item.getToy() + ";");
+        db.close();
+    }
 
+    public void addItem(ItemModel item){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(CURRENCY_COLUMN, item.getCurrency());
+        cv.put(FOOD_COLUMN, item.getFood());
+        cv.put(TOY_COLUMN, item.getToy());
+
+        db.insert(ITEM_TABLE_NAME, null, cv);
+        db.close();
+    }
+
+    public void removeItem(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS " + ITEM_TABLE_NAME + ";");
+        onCreate(db);
+        db.close();
+    }
+
+    public ItemModel getItemStat(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ItemModel itemStat = new ItemModel(0, 0, 0);
+
+        Cursor cursor = db.rawQuery("SELECT * From  "+ ITEM_TABLE_NAME, null);
+
+        if(cursor.moveToFirst()){
+
+            do{
+                int currency = cursor.getInt(1);
+                int food = cursor.getInt(2) ;
+                int toy = cursor.getInt(3);
+
+                itemStat = new ItemModel(currency,food,toy);
+
+            }while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return itemStat;
+    }
+
+
+    //pet medel updateData***************************************************************************************************
     public void updateData(PetModel pet){
         SQLiteDatabase db = this.getReadableDatabase();
         db.execSQL("UPDATE " + PET_TABLE_NAME + " SET "
@@ -123,6 +191,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return petStat;
     }
 
+
+    //get time update data**********************************************************************************************
     public void addOne(EventDateModel eventDateModel){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();

@@ -7,6 +7,10 @@ public class PetModel {
     private int level = 1;
     private String name;
 
+    /*private int currency;
+    private int food;
+    private int toy;*/
+
     public PetModel(int hungriness, int mood, int exp, int level, String name){
         this.hungriness = hungriness;
         this.mood = mood;
@@ -14,6 +18,12 @@ public class PetModel {
         this.level = level;
         this.name= name;
     }
+
+    /*public ShopModel(int currency, int food, int toy) {
+        this.currency = currency;
+        this.food = food;
+        this.toy = toy;
+    }*/
     //feed the pet, hungriness will increase by 5
     public void feed(){
         hungriness += 5;
@@ -68,7 +78,12 @@ public class PetModel {
     public int getExp() { return exp; }
 
     public String getName() {return name;}
+    /*//shop getter
+    public int getFood(){return food; }
 
+    public int getToy(){return toy; }
+
+    public int getCurrency(){return currency; }*/
     //setter
     public void setHungriness(int hungriness){
         this.hungriness = hungriness;
@@ -85,4 +100,10 @@ public class PetModel {
     public void setExp(int Exp) {
         this.exp = exp;
     }
+    /*//shop setter
+    public void  setCurrency(int currency) { this.currency = currency; }
+
+    public void setFood(int food) { this.food = food; }
+
+    public void setToy(int toy) {this.toy = toy;}*/
 }
