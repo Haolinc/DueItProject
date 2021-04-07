@@ -81,7 +81,35 @@
             android:layout_height="250dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:srcCompat="@drawable/treatment_broad"
-            tools:layout_editor_absoluteX="0dp"/>
+            tools:layout_editor_absoluteX="16dp"/>
+
+        <EditText
+            android:id="@+id/edit_time_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:ems="5"
+            android:hint="Minutes"
+            android:inputType="time"
+            android:maxLength="4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.343"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView3" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_setTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:background="@drawable/treatment_start_button_list"
+            android:text="Set"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.061"
+            app:layout_constraintStart_toEndOf="@+id/edit_time_input"
+            app:layout_constraintTop_toTopOf="@+id/imageView3" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.AppCompatButton

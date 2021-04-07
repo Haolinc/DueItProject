@@ -13,7 +13,9 @@ import android.widget.TextView;
 import java.util.Locale;
 
 public class treatmentpage extends AppCompatActivity {
-    private static final long START_TIME_IN_MILLIS = 3600000;
+    //private static final long START_TIME_IN_MILLIS = 3600000;
+
+    long START_TIME_IN_MILLIS = TreatmentActivity.getmStartTimeInMillis() * 60000;
 
     private TextView mCountDown;
     private TextView mCountDownDisplay;
