@@ -9,6 +9,7 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Locale;
 
@@ -16,10 +17,17 @@ public class treatmentpage extends AppCompatActivity {
     //private static final long START_TIME_IN_MILLIS = 3600000;
 
     long START_TIME_IN_MILLIS = TreatmentActivity.getmStartTimeInMillis() * 60000;
+    long mTimer = TreatmentActivity.getmStartTimeInMillis();
+    long breakTime = 25*60000;
+    long workTime = 30*60000;
+    long tCount = 1;
 
     private TextView mCountDown;
     private TextView mCountDownDisplay;
     private Button mButtonStartPause;
+    //bug test****************************************************************************************
+    private TextView mbug;
+    //bug test****************************************************************************************
     //MediaPlayer alarmSoundMP = MediaPlayer.create(this, R.raw.alarmclock);
     private CountDownTimer mCountDownTimer;
 
@@ -32,8 +40,9 @@ public class treatmentpage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_treatmentpage);
         final MediaPlayer alarmSoundMP = MediaPlayer.create(this, R.raw.alarmclock);
-
-
+        //bug test****************************************************************************************
+        mbug = findViewById(R.id.text_bug);
+        //bug test****************************************************************************************
         mCountDown = findViewById(R.id.countdown_text);
         mCountDownDisplay = findViewById(R.id.countDown_distext);
 
@@ -59,14 +68,24 @@ public class treatmentpage extends AppCompatActivity {
             public void onTick(long millisUntilFinished) {
                 mTimeLeftInMillis = millisUntilFinished;
                 updateCountDownText();
-                if(mTimeLeftInMillis==2100000){
-                    updateText();
-                    alarmSoundMP.start();
+                if (mTimeLeftInMillis > START_TIME_IN_MILLIS-(breakTime*tCount) && mTimeLeftInMillis < START_TIME_IN_MILLIS-(breakTime*tCount)+1000) {
+                        updateText();
+                        alarmSoundMP.start();
+                    //Toast.makeText(treatmentpage.this, "break" + tCount, Toast.LENGTH_SHORT).show();
                 }
-                if(mTimeLeftInMillis==1800000){
-                    updateText2();
-                    alarmSoundMP.start();
+                if (mTimeLeftInMillis > START_TIME_IN_MILLIS-(workTime*tCount) && mTimeLeftInMillis < START_TIME_IN_MILLIS-(workTime*tCount)+1000) {
+                        updateText2();
+                        alarmSoundMP.start();
+                    //Toast.makeText(treatmentpage.this, "work" + tCount, Toast.LENGTH_SHORT).show();
+                        tCount++;
                 }
+                //bug test**************************************************************************************************************************
+                //long mtime = START_TIME_IN_MILLIS-(breakTime*tCount);
+                //Toast.makeText(treatmentpage.this, "time = " + mtime, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(treatmentpage.this, "time2 = " + mTimeLeftInMillis, Toast.LENGTH_SHORT).show();
+                //mbug.setText("time = "+ mTimeLeftInMillis);
+                //bug test**************************************************************************************************************************
+
             }
 
             @Override
