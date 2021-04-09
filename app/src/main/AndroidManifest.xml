@@ -11,7 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Duelt">
-        <activity android:name=".ShopPage"></activity>
+
+        <!-- This Activity is set to default display -->
+        <activity android:name=".TabActivity">
+            <intent-filter >
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ShopPage" />
         <activity android:name=".treatmentpage" />
         <activity android:name=".DailyActivity" />
         <activity android:name=".TreatmentActivity" />
@@ -21,11 +29,11 @@
         <activity android:name=".MemoActivity" />
         <activity android:name=".Minigame" />
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
 
         <receiver android:name=".AlarmReceiver">
@@ -41,7 +49,7 @@
 
         <activity
             android:name=".PopWindow"
-            android:theme="@style/AppTheme.CustomTheme"></activity>
+            android:theme="@style/AppTheme.CustomTheme" />
     </application>
 
 </manifest>

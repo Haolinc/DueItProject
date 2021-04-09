@@ -52,7 +52,6 @@ public class MemoActivity extends AppCompatActivity implements Serializable {
     }
 
     public void back(View v){
-
         finish();
     }
 

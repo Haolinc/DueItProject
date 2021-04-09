@@ -1,8 +1,5 @@
 package com.example.duelt;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -13,38 +10,40 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 
 import com.example.duelt.db.DatabaseHelper;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-
-public class MainActivity extends AppCompatActivity {
-
+public class MainFragment extends Fragment {
     protected static final String CHANNEL_1_ID = "channel1";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public MainFragment(){
+        //Empty public constructor required
+    }
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        View rootView = inflater.inflate(R.layout.activity_main,container,false);
+
         createNoticficationChannels();
+
+        return rootView;
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         updateCheckBox();
     }
-
 
     private void createNoticficationChannels() {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
@@ -55,42 +54,37 @@ public class MainActivity extends AppCompatActivity {
             );
             channel1.setDescription("This is channel 1");
 
-            NotificationManager manager = getSystemService(NotificationManager.class);
+            NotificationManager manager = getActivity().getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel1);
         }
     }
 
-    public void jumpToMemo(View v){
-        Intent i = new Intent(this, MemoActivity.class);
-        startActivity(i);
-    }
-//testing
-    
-    public void jumpToMini(View v){
-        Intent i = new Intent(this, MiniActivity.class);
-        startActivity(i);
+    private void updateCheckBox() {
+        DatabaseHelper dh = new DatabaseHelper(getActivity());
+        List<EventDateModel> list = dh.getAll();
+        removeAllViews();
+        createCheckBox();
     }
 
-    public void jumpToTP(View v){
-        Intent i = new Intent(this, TreatmentActivity.class);
-        startActivity(i);
+    private void createCheckBox() {
+        DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
+        List<EventDateModel> list = databaseHelper.getDueDateReminder();
+        for (int i=0; i<list.size(); i++){
+            createCheckBoxInDueDate(list.get(i));
+        }
+
+    }
+    private void removeAllViews() {
+        LinearLayout dueDate = getView().findViewById(R.id.dueDate_layout);
+        dueDate.removeAllViews();
+        LinearLayout reminder = getView().findViewById(R.id.reminder_layout);
+        reminder.removeAllViews();
     }
 
-    public void jumpToDaily(View v){
-        Intent i = new Intent(this, DailyActivity.class);
-        startActivity(i);
-    }
-
-    public void jumpToTab(View v){
-        startActivity(new Intent(this,TabActivity.class));
-    }
-
-    //use ScrollView as parent and call linearlayout for action, change ScrollView values in xml files
-    //Orientation is set in xml file
     private void createCheckBoxInDueDate(EventDateModel edm) {
-        CheckBox cb = new CheckBox(this);
-        DatabaseHelper dh = new DatabaseHelper(this);        //for deletion in onclick
-        LinearLayout dueDate = findViewById(R.id.dueDate_layout);
+        CheckBox cb = new CheckBox(getActivity());
+        DatabaseHelper dh = new DatabaseHelper(getActivity());        //for deletion in onclick
+        LinearLayout dueDate = getView().findViewById(R.id.dueDate_layout);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-2, -2);  //wrap_content
 
         cb.setText(edm.getTitleAndDate());
@@ -101,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton button, boolean isChecked) {
                 if (isChecked) {
-                    AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                    AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
                     alertDialog.setTitle("alert");
                     alertDialog.setMessage("Are you sure you want to delete this?");
                     alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Yes",
@@ -139,52 +133,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void deleteData(View v) {
-        DatabaseHelper dh = new DatabaseHelper(this);
-        List<EventDateModel> list = dh.getAll();
-        Toast.makeText(this, Integer.toString(list.get(0).getTimeForOrder()), Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, Boolean.toString(dh.deleteOne(list.get(0))) , Toast.LENGTH_SHORT).show();
-
-    }
-
-    private void updateCheckBox() {
-        DatabaseHelper dh = new DatabaseHelper(this);
-        List<EventDateModel> list = dh.getAll();
-        removeAllViews();
-        createCheckBox();
-    }
-
-    private void createCheckBox() {
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
-        List<EventDateModel> list = databaseHelper.getDueDateReminder();
-        for (int i=0; i<list.size(); i++){
-            createCheckBoxInDueDate(list.get(i));
-        }
-
-    }
-    private void removeAllViews() {
-        LinearLayout dueDate = findViewById(R.id.dueDate_layout);
-        dueDate.removeAllViews();
-        LinearLayout reminder = findViewById(R.id.reminder_layout);
-        reminder.removeAllViews();
-    }
-
-
-    private void createCheckBoxInReminder(View v) {
-        CheckBox cb = new CheckBox(this);
-        LinearLayout reminder = findViewById(R.id.reminder_layout);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-2, -2);  //wrap_content
-
-        cb.setText("new");
-        cb.setLayoutParams(lp);
-        cb.setGravity(Gravity.CENTER_VERTICAL);
-        reminder.addView(cb);
-    }
-
     public void cancelAlarm(int requestedCode) {
-        AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        Intent i = new Intent(this, MemoAlarmReceiver.class);
-        PendingIntent pi = PendingIntent.getBroadcast(this, requestedCode, i, 0);
+        AlarmManager am = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
+        Intent i = new Intent(getActivity(), MemoAlarmReceiver.class);
+        PendingIntent pi = PendingIntent.getBroadcast(getActivity(), requestedCode, i, 0);
         am.cancel(pi);
     }
+
 }
