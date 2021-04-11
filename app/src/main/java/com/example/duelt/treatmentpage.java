@@ -16,8 +16,8 @@ import java.util.Locale;
 public class treatmentpage extends AppCompatActivity {
     //private static final long START_TIME_IN_MILLIS = 3600000;
 
-    long START_TIME_IN_MILLIS = TreatmentActivity.getmStartTimeInMillis() * 60000;
-    long mTimer = TreatmentActivity.getmStartTimeInMillis();
+    long START_TIME_IN_MILLIS = TreatmentFragment.getmStartTimeInMillis() * 60000;
+    long mTimer = TreatmentFragment.getmStartTimeInMillis();
     long breakTime = 25*60000;
     long workTime = 30*60000;
     long tCount = 1;
