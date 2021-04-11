@@ -81,6 +81,7 @@ public class TextEntering extends AppCompatActivity {
                     }
                 });
         alertDialog.show();
+        finish();
     }
 
     public void setAlarm(View view) {

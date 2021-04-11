@@ -60,6 +60,7 @@ public class CalendarActivity extends AppCompatActivity {
                                 intent.putExtra(EXTRA_Hour, mHour);
                                 intent.putExtra(EXTRA_Minute, mMinute);
                                 startActivity(intent);
+                                finish();
                             }
                         }, 24,0,true
                 );

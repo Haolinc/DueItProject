@@ -185,4 +185,13 @@ public class EventDateModel {
         else if(this.minute <= edm.minute) return true;
         else return false;
     }
+
+    public int minusInDay(EventDateModel edm){
+        Date endDay = new Date(edm.year,edm.month,edm.day,edm.hour,edm.minute);
+        Date startDay = new Date(this.year,this.month,this.day,this.hour,this.minute);
+        long diffInMillSecond = startDay.getTime() - endDay.getTime();
+        long lDay = diffInMillSecond/86400000;
+        int day = (int)lDay;
+        return day;
+    }
 }

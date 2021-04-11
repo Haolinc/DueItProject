@@ -4,11 +4,14 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
@@ -27,12 +30,7 @@ import static com.example.duelt.MainActivity.CHANNEL_1_ID;
 //In a Fragment, whenever need to use 'this' or 'getContext()' as in an activity class, it should be replaced with 'getActivity().
 public class MemoFragment extends Fragment {
     //test code
-    private Date date;
-    private String text;
-    private static DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyy 'at' hh:mm aaa");
-
-
-    ListView listView;
+    LinearLayout layoutView;
 
     public MemoFragment(){
 
@@ -41,6 +39,7 @@ public class MemoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View rootView = inflater.inflate(R.layout.activity_memo,container,false);
+        layoutView = rootView.findViewById(R.id.dayLeft_layout);
 
 
         //Buttons in Fragments should be written here
@@ -112,7 +111,31 @@ public class MemoFragment extends Fragment {
             }
         });
 
+        createOneTextsViewInDayLeft();
+
         return rootView;
+    }
+
+    private void createOneTextViewInDayLeft(EventDateModel edm) {
+        TextView tv = new TextView(getActivity());
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-2, -2);  //wrap_content
+        CalenderTimer calenderTimer = new CalenderTimer();
+        EventDateModel today = calenderTimer.getSystemDay();
+
+        int days = edm.minusInDay(today);
+
+        tv.setText(edm.getEventTitle() + " ONLY " + days + " DAY LEFT !!");
+        tv.setLayoutParams(lp);
+        tv.setGravity(Gravity.CENTER_VERTICAL);
+        layoutView.addView(tv);
+    }
+
+    private void createOneTextsViewInDayLeft(){
+        DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
+        List<EventDateModel> list = databaseHelper.getDueDateReminder();
+        for (int i=0; i<list.size(); i++){
+            createOneTextViewInDayLeft(list.get(i));
+        }
     }
 
 }
