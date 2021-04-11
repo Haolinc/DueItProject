@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -32,11 +33,14 @@ public class MainActivity extends AppCompatActivity {
 
     protected static final String CHANNEL_1_ID = "channel1";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         createNoticficationChannels();
+
+
     }
 
     @Override
@@ -59,15 +63,18 @@ public class MainActivity extends AppCompatActivity {
             manager.createNotificationChannel(channel1);
         }
     }
-
+    //**************************************************************************************************************************
+    private View rootView;
+    Button btn_testMain = (Button) rootView.findViewById(R.id.button4); //Consider change naming
+    //****************************************************************************************************************************
     public void jumpToMemo(View v){
         Intent i = new Intent(this, MemoActivity.class);
         startActivity(i);
     }
 //testing
     
-    public void jumpToMini(View v){
-        Intent i = new Intent(this, MiniActivity.class);
+    public void jumpToTestMain(View v){
+        Intent i = new Intent(this, Test_main.class);
         startActivity(i);
     }
 

@@ -133,6 +133,10 @@ public class MainFragment extends Fragment {
 
     }
 
+    public void jumpToTestMain(View v){
+        Intent i = new Intent(getActivity(), Test_main.class);
+        startActivity(i);
+    }
     public void cancelAlarm(int requestedCode) {
         AlarmManager am = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(getActivity(), MemoAlarmReceiver.class);
