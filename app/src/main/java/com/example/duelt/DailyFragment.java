@@ -25,20 +25,31 @@ import com.example.duelt.db.DatabaseHelper;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 public class DailyFragment extends Fragment {
+
+    DatabaseHelper databaseHelper;
+    LinearLayout layoutView;
 
     public DailyFragment(){
         //Required empty public constructor
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        updateView();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View rootView = inflater.inflate(R.layout.activity_daily,container,false);
+        layoutView = rootView.findViewById(R.id.daily_routine_checkbox);
 
-        DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
+        databaseHelper = new DatabaseHelper(getActivity());
+        createCheckBox();
         TimePicker tp = rootView.findViewById(R.id.datePicker1);
-        createCheckBox(rootView, databaseHelper);
 
         //**Back button might not be needed anymore
 
@@ -51,7 +62,7 @@ public class DailyFragment extends Fragment {
                 calendar.set(Calendar.HOUR_OF_DAY, tp.getCurrentHour());
                 calendar.set(Calendar.MINUTE, tp.getCurrentMinute());
                 calendar.set(Calendar.SECOND, 0);
-                AlarmManager am = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
+                AlarmManager am = (AlarmManager) Objects.requireNonNull(getActivity()).getSystemService(Context.ALARM_SERVICE);
 
                 EditText et = rootView.findViewById(R.id.daily_routine_title);
 
@@ -64,24 +75,23 @@ public class DailyFragment extends Fragment {
                 PendingIntent pi = PendingIntent.getBroadcast(getActivity(), edm.getID(), i, 0);
                 am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi);
 
-                addCheckBox(edm,rootView,databaseHelper);
+                addCheckBox(edm);
             }
         });
 
         return rootView;
     }
 
-    private void createCheckBox(View view, DatabaseHelper databaseHelper){
+    private void createCheckBox(){
         List<EventDateModel> list = databaseHelper.getDailyRoutine();
         for (int i=0; i<list.size(); i++){
-            addCheckBox(list.get(i),view,databaseHelper);
+            addCheckBox(list.get(i));
         }
     }
 
-    private void addCheckBox(EventDateModel edm, View view, DatabaseHelper databaseHelper) {
+    private void addCheckBox(EventDateModel edm) {
         CheckBox cb = new CheckBox(getActivity());
         DatabaseHelper dh = new DatabaseHelper(getActivity());
-        LinearLayout daily_routine_checkbox = view.findViewById(R.id.daily_routine_checkbox);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-2, -2);  //wrap_content
 
         cb.setText(edm.getDailyRoutineString());
@@ -98,10 +108,10 @@ public class DailyFragment extends Fragment {
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    daily_routine_checkbox.removeView(cb);   //click to remove checkbox view
+                                    layoutView.removeView(cb);   //click to remove checkbox view
                                     dh.deleteOne(edm);
                                     cancelAlarm(edm.getID());
-                                    updateView(view,databaseHelper);
+                                    updateView();
                                 }
                             });
                     alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "No",
@@ -125,24 +135,24 @@ public class DailyFragment extends Fragment {
             }
         });
 
-        daily_routine_checkbox.addView(cb);
+        layoutView.addView(cb);
     }
 
     public void cancelAlarm(int requestedCode) {
-        AlarmManager am = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
+        AlarmManager am = (AlarmManager) Objects.requireNonNull(getActivity()).getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(getActivity(), AlarmReceiver.class);
         PendingIntent pi = PendingIntent.getBroadcast(getActivity(), requestedCode, i, 0);
         am.cancel(pi);
     }
 
-    private void deleteView(View view) {
-        LinearLayout daily_routine_layout = view.findViewById(R.id.daily_routine_checkbox);
+    private void deleteView() {
+        LinearLayout daily_routine_layout = Objects.requireNonNull(getActivity()).findViewById(R.id.daily_routine_checkbox);
         daily_routine_layout.removeAllViews();
     }
 
-    public void updateView(View view, DatabaseHelper databaseHelper){
-        deleteView(view);
-        createCheckBox(view, databaseHelper);
+    public void updateView(){
+        deleteView();
+        createCheckBox();
     }
 
 
