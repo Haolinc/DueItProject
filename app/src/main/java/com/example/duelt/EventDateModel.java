@@ -187,8 +187,8 @@ public class EventDateModel {
     }
 
     public int minusInDay(EventDateModel edm){
-        Date endDay = new Date(edm.year,edm.month,edm.day,edm.hour,edm.minute);
-        Date startDay = new Date(this.year,this.month,this.day,this.hour,this.minute);
+        Date endDay = new Date(edm.year,edm.month,edm.day);
+        Date startDay = new Date(this.year,this.month,this.day);
         long diffInMillSecond = startDay.getTime() - endDay.getTime();
         long lDay = diffInMillSecond/86400000;
         int day = (int)lDay;
