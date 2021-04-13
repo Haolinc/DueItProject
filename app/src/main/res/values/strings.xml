@@ -11,4 +11,9 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+
+    <string name="menu_mini">Mini game</string>
+    <string name="menu_memo">Memo</string>
+    <string name="menu_daily">Daily Routine</string>
+    <string name="menu_Treatment">Treatment play</string>
 </resources>
