@@ -146,14 +146,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void deleteData(View v) {
-        DatabaseHelper dh = new DatabaseHelper(this);
-        List<EventDateModel> list = dh.getAll();
-        Toast.makeText(this, Integer.toString(list.get(0).getTimeForOrder()), Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, Boolean.toString(dh.deleteOne(list.get(0))) , Toast.LENGTH_SHORT).show();
-
-    }
-
     private void updateCheckBox() {
         DatabaseHelper dh = new DatabaseHelper(this);
         List<EventDateModel> list = dh.getAll();

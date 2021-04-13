@@ -29,6 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String EVENT_TITLE_COLUMN = "EVENT_TITLE";
     private static final String EVENT_DETAIL_COLUMN = "EVENT_DETAIL";
     private static final String ID_COLUMN = "ID";
+    private static final String WAKED_COLUMN  = "WAKE_STATUS";
     //Pet table
     private static final String PET_TABLE_NAME = "PET_STAT_TABLE";
     private static final String NAME_COLUMN = "NAME";
@@ -54,7 +55,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         final String createTimeTableStatement = "CREATE TABLE IF NOT EXISTS " + TIME_TABLE_NAME + " ( " + TIME_FOR_ORDER_COLUMN
                 + " BIGINT, " + YEAR_COLUMN + " INT, " + MONTH_COLUMN + " INT, " + DAY_COLUMN +
                 " INT, " + HOUR_COLUMN + " INT, " + MINUTE_COLUMN + " INT, " + EVENT_TITLE_COLUMN +
-                " TEXT, " + EVENT_DETAIL_COLUMN + " TEXT, " + ID_COLUMN  + " INT UNIQUE);";
+                " TEXT, " + EVENT_DETAIL_COLUMN + " TEXT, " + ID_COLUMN  + " INT UNIQUE, " + WAKED_COLUMN + " INT);";
         db.execSQL(createTimeTableStatement);
 
         final String createPetTableStatement = "CREATE TABLE IF NOT EXISTS " + PET_TABLE_NAME + " ( "
@@ -79,6 +80,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + ITEM_TABLE_NAME);
         onCreate(db);
     }
+
+    public void upgrade() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS " + TIME_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + PET_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + ITEM_TABLE_NAME);
+        onCreate(db);
+    }
+
     //item model updateData****************************************************************************************************
     public void updateItem(ItemModel item){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -132,7 +142,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    //pet medel updateData***************************************************************************************************
+    //pet model updateData***************************************************************************************************
     public void updateData(PetModel pet){
         SQLiteDatabase db = this.getReadableDatabase();
         db.execSQL("UPDATE " + PET_TABLE_NAME + " SET "
@@ -206,6 +216,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(EVENT_TITLE_COLUMN, eventDateModel.getEventTitle());
         cv.put(EVENT_DETAIL_COLUMN, eventDateModel.getEventDetail());
         cv.put(ID_COLUMN, eventDateModel.getID());
+        cv.put(WAKED_COLUMN, eventDateModel.getWaked());
 
         db.insert(TIME_TABLE_NAME, null, cv);
         db.close();
@@ -274,8 +285,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String eventTitle = cursor.getString(6);
                 String eventDetail = cursor.getString(7);
                 int id = cursor.getInt(8);
+                int waked = cursor.getInt(9);
 
-                EventDateModel eventDateModel = new EventDateModel(eventTitle, eventDetail, year,month,day,hour,minute, id);
+                EventDateModel eventDateModel = new EventDateModel(eventTitle, eventDetail, year,month,day,hour,minute, id, waked);
                 eventDateModelsList.add(eventDateModel);
 
             }while (cursor.moveToNext());
@@ -303,8 +315,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String eventTitle = cursor.getString(6);
                 String eventDetail = cursor.getString(7);
                 int id = cursor.getInt(8);
+                int waked = cursor.getInt(9);
 
-                EventDateModel eventDateModel = new EventDateModel(eventTitle, eventDetail, year,month,day,hour,minute,id);
+
+                EventDateModel eventDateModel = new EventDateModel(eventTitle, eventDetail, year,month,day,hour,minute,id, waked);
                 eventDateModelsList.add(eventDateModel);
 
             }while (cursor.moveToNext());
@@ -327,7 +341,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 int minute = cursor.getInt(cursor.getColumnIndex(MINUTE_COLUMN)) ;
                 String eventTitle = cursor.getString(cursor.getColumnIndex(EVENT_TITLE_COLUMN));
                 String eventDetail = cursor.getString(cursor.getColumnIndex(EVENT_DETAIL_COLUMN));
-                eventDateModel = new EventDateModel(eventTitle, eventDetail, year,month,day,hour,minute,id);
+                int waked = cursor.getInt(cursor.getColumnIndex(WAKED_COLUMN));
+                eventDateModel = new EventDateModel(eventTitle, eventDetail, year,month,day,hour,minute,id,waked);
         cursor.close();
         db.close();
         return eventDateModel;
@@ -350,8 +365,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String eventTitle = cursor.getString(6);
                 String eventDetail = cursor.getString(7);
                 int id = cursor.getInt(8);
+                int waked = cursor.getInt(9);
 
-                EventDateModel eventDateModel = new EventDateModel(eventTitle, eventDetail, year,month,day,hour,minute, id);
+                EventDateModel eventDateModel = new EventDateModel(eventTitle, eventDetail, year,month,day,hour,minute, id, waked);
                 eventDateModelsList.add(eventDateModel);
 
             }while (cursor.moveToNext());
@@ -380,5 +396,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return idList;
+    }
+
+    public void updateWakedStatus(EventDateModel edm){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE " + TIME_TABLE_NAME + " SET "
+                + WAKED_COLUMN + " = "+ edm.getWaked()
+                + " WHERE " + ID_COLUMN + " = " + edm.getID() + ";");
+        db.close();
     }
 }

@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -24,11 +26,12 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.duelt.db.DatabaseHelper;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class DailyFragment extends Fragment {
-
     DatabaseHelper databaseHelper;
     LinearLayout layoutView;
 
@@ -46,12 +49,19 @@ public class DailyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View rootView = inflater.inflate(R.layout.activity_daily,container,false);
         layoutView = rootView.findViewById(R.id.daily_routine_checkbox);
-
         databaseHelper = new DatabaseHelper(getActivity());
         createCheckBox();
         TimePicker tp = rootView.findViewById(R.id.datePicker1);
 
         //**Back button might not be needed anymore
+
+        Button btn_resetDatabase = (Button)rootView.findViewById(R.id.resetDatabaseBtn);
+        btn_resetDatabase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                databaseHelper.upgrade();
+            }
+        });
 
         //setAlarm button function
         Button btn_setAlarm = (Button)rootView.findViewById(R.id.setTimeButton);
@@ -90,10 +100,14 @@ public class DailyFragment extends Fragment {
     }
 
     private void addCheckBox(EventDateModel edm) {
+
         CheckBox cb = new CheckBox(getActivity());
         DatabaseHelper dh = new DatabaseHelper(getActivity());
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-2, -2);  //wrap_content
 
+        if (edm.getWaked() == 1){
+            cb.setTextColor(Color.RED);
+        }
         cb.setText(edm.getDailyRoutineString());
         cb.setLayoutParams(lp);
         cb.setGravity(Gravity.CENTER_VERTICAL);

@@ -13,7 +13,7 @@ public class EventDateModel {
     private String eventTitle;
     private String eventDetail;
     private int year, month, day, hour, minute;
-    private int timeForOrder, ID;
+    private int timeForOrder, ID, waked;
 
     public EventDateModel() {
         this.eventTitle = "ERROR";
@@ -25,6 +25,7 @@ public class EventDateModel {
         this.minute = -1;
         timeForOrder = -1;
         this.ID = -1;
+        waked = -1;
     }
 
     public EventDateModel(String eventTitle, String eventDetail, int year, int month, int day, int hour, int minute, Context ctx) {
@@ -37,9 +38,10 @@ public class EventDateModel {
         this.minute = minute;
         timeForOrder =   minute + hour*100 + day*10000 + month * 1000000 + year*100000000;
         this.ID = autoAssignID(ctx);
+        waked = 0;
     }
 
-    public EventDateModel(String eventTitle, String eventDetail, int year, int month, int day, int hour, int minute, int id) {
+    public EventDateModel(String eventTitle, String eventDetail, int year, int month, int day, int hour, int minute, int id, int waked) {
         this.eventTitle = eventTitle;
         this.eventDetail = eventDetail;
         this.year = year;
@@ -49,6 +51,7 @@ public class EventDateModel {
         this.minute = minute;
         timeForOrder =   minute + hour*100 + day*10000 + month * 1000000 + year*100000000;
         this.ID = id;
+        this.waked = waked;
     }
 
     //get system date
@@ -62,6 +65,21 @@ public class EventDateModel {
         this.eventDetail = "";
         timeForOrder =   minute + hour*100 + day*10000 + month * 1000000 + year*100000000;
         this.ID = -1;
+        waked = 0;
+    }
+
+    //get system date for daily
+    public EventDateModel(int hour, int minute) {
+        this.year = 0;
+        this.month = 0;
+        this.day = 0;
+        this.hour = hour;
+        this.minute = minute;
+        this.eventTitle = "";
+        this.eventDetail = "";
+        this.timeForOrder = hour*100 + minute;
+        this.ID = -1;
+        waked = 0;
     }
 
     //constructor for daily routine
@@ -75,6 +93,7 @@ public class EventDateModel {
         this.minute=minute;
         this.timeForOrder = hour*100 + minute;
         this.ID = autoAssignID(ctx);
+        waked = 0;
     }
 
     public String getEventTitle() {
@@ -113,6 +132,8 @@ public class EventDateModel {
         return minute;
     }
 
+    public int getWaked() { return waked;}
+
     public void setEventTitle(String eventTitle) {
         this.eventTitle = eventTitle;
     }
@@ -140,6 +161,8 @@ public class EventDateModel {
     public void setMinute(int minute) {
         this.minute = minute;
     }
+
+    public void setWaked(int waked) {this.waked = waked; }
 
 
     private int autoAssignID(Context ctx){

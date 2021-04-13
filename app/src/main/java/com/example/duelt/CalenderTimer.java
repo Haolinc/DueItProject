@@ -23,5 +23,13 @@ public class CalenderTimer {
         return edm;
     }
 
+    public EventDateModel getDailyDate() {
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        EventDateModel edm = new EventDateModel(hour, minute);
+        return edm;
+    }
+
 
 }
