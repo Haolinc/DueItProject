@@ -1,5 +1,6 @@
 package com.example.duelt;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -20,6 +22,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -52,6 +55,14 @@ public class DailyFragment extends Fragment {
         databaseHelper = new DatabaseHelper(getActivity());
         createCheckBox();
         TimePicker tp = rootView.findViewById(R.id.datePicker1);
+
+        ConstraintLayout cl = rootView.findViewById(R.id.dailyLayout);
+        cl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideSoftKeyboard(v);
+            }
+        });
 
         //**Back button might not be needed anymore
 
@@ -157,6 +168,11 @@ public class DailyFragment extends Fragment {
         Intent i = new Intent(getActivity(), AlarmReceiver.class);
         PendingIntent pi = PendingIntent.getBroadcast(getActivity(), requestedCode, i, 0);
         am.cancel(pi);
+    }
+
+    public void hideSoftKeyboard(View v) {
+        InputMethodManager inputMethodManager = (InputMethodManager)  getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
     }
 
     private void deleteView() {
