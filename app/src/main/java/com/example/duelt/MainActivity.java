@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 //testing
     
     public void jumpToTestMain(View v){
-        Intent i = new Intent(this, Test_main.class);
+        Intent i = new Intent(this, MiniFragment.class);
         startActivity(i);
     }
 

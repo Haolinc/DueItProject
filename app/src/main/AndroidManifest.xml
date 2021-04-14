@@ -11,17 +11,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Duelt">
-        <activity
-            android:name=".Test_main"
-            android:label="@string/title_activity_test_main"
-            android:theme="@style/Theme.Duelt.NoActionBar">
-<!--testView*****************************************************************************************************-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--            testView*****************************************************************************************************-->
-    </activity>
         <!-- This Activity is set to default display -->
         <activity android:name=".TabActivity">
             <intent-filter>

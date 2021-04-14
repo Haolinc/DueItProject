@@ -93,7 +93,7 @@ public class TabActivity extends AppCompatActivity {
         setTitle(menuItem.getTitle());
         // Close the navigation drawer
         mDrawer.closeDrawers();
-        
+
     }
 
 
