@@ -78,10 +78,10 @@ public class TextEntering extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         alertDialog.cancel();
+                        finish();
                     }
                 });
         alertDialog.show();
-        finish();
     }
 
     public void setAlarm(View view) {
