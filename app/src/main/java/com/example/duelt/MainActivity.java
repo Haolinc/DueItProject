@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int which) {
                                     dueDate.removeView(cb);   //click to remove checkbox view
                                     cancelAlarm(edm.getID());
-                                    dh.deleteOne(edm);
+                                    dh.deleteOneFromDueDate(edm.getID());
                                     updateCheckBox();
                                 }
                             });
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateCheckBox() {
         DatabaseHelper dh = new DatabaseHelper(this);
-        List<EventDateModel> list = dh.getAll();
+        List<EventDateModel> list = dh.getDueDateReminder();
         removeAllViews();
         createCheckBox();
     }

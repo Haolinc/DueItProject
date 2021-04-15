@@ -34,7 +34,7 @@ public class MemoAlarmReceiver  extends BroadcastReceiver {
         notificationManagerCompat.notify(i.getIntExtra("EDMID", 1),notification);
 
         if(i.getBooleanExtra("IsFinalDate", false))
-             databaseHelper.deleteOne(i.getIntExtra("EDMID", 0));
+             databaseHelper.deleteOneFromDueDate(i.getIntExtra("EDMID", 0));
 
     }
 }

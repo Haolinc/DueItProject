@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
@@ -28,13 +29,21 @@ public class MainFragment extends Fragment {
     protected static final String CHANNEL_1_ID = "channel1";
     protected static final String CHANNEL_2_ID = "channel2";
 
+
     public MainFragment(){
         //Empty public constructor required
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View rootView = inflater.inflate(R.layout.activity_main,container,false);
-
+        Button resetBtn= rootView.findViewById(R.id.resetButtonInMain);
+        resetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
+                databaseHelper.upgrade();
+            }
+        });
         createNoticficationChannels();
 
         return rootView;
@@ -74,8 +83,6 @@ public class MainFragment extends Fragment {
 
 
     private void updateCheckBox() {
-        DatabaseHelper dh = new DatabaseHelper(getActivity());
-        List<EventDateModel> list = dh.getAll();
         removeAllViews();
         createCheckBox();
     }
@@ -121,7 +128,7 @@ public class MainFragment extends Fragment {
                                     cancelAlarm(edm.getID2());
                                     cancelAlarm(edm.getID3());
                                     cancelAlarm(edm.getID4());
-                                    dh.deleteOne(edm);
+                                    dh.deleteOneFromDueDate(edm.getID());
                                     updateCheckBox();
                                 }
                             });

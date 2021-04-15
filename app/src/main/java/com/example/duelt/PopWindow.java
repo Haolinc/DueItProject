@@ -25,7 +25,7 @@ public class PopWindow extends AppCompatActivity {
 
         int id= getIntent().getIntExtra("EDMID", -1);
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
-        EventDateModel eventDateModel = databaseHelper.getOne(id);
+        EventDateModel eventDateModel = databaseHelper.getOneFromDaily(id);
         int width = dm.widthPixels;
         int height = dm.heightPixels;
         String textViewText = "Your activity of " + eventDateModel.getEventTitle() + " is coming up";
@@ -34,7 +34,7 @@ public class PopWindow extends AppCompatActivity {
         TextView textView = findViewById(R.id.textView2);
         textView.setText(textViewText);
         eventDateModel.setWaked(1);
-        databaseHelper.updateWakedStatus(eventDateModel);
+        databaseHelper.updateWakedStatusInDaily(eventDateModel);
         //databaseHelper.deleteOne(id);
     }
 

@@ -83,13 +83,13 @@ public class DailyFragment extends Fragment {
                 calendar.set(Calendar.HOUR_OF_DAY, tp.getCurrentHour());
                 calendar.set(Calendar.MINUTE, tp.getCurrentMinute());
                 calendar.set(Calendar.SECOND, 0);
-                AlarmManager am = (AlarmManager) Objects.requireNonNull(getActivity()).getSystemService(Context.ALARM_SERVICE);
+                AlarmManager am = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
 
                 EditText et = rootView.findViewById(R.id.daily_routine_title);
 
                 EventDateModel edm = new EventDateModel(et.getText().toString(), tp.getCurrentHour(), tp.getCurrentMinute(), getActivity());
                 DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
-                databaseHelper.addOne(edm);
+                databaseHelper.addOneToDaily(edm);
 
                 Intent i = new Intent(getActivity(), AlarmReceiver.class);
                 i.putExtra("EDMID", edm.getID());
@@ -134,7 +134,7 @@ public class DailyFragment extends Fragment {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     layoutView.removeView(cb);   //click to remove checkbox view
-                                    dh.deleteOne(edm);
+                                    dh.deleteOneFromDaily(edm.getID());
                                     cancelAlarm(edm.getID());
                                     updateView();
                                 }
@@ -164,7 +164,7 @@ public class DailyFragment extends Fragment {
     }
 
     public void cancelAlarm(int requestedCode) {
-        AlarmManager am = (AlarmManager) Objects.requireNonNull(getActivity()).getSystemService(Context.ALARM_SERVICE);
+        AlarmManager am = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(getActivity(), AlarmReceiver.class);
         PendingIntent pi = PendingIntent.getBroadcast(getActivity(), requestedCode, i, 0);
         am.cancel(pi);
@@ -176,7 +176,7 @@ public class DailyFragment extends Fragment {
     }
 
     private void deleteView() {
-        LinearLayout daily_routine_layout = Objects.requireNonNull(getActivity()).findViewById(R.id.daily_routine_checkbox);
+        LinearLayout daily_routine_layout = requireActivity().findViewById(R.id.daily_routine_checkbox);
         daily_routine_layout.removeAllViews();
     }
 

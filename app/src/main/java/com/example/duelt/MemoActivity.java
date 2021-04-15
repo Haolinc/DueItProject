@@ -57,7 +57,7 @@ public class MemoActivity extends AppCompatActivity implements Serializable {
 
     public void ViewAll(View v){
         DatabaseHelper databaseHelper = new DatabaseHelper(MemoActivity.this);
-        List<EventDateModel> list = databaseHelper.getAll();
+        List<EventDateModel> list = databaseHelper.getDueDateReminder();
         Toast.makeText(this, list.toString(), Toast.LENGTH_SHORT).show();
     }
 
@@ -101,7 +101,7 @@ public class MemoActivity extends AppCompatActivity implements Serializable {
 
     public void testNotification(View v){
         DatabaseHelper databaseHelper = new DatabaseHelper(MemoActivity.this);
-        List<EventDateModel> list = databaseHelper.getAll();
+        List<EventDateModel> list = databaseHelper.getDueDateReminder();
         EventDateModel edm = list.get(0);
         String eventTitle = edm.getEventTitle();
         String eventDetail = edm.getEventDetail();

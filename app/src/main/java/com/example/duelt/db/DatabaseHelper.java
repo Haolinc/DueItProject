@@ -19,7 +19,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE = "duelt.db";
     public static final int VERSION  = 1;
     //Time table
-    private static final String TIME_TABLE_NAME = "EVENT_DATE_TABLE";
+    private static final String TIME_TABLE_NAME = "EVENT_DATE_TABLE";        //remove old data
+    private static final String DUEDATE_TABLE_NAME = "DUE_DATE_TABLE";
+    private static final String DAILY_TABLE_NAME = "DAILY_TABLE";
     private static final String TIME_FOR_ORDER_COLUMN = "TIME_FOR_ORDER";
     private static final String YEAR_COLUMN = "YEAR";
     private static final String MONTH_COLUMN = "MONTH";
@@ -52,11 +54,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        final String createTimeTableStatement = "CREATE TABLE IF NOT EXISTS " + TIME_TABLE_NAME + " ( " + TIME_FOR_ORDER_COLUMN
+        final String createDueDateTableStatement = "CREATE TABLE IF NOT EXISTS " + DUEDATE_TABLE_NAME + " ( " + TIME_FOR_ORDER_COLUMN
                 + " BIGINT, " + YEAR_COLUMN + " INT, " + MONTH_COLUMN + " INT, " + DAY_COLUMN +
                 " INT, " + HOUR_COLUMN + " INT, " + MINUTE_COLUMN + " INT, " + EVENT_TITLE_COLUMN +
                 " TEXT, " + EVENT_DETAIL_COLUMN + " TEXT, " + ID_COLUMN  + " INT UNIQUE, " + WAKED_COLUMN + " INT);";
-        db.execSQL(createTimeTableStatement);
+        db.execSQL(createDueDateTableStatement);
+
+        final String createDailyTableStatement = "CREATE TABLE IF NOT EXISTS " + DAILY_TABLE_NAME + " ( " + TIME_FOR_ORDER_COLUMN
+                + " BIGINT, " + HOUR_COLUMN + " INT, " + MINUTE_COLUMN + " INT, " + EVENT_TITLE_COLUMN +
+                " TEXT, " + ID_COLUMN  + " INT UNIQUE, " + WAKED_COLUMN + " INT);";
+        db.execSQL(createDailyTableStatement);
 
         final String createPetTableStatement = "CREATE TABLE IF NOT EXISTS " + PET_TABLE_NAME + " ( "
                 + NAME_COLUMN + " TEXT UNIQUE, "
@@ -202,8 +209,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    //get time update data**********************************************************************************************
-    public void addOne(EventDateModel eventDateModel){
+    //Time table methods**********************************************************************************************
+    //DueDate table adding
+    public void addOneToDueDate(EventDateModel eventDateModel){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -218,16 +226,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(ID_COLUMN, eventDateModel.getID());
         cv.put(WAKED_COLUMN, eventDateModel.getWaked());
 
-        db.insert(TIME_TABLE_NAME, null, cv);
+        db.insert(DUEDATE_TABLE_NAME, null, cv);
         db.close();
     }
 
-    //delete event by its ID
-    public boolean deleteOne(EventDateModel eventDateModel){
+    //Daily table adding
+    public void addOneToDaily(EventDateModel eventDateModel){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(TIME_FOR_ORDER_COLUMN, eventDateModel.getTimeForOrder());
+        cv.put(HOUR_COLUMN, eventDateModel.getHour());
+        cv.put(MINUTE_COLUMN,eventDateModel.getMinute());
+        cv.put(EVENT_TITLE_COLUMN, eventDateModel.getEventTitle());
+        cv.put(ID_COLUMN, eventDateModel.getID());
+        cv.put(WAKED_COLUMN, eventDateModel.getWaked());
+
+        db.insert(DAILY_TABLE_NAME, null, cv);
+        db.close();
+    }
+
+    //delete from duedate
+    public boolean deleteOneFromDueDate(int id){
         SQLiteDatabase db = this.getWritableDatabase();
         String queryString = "DELETE FROM " +
-               //TABLE_NAME+ " WHERE "  + YEAR_COLUMN + " = " + eventDateModel.getYear() + ";";
-                TIME_TABLE_NAME + " WHERE " + ID_COLUMN + " = " + eventDateModel.getID() + ";" ;
+                DUEDATE_TABLE_NAME + " WHERE " + ID_COLUMN + " = " + id + ";" ;
         Cursor cursor = db.rawQuery(queryString, null);
         if (cursor.moveToFirst()){
             cursor.close();
@@ -241,11 +264,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public boolean deleteOne(int id){
+    //delete from daily
+    public boolean deleteOneFromDaily(int id){
         SQLiteDatabase db = this.getWritableDatabase();
         String queryString = "DELETE FROM " +
-                //TABLE_NAME+ " WHERE "  + YEAR_COLUMN + " = " + eventDateModel.getYear() + ";";
-                TIME_TABLE_NAME + " WHERE " + ID_COLUMN + " = " + id + ";" ;
+                DAILY_TABLE_NAME + " WHERE " + ID_COLUMN + " = " + id + ";" ;
         Cursor cursor = db.rawQuery(queryString, null);
         if (cursor.moveToFirst()){
             cursor.close();
@@ -260,9 +283,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public void deleteAll() {
+    //Delete all in DueDate table
+    public void deleteAllFromDueDate() {
         SQLiteDatabase db = this.getWritableDatabase();
-        String queryString = "DELETE FROM "+TIME_TABLE_NAME + ";";
+        String queryString = "DELETE FROM "+DUEDATE_TABLE_NAME + ";";
+        Cursor cursor = db.rawQuery(queryString, null);
+        cursor.close();
+        db.close();
+    }
+
+    //Delete all in Daily table
+    public void deleteAllFromDaily() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String queryString = "DELETE FROM "+DAILY_TABLE_NAME + ";";
         Cursor cursor = db.rawQuery(queryString, null);
         cursor.close();
         db.close();
@@ -272,20 +305,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         List<EventDateModel> eventDateModelsList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT * From  "+TIME_TABLE_NAME+" WHERE "+ TIME_FOR_ORDER_COLUMN + ">10000 " + " ORDER BY "+ TIME_FOR_ORDER_COLUMN, null);
+        Cursor cursor = db.rawQuery("SELECT * From  "+DUEDATE_TABLE_NAME+" ORDER BY "+ TIME_FOR_ORDER_COLUMN, null);
 
         if(cursor.moveToFirst()){
 
             do{
-                int year = cursor.getInt(1);
-                int month = cursor.getInt(2) ;
-                int day = cursor.getInt(3);
-                int hour = cursor.getInt(4);
-                int minute = cursor.getInt(5) ;
-                String eventTitle = cursor.getString(6);
-                String eventDetail = cursor.getString(7);
-                int id = cursor.getInt(8);
-                int waked = cursor.getInt(9);
+                int year = cursor.getInt(cursor.getColumnIndex(YEAR_COLUMN));
+                int month = cursor.getInt(cursor.getColumnIndex(MONTH_COLUMN)) ;
+                int day = cursor.getInt(cursor.getColumnIndex(DAY_COLUMN));
+                int hour = cursor.getInt(cursor.getColumnIndex(HOUR_COLUMN));
+                int minute = cursor.getInt(cursor.getColumnIndex(MINUTE_COLUMN)) ;
+                String eventTitle = cursor.getString(cursor.getColumnIndex(EVENT_TITLE_COLUMN));
+                String eventDetail = cursor.getString(cursor.getColumnIndex(EVENT_DETAIL_COLUMN));
+                int id = cursor.getInt(cursor.getColumnIndex(ID_COLUMN));
+                int waked = cursor.getInt(cursor.getColumnIndex(WAKED_COLUMN));
 
                 EventDateModel eventDateModel = new EventDateModel(eventTitle, eventDetail, year,month,day,hour,minute, id, waked);
                 eventDateModelsList.add(eventDateModel);
@@ -302,23 +335,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         List<EventDateModel> eventDateModelsList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT * From  "+TIME_TABLE_NAME+" WHERE "+ TIME_FOR_ORDER_COLUMN + "<10000 " + " ORDER BY "+ TIME_FOR_ORDER_COLUMN, null);
+        Cursor cursor = db.rawQuery("SELECT * From  "+DAILY_TABLE_NAME + " ORDER BY "+ TIME_FOR_ORDER_COLUMN, null);
 
         if(cursor.moveToFirst()){
 
             do{
-                int year = cursor.getInt(1);
-                int month = cursor.getInt(2) ;
-                int day = cursor.getInt(3);
-                int hour = cursor.getInt(4);
-                int minute = cursor.getInt(5) ;
-                String eventTitle = cursor.getString(6);
-                String eventDetail = cursor.getString(7);
-                int id = cursor.getInt(8);
-                int waked = cursor.getInt(9);
+                int hour = cursor.getInt(cursor.getColumnIndex(HOUR_COLUMN));
+                int minute = cursor.getInt(cursor.getColumnIndex(MINUTE_COLUMN)) ;
+                String eventTitle = cursor.getString(cursor.getColumnIndex(EVENT_TITLE_COLUMN));
+                int id = cursor.getInt(cursor.getColumnIndex(ID_COLUMN));
+                int waked = cursor.getInt(cursor.getColumnIndex(WAKED_COLUMN));
 
 
-                EventDateModel eventDateModel = new EventDateModel(eventTitle, eventDetail, year,month,day,hour,minute,id, waked);
+                EventDateModel eventDateModel = new EventDateModel(eventTitle,hour,minute,id, waked);
                 eventDateModelsList.add(eventDateModel);
 
             }while (cursor.moveToNext());
@@ -329,10 +358,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return eventDateModelsList;
     }
 
-    public EventDateModel getOne(int id) {
+    //get one by id from duedate table
+    public EventDateModel getOneFromDueDate(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         EventDateModel eventDateModel;
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TIME_TABLE_NAME + " WHERE " + ID_COLUMN + " = " + id + ";", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + DUEDATE_TABLE_NAME + " WHERE " + ID_COLUMN + " = " + id + ";", null);
         cursor.moveToFirst();
                 int year = cursor.getInt(cursor.getColumnIndex(YEAR_COLUMN));
                 int month = cursor.getInt(cursor.getColumnIndex(MONTH_COLUMN)) ;
@@ -348,41 +378,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return eventDateModel;
     }
 
-    public List<EventDateModel> getAll(){
-        List<EventDateModel> eventDateModelsList = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.rawQuery("SELECT * From  "+TIME_TABLE_NAME+" ORDER BY "+ TIME_FOR_ORDER_COLUMN, null);
-
-        if(cursor.moveToFirst()){
-
-            do{
-                int year = cursor.getInt(1);
-                int month = cursor.getInt(2) ;
-                int day = cursor.getInt(3);
-                int hour = cursor.getInt(4);
-                int minute = cursor.getInt(5) ;
-                String eventTitle = cursor.getString(6);
-                String eventDetail = cursor.getString(7);
-                int id = cursor.getInt(8);
-                int waked = cursor.getInt(9);
-
-                EventDateModel eventDateModel = new EventDateModel(eventTitle, eventDetail, year,month,day,hour,minute, id, waked);
-                eventDateModelsList.add(eventDateModel);
-
-            }while (cursor.moveToNext());
-        }
-
+    //get one by id from daily table
+    public EventDateModel getOneFromDaily(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        EventDateModel eventDateModel;
+        Cursor cursor = db.rawQuery("SELECT * FROM " + DAILY_TABLE_NAME + " WHERE " + ID_COLUMN + " = " + id + ";", null);
+        cursor.moveToFirst();
+        int hour = cursor.getInt(cursor.getColumnIndex(HOUR_COLUMN));
+        int minute = cursor.getInt(cursor.getColumnIndex(MINUTE_COLUMN)) ;
+        String eventTitle = cursor.getString(cursor.getColumnIndex(EVENT_TITLE_COLUMN));
+        int waked = cursor.getInt(cursor.getColumnIndex(WAKED_COLUMN));
+        eventDateModel = new EventDateModel(eventTitle,hour,minute,id,waked);
         cursor.close();
         db.close();
-        return eventDateModelsList;
+        return eventDateModel;
     }
 
-    public List<Integer> getIDFromDatabase(){
+    //Get list of id from duedate table
+    public List<Integer> getIDFromDueDate(){
         List<Integer> idList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT " + ID_COLUMN + " From  "+TIME_TABLE_NAME, null);
+        Cursor cursor = db.rawQuery("SELECT " + ID_COLUMN + " From  "+DUEDATE_TABLE_NAME, null);
 
         if(cursor.moveToFirst()){
 
@@ -398,11 +415,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return idList;
     }
 
-    public void updateWakedStatus(EventDateModel edm){
+    //Get list of id from daily table
+    public List<Integer> getIDFromDaily(){
+        List<Integer> idList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT " + ID_COLUMN + " From  "+DUEDATE_TABLE_NAME, null);
+
+        if(cursor.moveToFirst()){
+
+            do{
+                int id = cursor.getInt(cursor.getColumnIndex("ID"));
+                idList.add(id);
+
+            }while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return idList;
+    }
+
+    //update wake status in duedate table
+    public void updateWakedStatusInDueDate(EventDateModel edm){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("UPDATE " + TIME_TABLE_NAME + " SET "
+        db.execSQL("UPDATE " + DUEDATE_TABLE_NAME + " SET "
                 + WAKED_COLUMN + " = "+ edm.getWaked()
                 + " WHERE " + ID_COLUMN + " = " + edm.getID() + ";");
         db.close();
     }
+
+    //update wake status in daily table
+    public void updateWakedStatusInDaily(EventDateModel edm){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE " + DAILY_TABLE_NAME + " SET "
+                + WAKED_COLUMN + " = "+ edm.getWaked()
+                + " WHERE " + ID_COLUMN + " = " + edm.getID() + ";");
+        db.close();
+    }
+
+
 }

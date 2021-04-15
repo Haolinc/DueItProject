@@ -70,7 +70,7 @@ public class MemoFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
-                List<EventDateModel> list = databaseHelper.getAll();
+                List<EventDateModel> list = databaseHelper.getDueDateReminder();
                 Toast.makeText(getActivity(), list.toString(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -92,7 +92,7 @@ public class MemoFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
-                List<EventDateModel> list = databaseHelper.getAll();
+                List<EventDateModel> list = databaseHelper.getDueDateReminder();
                 EventDateModel edm = list.get(0);
                 String eventTitle = edm.getEventTitle();
                 String eventDetail = edm.getEventDetail();

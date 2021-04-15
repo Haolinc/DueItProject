@@ -68,7 +68,7 @@ public class TextEntering extends AppCompatActivity {
         setAlarm(v);
         //insert into database
 
-        databaseHelper.addOne(eventDateModel);
+        databaseHelper.addOneToDueDate(eventDateModel);
 
         //make a checkbox in main activity
 

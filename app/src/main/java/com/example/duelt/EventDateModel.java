@@ -8,6 +8,7 @@ import com.example.duelt.db.DatabaseHelper;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class EventDateModel {
     private String eventTitle;
@@ -28,6 +29,7 @@ public class EventDateModel {
         waked = -1;
     }
 
+    //use in activity
     public EventDateModel(String eventTitle, String eventDetail, int year, int month, int day, int hour, int minute, Context ctx) {
         this.eventTitle = eventTitle;
         this.eventDetail = eventDetail;
@@ -41,6 +43,7 @@ public class EventDateModel {
         waked = 0;
     }
 
+    //use for duedate constructor in database
     public EventDateModel(String eventTitle, String eventDetail, int year, int month, int day, int hour, int minute, int id, int waked) {
         this.eventTitle = eventTitle;
         this.eventDetail = eventDetail;
@@ -55,6 +58,20 @@ public class EventDateModel {
         this.ID3 = id + 2;
         this.ID4 = id + 3;
          this.waked = waked;
+    }
+
+    //use for daily constructor in dailyroutine
+    public EventDateModel(String eventTitle, int hour, int minute, int id, int waked) {
+        this.eventTitle = eventTitle;
+        this.eventDetail = "";
+        this.year = 0;
+        this.month = 0 ;
+        this.day = 0;
+        this.hour = hour;
+        this.minute = minute;
+        timeForOrder = hour*100 + minute;
+        this.ID = id;
+        this.waked = waked;
     }
 
     //get system date
@@ -181,7 +198,8 @@ public class EventDateModel {
 
     private int autoAssignID(Context ctx){
         DatabaseHelper databaseHelper = new DatabaseHelper(ctx);
-        List<Integer> idFromDatabase= databaseHelper.getIDFromDatabase();
+        List<Integer> idFromDatabase = databaseHelper.getIDFromDueDate();
+        idFromDatabase.addAll(databaseHelper.getIDFromDaily());
         Collections.sort(idFromDatabase);
         for (int i=0;i<idFromDatabase.size();i = i +4){
             if (i != idFromDatabase.get(i)){
@@ -197,6 +215,7 @@ public class EventDateModel {
         }
         return idFromDatabase.size();
     }
+
     public String toStringTimeOnly() {
         int correctedMonth = month +1 ;
         return

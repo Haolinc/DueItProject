@@ -57,7 +57,7 @@ public class DailyActivity extends AppCompatActivity {
 
         EventDateModel edm = new EventDateModel(et.getText().toString(), tp.getCurrentHour(), tp.getCurrentMinute(), this);
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
-        databaseHelper.addOne(edm);
+        databaseHelper.addOneToDaily(edm);
 
         Intent i = new Intent(this, AlarmReceiver.class);
         i.putExtra("EDMID", edm.getID());
@@ -100,7 +100,7 @@ public class DailyActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     daily_routine_checkbox.removeView(cb);   //click to remove checkbox view
-                                    dh.deleteOne(edm);
+                                    dh.deleteOneFromDaily(edm.getID());
                                     cancelAlarm(edm.getID());
                                     updateView();
                                 }
@@ -137,7 +137,7 @@ public class DailyActivity extends AppCompatActivity {
     }
 
     private int checkForID(){
-        List<Integer> idFromDatabase = databaseHelper.getIDFromDatabase();
+        List<Integer> idFromDatabase = databaseHelper.getIDFromDaily();
         Collections.sort(idFromDatabase);
         for (int i=0;i<idFromDatabase.size();i++){
             if (i != idFromDatabase.get(i)){
