@@ -26,6 +26,7 @@ import java.util.List;
 
 public class MainFragment extends Fragment {
     protected static final String CHANNEL_1_ID = "channel1";
+    protected static final String CHANNEL_2_ID = "channel2";
 
     public MainFragment(){
         //Empty public constructor required
@@ -47,17 +48,30 @@ public class MainFragment extends Fragment {
 
     private void createNoticficationChannels() {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+
+            NotificationManager manager = getActivity().getSystemService(NotificationManager.class);
+            //Create channel 1
             NotificationChannel channel1 = new NotificationChannel(
                     CHANNEL_1_ID,
                     "Channel 1",
                     NotificationManager.IMPORTANCE_HIGH
             );
             channel1.setDescription("This is channel 1");
-
-            NotificationManager manager = getActivity().getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel1);
+
+            //Create channel 2
+            NotificationChannel channel2 = new NotificationChannel(
+                    CHANNEL_2_ID,
+                    "Channel 2",
+                    NotificationManager.IMPORTANCE_HIGH
+            );
+            channel2.setDescription("This is channel 2");
+            manager.createNotificationChannel(channel2);
+
+
         }
     }
+
 
     private void updateCheckBox() {
         DatabaseHelper dh = new DatabaseHelper(getActivity());
@@ -104,6 +118,9 @@ public class MainFragment extends Fragment {
                                 public void onClick(DialogInterface dialog, int which) {
                                     dueDate.removeView(cb);   //click to remove checkbox view
                                     cancelAlarm(edm.getID());
+                                    cancelAlarm(edm.getID2());
+                                    cancelAlarm(edm.getID3());
+                                    cancelAlarm(edm.getID4());
                                     dh.deleteOne(edm);
                                     updateCheckBox();
                                 }

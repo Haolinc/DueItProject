@@ -20,10 +20,10 @@ public class MemoAlarmReceiver  extends BroadcastReceiver {
         DatabaseHelper databaseHelper = new DatabaseHelper(context);
         notificationManagerCompat = NotificationManagerCompat.from(context);
 
-        Intent activityIntent = new Intent(context, MainActivity.class);
+        Intent activityIntent = new Intent(context, MainFragment.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, activityIntent,0);
 
-        Notification notification = new NotificationCompat.Builder(context, CHANNEL_1_ID)
+        Notification notification = new NotificationCompat.Builder(context, i.getStringExtra("ChannelID"))
                 .setSmallIcon(R.drawable.ic_baseline_looks_one_24)
                 .setContentTitle(i.getStringExtra("TITLE"))
                 .setContentText(i.getStringExtra("DETAIL"))
@@ -31,8 +31,10 @@ public class MemoAlarmReceiver  extends BroadcastReceiver {
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setContentIntent(pendingIntent)
                 .build();
-        notificationManagerCompat.notify(1,notification);
-        databaseHelper.deleteOne(i.getIntExtra("EDMID", 0));
+        notificationManagerCompat.notify(i.getIntExtra("EDMID", 1),notification);
+
+        if(i.getBooleanExtra("IsFinalDate", false))
+             databaseHelper.deleteOne(i.getIntExtra("EDMID", 0));
 
     }
 }

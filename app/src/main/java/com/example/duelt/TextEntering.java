@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.example.duelt.db.DatabaseHelper;
 
@@ -20,6 +21,9 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
+import static com.example.duelt.MainActivity.CHANNEL_1_ID;
+import static com.example.duelt.MainFragment.CHANNEL_2_ID;
 
 public class TextEntering extends AppCompatActivity {
     private String eventTitle;
@@ -82,25 +86,52 @@ public class TextEntering extends AppCompatActivity {
                     }
                 });
         alertDialog.show();
+
     }
 
     public void setAlarm(View view) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.HOUR_OF_DAY, hour);
-        calendar.set(Calendar.MINUTE, minute);
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.DAY_OF_MONTH, day);
-        calendar.set(Calendar.MONTH, month);
+        Calendar date = Calendar.getInstance();
+        date.set(Calendar.SECOND, 0);
+        date.set(Calendar.HOUR_OF_DAY, hour);
+        date.set(Calendar.MINUTE, minute);
+        date.set(Calendar.YEAR, year);
+        date.set(Calendar.DAY_OF_MONTH, day);
+        date.set(Calendar.MONTH, month);
         AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        Calendar now = Calendar.getInstance();
 
-        Intent i = new Intent(this, MemoAlarmReceiver.class);
-        i.putExtra("EDMID", eventDateModel.getID() );
-        i.putExtra("TITLE", eventDateModel.getEventTitle() );
-        i.putExtra("DETAIL", eventDateModel.getEventDetail());
 
-        PendingIntent pi = PendingIntent.getBroadcast(this, eventDateModel.getID() , i, 0);
-        am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi);
 
+
+        //set exact due date
+        setAlarmIntent(eventDateModel.getID(),
+                      eventTitleInput.getText().toString() + " DUE NOW!! ",
+                      date.getTimeInMillis(),
+                      CHANNEL_1_ID,
+                     true);
+
+        /*
+        //set half way to due date
+        long halfTime = (date.getTimeInMillis()- now.getTimeInMillis())/2 + now.getTimeInMillis();
+        setAlarmIntent(eventDateModel.getID2(),
+                eventTitleInput.getText().toString() + " HALF WAYS!! ",
+                halfTime,
+                CHANNEL_2_ID,
+                false);
+        */
     }
+
+    private void setAlarmIntent(int id, String title, long time, String channelID, boolean isFinalDate){
+        AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        Intent i = new Intent(this, MemoAlarmReceiver.class);
+        i.putExtra("EDMID", id );
+        i.putExtra("TITLE", title);
+        i.putExtra("DETAIL", eventDetailInput.getText().toString());
+        i.putExtra("ChannelID", channelID);
+        i.putExtra("IsFinalDate", isFinalDate);
+
+        PendingIntent pi = PendingIntent.getBroadcast(this, id , i, 0);
+        am.setExact(AlarmManager.RTC_WAKEUP,time, pi);
+    }
+
 }

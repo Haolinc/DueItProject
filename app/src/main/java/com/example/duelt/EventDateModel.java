@@ -14,7 +14,7 @@ public class EventDateModel {
     private String eventDetail;
     private int year, month, day, hour, minute;
     private int timeForOrder, ID, waked;
-
+    private int ID2, ID3, ID4;
     public EventDateModel() {
         this.eventTitle = "ERROR";
         this.eventDetail = "ERROR";
@@ -51,7 +51,10 @@ public class EventDateModel {
         this.minute = minute;
         timeForOrder =   minute + hour*100 + day*10000 + month * 1000000 + year*100000000;
         this.ID = id;
-        this.waked = waked;
+        this.ID2 = id + 1;
+        this.ID3 = id + 2;
+        this.ID4 = id + 3;
+         this.waked = waked;
     }
 
     //get system date
@@ -164,14 +167,31 @@ public class EventDateModel {
 
     public void setWaked(int waked) {this.waked = waked; }
 
+    public int getID2() {
+        return ID2;
+    }
+
+    public int getID3() {
+        return ID3;
+    }
+
+    public int getID4() {
+        return ID4;
+    }
 
     private int autoAssignID(Context ctx){
         DatabaseHelper databaseHelper = new DatabaseHelper(ctx);
         List<Integer> idFromDatabase= databaseHelper.getIDFromDatabase();
         Collections.sort(idFromDatabase);
-        for (int i=0;i<idFromDatabase.size();i++){
+        for (int i=0;i<idFromDatabase.size();i = i +4){
             if (i != idFromDatabase.get(i)){
                 idFromDatabase.add(i);
+                ID2 = i + 1;
+                idFromDatabase.add(ID2);
+                ID3 = i + 2;
+                idFromDatabase.add(ID3);
+                ID4 = i + 3;
+                idFromDatabase.add(ID4);
                 return i;
             }
         }
