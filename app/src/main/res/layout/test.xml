@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/Toolbar_grid"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerInParent="true">
+                <TextView
+                    android:id="@+id/txt1_gird"
+                    android:textSize="20dp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_gravity="center"
+                    android:id="@+id/txt2_grid"
+                    android:textSize="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"  />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/bt_gird"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:textSize="18dp"
+                android:text="列表模式"/>
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:showDividers="middle">
+        <TextView
+            android:singleLine="false"
+            android:id="@+id/month"
+            android:textSize="13dp"
+            android:layout_width="24dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="2\n月"/>
+        <TextView
+            android:id="@+id/Mon"
+            style="@style/top"
+            android:text="周一\n27号" />
+        <TextView
+            android:id="@+id/Tus"
+            style="@style/top"
+            android:text="周二" />
+        <TextView
+            android:id="@+id/Wed"
+            style="@style/top"
+            android:text="周三" />
+        <TextView
+            android:id="@+id/Thu"
+            style="@style/top"
+            android:text="周四" />
+        <TextView
+            android:id="@+id/Fri"
+            style="@style/top"
+            android:text="周五" />
+        <TextView
+            android:id="@+id/Sat"
+            style="@style/top"
+            android:text="周六" />
+        <TextView
+            android:id="@+id/Sun"
+            style="@style/top"
+            android:text="周日" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="24dp"
+                android:layout_height="match_parent">
+                <TextView
+                    style="@style/first_item"
+                    android:text="1" />
+                <TextView
+                    style="@style/first_item"
+                    android:text="2" />
+                <TextView
+                    style="@style/first_item"
+                    android:text="3" />
+                <TextView
+                    style="@style/first_item"
+                    android:text="4" />
+                <TextView
+                    style="@style/first_item"
+                    android:text="5" />
+                <TextView
+                    style="@style/first_item"
+                    android:text="6" />
+                <TextView
+                    style="@style/first_item"
+                    android:text="7" />
+                <TextView
+                    style="@style/first_item"
+                    android:text="8" />
+                <TextView
+                    style="@style/first_item"
+                    android:text="9" />
+                <TextView
+                    style="@style/first_item"
+                    android:text="10" />
+                <TextView
+                    style="@style/first_item"
+                    android:text="11" />
+                <TextView
+                    style="@style/first_item"
+                    android:text="12" />
+                <TextView
+                    style="@style/first_item"
+                    android:text="13" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/column_1"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/column_2"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/column_3"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/column_4"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/column_5"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/column_6"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/column_7"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
