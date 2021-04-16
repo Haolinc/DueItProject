@@ -111,9 +111,20 @@ public class MemoFragment extends Fragment {
             }
         });
 
-        createOneTextsViewInDayLeft();
+        createTextsViewInDayLeft();
 
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateTextViewInDayLeft();
+    }
+
+    private void updateTextViewInDayLeft() {
+        layoutView.removeAllViews();
+        createTextsViewInDayLeft();
     }
 
     private void createOneTextViewInDayLeft(EventDateModel edm) {
@@ -130,7 +141,7 @@ public class MemoFragment extends Fragment {
         layoutView.addView(tv);
     }
 
-    private void createOneTextsViewInDayLeft(){
+    private void createTextsViewInDayLeft(){
         DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
         List<EventDateModel> list = databaseHelper.getDueDateReminder();
         for (int i=0; i<list.size(); i++){
