@@ -200,20 +200,16 @@ public class EventDateModel {
         DatabaseHelper databaseHelper = new DatabaseHelper(ctx);
         List<Integer> idFromDatabase = databaseHelper.getIDFromDueDate();
         idFromDatabase.addAll(databaseHelper.getIDFromDaily());
+        if (idFromDatabase.size() == 0) return 0;
         Collections.sort(idFromDatabase);
-        for (int i=0;i<idFromDatabase.size();i = i +4){
-            if (i != idFromDatabase.get(i)){
-                idFromDatabase.add(i);
-                ID2 = i + 1;
-                idFromDatabase.add(ID2);
-                ID3 = i + 2;
-                idFromDatabase.add(ID3);
-                ID4 = i + 3;
-                idFromDatabase.add(ID4);
-                return i;
+        for (int i=0;i<idFromDatabase.size();i++){
+            if (i != idFromDatabase.get(i)/4){
+                Toast.makeText(ctx, Integer.toString(i*4), Toast.LENGTH_SHORT).show();
+                return i*4;
             }
         }
-        return idFromDatabase.size();
+        Toast.makeText(ctx, Integer.toString(idFromDatabase.size()*4), Toast.LENGTH_SHORT).show();
+        return idFromDatabase.size()*4;
     }
 
     public String toStringTimeOnly() {
