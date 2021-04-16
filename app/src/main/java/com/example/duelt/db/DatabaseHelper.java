@@ -420,7 +420,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         List<Integer> idList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT " + ID_COLUMN + " From  "+DUEDATE_TABLE_NAME, null);
+        Cursor cursor = db.rawQuery("SELECT " + ID_COLUMN + " From  "+DAILY_TABLE_NAME, null);
 
         if(cursor.moveToFirst()){
 
