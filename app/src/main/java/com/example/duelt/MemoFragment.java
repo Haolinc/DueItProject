@@ -64,17 +64,6 @@ public class MemoFragment extends Fragment {
             }
         });
 
-        //viewAll button function
-        Button btn_viewAll = (Button) rootView.findViewById(R.id.viewAll);
-        btn_viewAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
-                List<EventDateModel> list = databaseHelper.getDueDateReminder();
-                Toast.makeText(getActivity(), list.toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
         //getDate button function
         Button btn_getDate = (Button) rootView.findViewById(R.id.button3);  //Consider changing id naming
         btn_getDate.setOnClickListener(new View.OnClickListener() {
@@ -86,30 +75,6 @@ public class MemoFragment extends Fragment {
             }
         });
 
-        //testNotification button function
-        Button btn_testNotification = (Button) rootView.findViewById(R.id.button4); //Consider changing id naming
-        btn_testNotification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
-                List<EventDateModel> list = databaseHelper.getDueDateReminder();
-                EventDateModel edm = list.get(0);
-                String eventTitle = edm.getEventTitle();
-                String eventDetail = edm.getEventDetail();
-
-                Notification notification = new NotificationCompat.Builder(getActivity(), CHANNEL_1_ID)
-                        .setSmallIcon(R.drawable.ic_baseline_looks_one_24)
-                        .setContentTitle(eventTitle)
-                        .setContentText(eventDetail)
-                        .setPriority(NotificationCompat.PRIORITY_HIGH)
-                        .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                        .build();
-
-                //Have to assign notificationManagerCompat.
-                NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getActivity());
-                notificationManagerCompat.notify(1,notification);
-            }
-        });
 
         createTextsViewInDayLeft();
 
