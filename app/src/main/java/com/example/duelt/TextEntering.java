@@ -24,6 +24,8 @@ import java.util.List;
 
 import static com.example.duelt.MainActivity.CHANNEL_1_ID;
 import static com.example.duelt.MainFragment.CHANNEL_2_ID;
+import static com.example.duelt.MainFragment.CHANNEL_3_ID;
+import static com.example.duelt.MainFragment.CHANNEL_4_ID;
 
 public class TextEntering extends AppCompatActivity {
     private String eventTitle;
@@ -110,7 +112,6 @@ public class TextEntering extends AppCompatActivity {
                       CHANNEL_1_ID,
                      true);
 
-        /*
         //set half way to due date
         long halfTime = (date.getTimeInMillis()- now.getTimeInMillis())/2 + now.getTimeInMillis();
         setAlarmIntent(eventDateModel.getID2(),
@@ -118,7 +119,24 @@ public class TextEntering extends AppCompatActivity {
                 halfTime,
                 CHANNEL_2_ID,
                 false);
-        */
+
+        //set one Third of way to due date
+        long oneThirdTime = (date.getTimeInMillis()- now.getTimeInMillis())*2/3 + now.getTimeInMillis();
+        setAlarmIntent(eventDateModel.getID3(),
+                eventTitleInput.getText().toString() + " ONLY ONE THIRD WAYS LEFT!! ",
+                oneThirdTime,
+                CHANNEL_3_ID,
+                false);
+
+        //last day to due date
+        long lastday = date.getTimeInMillis() - 86400000;
+        if(lastday - now.getTimeInMillis() > 0) {
+            setAlarmIntent(eventDateModel.getID4(),
+                    eventTitleInput.getText().toString() + " THE LAST 24 HOURS!! ",
+                    lastday,
+                    CHANNEL_4_ID,
+                    false);
+        }
     }
 
     private void setAlarmIntent(int id, String title, long time, String channelID, boolean isFinalDate){

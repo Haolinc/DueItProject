@@ -28,6 +28,8 @@ import java.util.List;
 public class MainFragment extends Fragment {
     protected static final String CHANNEL_1_ID = "channel1";
     protected static final String CHANNEL_2_ID = "channel2";
+    protected static final String CHANNEL_3_ID = "channel3";
+    protected static final String CHANNEL_4_ID = "channel4";
 
 
     public MainFragment(){
@@ -77,6 +79,23 @@ public class MainFragment extends Fragment {
             channel2.setDescription("This is channel 2");
             manager.createNotificationChannel(channel2);
 
+            //Create channel 3
+            NotificationChannel channel3 = new NotificationChannel(
+                    CHANNEL_3_ID,
+                    "Channel 3",
+                    NotificationManager.IMPORTANCE_HIGH
+            );
+            channel3.setDescription("This is channel 3");
+            manager.createNotificationChannel(channel3);
+
+            //Create channel 4
+            NotificationChannel channel4 = new NotificationChannel(
+                    CHANNEL_4_ID,
+                    "Channel 4",
+                    NotificationManager.IMPORTANCE_HIGH
+            );
+            channel4.setDescription("This is channel 4");
+            manager.createNotificationChannel(channel4);
 
         }
     }

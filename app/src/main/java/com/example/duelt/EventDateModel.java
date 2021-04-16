@@ -40,6 +40,9 @@ public class EventDateModel {
         this.minute = minute;
         timeForOrder =   minute + hour*100 + day*10000 + month * 1000000 + year*100000000;
         this.ID = autoAssignID(ctx);
+        this.ID2 = ID + 1;
+        this.ID3 = ID + 2;
+        this.ID4 = ID + 3;
         waked = 0;
     }
 
