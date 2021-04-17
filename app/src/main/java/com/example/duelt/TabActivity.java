@@ -31,7 +31,10 @@ public class TabActivity extends AppCompatActivity {
         mtoolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mtoolbar);
 
+        getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24);
+
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
@@ -65,16 +68,16 @@ public class TabActivity extends AppCompatActivity {
         Class fragmentClass;
         switch(menuItem.getItemId()) {
             case R.id.nav_first_fragment:
-                fragmentClass = MainActivity.class;
+                fragmentClass = test_frag.class;
                 break;
             case R.id.nav_second_fragment:
-                fragmentClass = MiniActivity.class;
+                fragmentClass = test_frag.class;
                 break;
             case R.id.nav_third_fragment:
-                fragmentClass = MemoActivity.class;
+                fragmentClass = test_frag.class;
                 break;
             default:
-                fragmentClass = MainActivity.class;
+                fragmentClass = MainFragment.class;
         }
 
         try {
