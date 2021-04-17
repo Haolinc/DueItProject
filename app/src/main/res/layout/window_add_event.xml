@@ -5,51 +5,116 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     app:cardCornerRadius="30dp"
     app:cardBackgroundColor="#ffffff"
-    app:cardPreventCornerOverlap="false">
-
-    <LinearLayout android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+    app:cardPreventCornerOverlap="false"
     >
 
-    <EditText
-        android:layout_marginTop="20dp"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:hint="Event Name"
-        android:inputType="text"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/rounded_edittext" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-    <Spinner
-        android:id="@+id/spinner_start"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:background="@drawable/rounded_edittext"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center_horizontal"
-        android:spinnerMode="dropdown"
-        />
-    <Spinner
-        android:id="@+id/spinner_end"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:background="@drawable/rounded_edittext"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center_horizontal"
-        android:spinnerMode="dropdown"
-        />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp">
 
-    <Button
-        android:layout_width="100dp"
-        android:layout_height="56dp"
-        android:id="@+id/btn_addEvent"
-        android:text="Add"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:cornerRadius="20dp"
-        android:layout_marginTop="50dp"
-        android:layout_gravity="center_horizontal"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Event Name:"
+                android:textSize="10sp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Select Day:"
+                android:textSize="10sp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Start Time:"
+                android:textSize="10sp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="End Time:"
+                android:textSize="10sp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Color:"
+                android:textSize="10sp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"/>
 
-</LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+        >
+
+            <EditText
+                android:id="@+id/eventText"
+                android:layout_marginTop="20dp"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:inputType="text"
+                android:background="@drawable/rounded_edittext"
+                android:paddingLeft="10dp"/>
+
+            <Spinner
+                android:id="@+id/spinner_week"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:background="@drawable/rounded_edittext"
+                android:layout_marginTop="20dp"
+                android:spinnerMode="dropdown"
+                />
+            <Spinner
+                android:id="@+id/spinner_start"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:background="@drawable/rounded_edittext"
+                android:layout_marginTop="20dp"
+                android:spinnerMode="dropdown"
+                />
+            <Spinner
+                android:id="@+id/spinner_end"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:background="@drawable/rounded_edittext"
+                android:layout_marginTop="20dp"
+                android:spinnerMode="dropdown"
+                />
+            <Spinner
+                android:id="@+id/spinner_color"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:background="@drawable/rounded_edittext"
+                android:layout_marginTop="20dp"
+                android:spinnerMode="dropdown"
+                />
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="56dp"
+                android:id="@+id/btn_addEvent"
+                android:text="Add"
+                android:onClick="addEventToWeeklySchedule"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:cornerRadius="20dp"
+                android:layout_marginTop="50dp"/>
+        </LinearLayout>
+    </LinearLayout>
 </androidx.cardview.widget.CardView>

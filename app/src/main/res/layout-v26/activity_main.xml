@@ -130,14 +130,13 @@
             android:layout_marginStart="3dp"
             android:layout_marginEnd="3dp"
             android:layout_toEndOf="@id/buttonToMemo"
-            android:text="Daily routine"
+            android:text="Drawer"
             android:textSize="8sp"
-            android:onClick="jumpToDaily"
             app:layout_constraintHeight_percent="0.25"
             app:layout_constraintWidth_percent="0.25" />
 
         <Button
-            android:id="@+id/buttonToTP"
+            android:id="@+id/buttonToSchedule"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -149,7 +148,7 @@
             android:autoSizeStepGranularity="2sp"
             android:autoSizeTextType="uniform"
             android:onClick="jumpToTP"
-            android:text="Treament Plan"
+            android:text="Schedule Test"
             android:textSize="8sp"
 
             app:layout_constraintHeight_percent="0.25"

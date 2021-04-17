@@ -46,6 +46,15 @@ public class MainFragment extends Fragment {
                 databaseHelper.upgrade();
             }
         });
+
+        Button btn_toSchedule = (Button) rootView.findViewById(R.id.buttonToSchedule);
+        btn_toSchedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(),ScheduleTestActivity.class));
+            }
+        });
+
         createNoticficationChannels();
 
         return rootView;

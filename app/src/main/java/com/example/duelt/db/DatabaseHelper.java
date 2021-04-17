@@ -11,7 +11,9 @@ import androidx.annotation.Nullable;
 import com.example.duelt.EventDateModel;
 import com.example.duelt.ItemModel;
 import com.example.duelt.PetModel;
+import com.example.duelt.WeeklyScheduleModel;
 
+import java.lang.reflect.Executable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +48,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String FOOD_COLUMN = "FOOD";
     private static final String TOY_COLUMN = "TOY";
 
-
+    //Weekly Schedule table
+    private static final String WEEKLY_SCHEDULE_TABLE_NAME = "WEEKLY_SCHEDULE_TABLE";
+    private static final String EVENT_ID_COLUMN = "EVENT_ID";
+    private static final String EVENT_NAME_COLUMN = "EVENT_NAME";
+    private static final String WEEK_DAY_COLUMN = "WEEK_DAY";
+    private static final String START_TIME_COLUMN = "START_TIME";
+    private static final String END_TIME_COLUMN = "END_TIME";
+    private static final String START_TIME_POSITION_COLUMN="START_POSITION";
+    private static final String END_TIME_POSITION_COLUMN = "END_POSITION";
+    private static final String BACKGROUND_COLOR_COLUMN = "COLOR";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE, null, VERSION);
@@ -78,6 +89,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + FOOD_COLUMN + " INT, "
                 + TOY_COLUMN + " INT);";
         db.execSQL(createItemTableStatement);
+
+        final String createWeekDayTableStatement = "CREATE TABLE IF NOT EXISTS " + WEEKLY_SCHEDULE_TABLE_NAME + "("
+                + EVENT_ID_COLUMN + " INT, "
+                + EVENT_NAME_COLUMN + " TEXT, "
+                + WEEK_DAY_COLUMN + " TEXT, "  //Review this line
+                + START_TIME_COLUMN + " TEXT, "
+                + END_TIME_COLUMN + " TEXT, "
+                + START_TIME_POSITION_COLUMN + " INT, "
+                + END_TIME_POSITION_COLUMN + " INT, "
+                + BACKGROUND_COLOR_COLUMN + " TEXT);";
+        db.execSQL(createWeekDayTableStatement);
     }
 
     @Override
@@ -93,6 +115,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TIME_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + PET_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + ITEM_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + WEEKLY_SCHEDULE_TABLE_NAME);
         onCreate(db);
     }
 
@@ -454,5 +477,92 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    //All WeeklySchedule table functions goes here
+    //↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+
+    //Get list of id from WeeklySchedule table
+    public List<Integer> getIDFromWeeklySchedule(){
+        List<Integer> idList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT " + EVENT_ID_COLUMN + " FROM " + WEEKLY_SCHEDULE_TABLE_NAME, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                int id = cursor.getInt(cursor.getColumnIndex(EVENT_ID_COLUMN));
+                idList.add(id);
+            }while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return idList;
+    }
+
+    //Delete one data from WeeklySchedule table
+    public boolean deleteOneFromWeeklySchedule(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String queryString = "DELETE FROM " +
+                WEEKLY_SCHEDULE_TABLE_NAME + " WHERE " + EVENT_ID_COLUMN + " = " + id + ";" ;
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()){
+            cursor.close();
+            db.close();
+            return true;
+        }
+        else {
+            cursor.close();
+            db.close();
+            return false;
+        }
+    }
+
+    //Add event to WeeklyScheduleTable
+    public void addOneToWeeklySchedule(WeeklyScheduleModel weeklyScheduleModel){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+//        cv.put(EVENT_ID_COLUMN, weeklyScheduleModel.getId());
+        cv.put(EVENT_NAME_COLUMN, weeklyScheduleModel.getEventName());
+        cv.put(WEEK_DAY_COLUMN,weeklyScheduleModel.getWeekDay());
+        cv.put(START_TIME_COLUMN, weeklyScheduleModel.getStartTime());
+        cv.put(END_TIME_COLUMN, weeklyScheduleModel.getEndTime());
+        cv.put(START_TIME_POSITION_COLUMN, weeklyScheduleModel.getStartPosition());
+        cv.put(END_TIME_POSITION_COLUMN,weeklyScheduleModel.getEndPosition());
+        cv.put(BACKGROUND_COLOR_COLUMN,weeklyScheduleModel.getColor());
+
+        db.insert(WEEKLY_SCHEDULE_TABLE_NAME, null, cv);
+        db.close();
+    }
+
+    //Get WeeklySchedule list
+    public List<WeeklyScheduleModel> getWeeklySchedule(){
+        List<WeeklyScheduleModel> weeklyScheduleModelList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * From  "+WEEKLY_SCHEDULE_TABLE_NAME + " ORDER BY "+ EVENT_ID_COLUMN, null);
+
+        if(cursor.moveToFirst()){
+
+            do{
+                String eventName = cursor.getString(cursor.getColumnIndex(EVENT_NAME_COLUMN));
+                String color = cursor.getString(cursor.getColumnIndex(BACKGROUND_COLOR_COLUMN));
+                String weekDay = cursor.getString(cursor.getColumnIndex(WEEK_DAY_COLUMN));
+                String startTime = cursor.getString(cursor.getColumnIndex(START_TIME_COLUMN));
+                String endTime = cursor.getString(cursor.getColumnIndex(END_TIME_COLUMN));
+                int startPosition = cursor.getInt(cursor.getColumnIndex(START_TIME_POSITION_COLUMN));
+                int endPosition = cursor.getInt(cursor.getColumnIndex(END_TIME_POSITION_COLUMN));
+                int id  = cursor.getInt(cursor.getColumnIndex(EVENT_ID_COLUMN));
+
+                WeeklyScheduleModel weeklyScheduleModel = new WeeklyScheduleModel(eventName, color, weekDay, startTime, endTime, startPosition, endPosition, id);
+                weeklyScheduleModelList.add(weeklyScheduleModel);
+
+            }while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return weeklyScheduleModelList;
+    }
 
 }

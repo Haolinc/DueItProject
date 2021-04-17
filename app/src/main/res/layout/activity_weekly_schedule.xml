@@ -574,6 +574,38 @@
 
                     <include layout="@layout/calendar_line_divider" />
 
+ <!-- This part is for testing, Real cardView will be created through ScheduleActivity.java -->
+<!--                    <androidx.cardview.widget.CardView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="117dp"-->
+<!--                        app:cardBackgroundColor="#77FDE3"-->
+<!--                        android:layout_margin="2dp"/>-->
+
+<!--                    <androidx.cardview.widget.CardView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="117dp"-->
+<!--                        android:layout_marginTop="120dp"-->
+<!--                        android:layout_marginBottom="2dp"-->
+<!--                        app:cardBackgroundColor="#EFFE74" />-->
+<!--                    <androidx.cardview.widget.CardView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="117dp"-->
+<!--                        android:layout_marginTop="240dp"-->
+<!--                        android:layout_marginBottom="2dp"-->
+<!--                        app:cardBackgroundColor="#FF6FA8" />-->
+<!--                    <androidx.cardview.widget.CardView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="117dp"-->
+<!--                        android:layout_marginTop="360dp"-->
+<!--                        android:layout_marginBottom="2dp"-->
+<!--                        app:cardBackgroundColor="#EB6FFF" />-->
+<!--                    <androidx.cardview.widget.CardView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="117dp"-->
+<!--                        android:layout_marginTop="480dp"-->
+<!--                        android:layout_marginBottom="2dp"-->
+<!--                        app:cardBackgroundColor="#B3FE74" />-->
+
                 </RelativeLayout>
 
                 <!-- Monday -->
@@ -709,6 +741,19 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"/>
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:id="@+id/btn_addCard"
+        android:text="test"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:cornerRadius="28dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="100dp"
         android:layout_marginEnd="20dp"/>
 
 </RelativeLayout>
