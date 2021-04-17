@@ -31,7 +31,10 @@ public class TabActivity extends AppCompatActivity {
         mtoolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mtoolbar);
 
+        getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24);
+
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
