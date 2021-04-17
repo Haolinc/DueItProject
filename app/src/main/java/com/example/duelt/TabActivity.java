@@ -65,16 +65,16 @@ public class TabActivity extends AppCompatActivity {
         Class fragmentClass;
         switch(menuItem.getItemId()) {
             case R.id.nav_first_fragment:
-                fragmentClass = MainActivity.class;
+                fragmentClass = test_frag.class;
                 break;
             case R.id.nav_second_fragment:
-                fragmentClass = MiniActivity.class;
+                fragmentClass = test_frag.class;
                 break;
             case R.id.nav_third_fragment:
-                fragmentClass = MemoActivity.class;
+                fragmentClass = test_frag.class;
                 break;
             default:
-                fragmentClass = MainActivity.class;
+                fragmentClass = MainFragment.class;
         }
 
         try {
