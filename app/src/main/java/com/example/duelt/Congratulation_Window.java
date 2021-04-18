@@ -2,6 +2,8 @@ package com.example.duelt;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -9,6 +11,11 @@ import android.widget.TextView;
 
 public class Congratulation_Window extends AppCompatActivity {
     AnimationDrawable mWinnerCup;
+    boolean mWinnerCupIsRunning;
+    //testcode//**********************************************************************************
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +25,7 @@ public class Congratulation_Window extends AppCompatActivity {
         ImageView vWinnerCup = (ImageView)findViewById(R.id.img_winner_cup);
         vWinnerCup.setBackgroundResource(R.drawable.winner_cup_list);
         mWinnerCup = (AnimationDrawable) vWinnerCup.getBackground();
-
         mWinnerCup.start();
+
     }
 }
