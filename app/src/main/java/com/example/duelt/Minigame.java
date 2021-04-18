@@ -3,6 +3,7 @@ package com.example.duelt;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +23,10 @@ public class Minigame extends AppCompatActivity {
     private Button mLevel;
     private Button mPlay;
 
+    private StatesView hungrinessState;
+    private StatesView moodState;
+    private StatesView expState;
+
     DatabaseHelper petDatabaseHelper = new DatabaseHelper(this);
 
     @Override
@@ -39,6 +44,24 @@ public class Minigame extends AppCompatActivity {
         mLevel = findViewById(R.id.btn_lv);
         mPlay = findViewById(R.id.btn_play);
 
+        PetModel petmodel = petDatabaseHelper.getCurrentStat();
+
+        //init  HungrinessState bar
+        hungrinessState = findViewById(R.id.hungrinessState);
+        hungrinessState.setMaxCount(100);
+        hungrinessState.setColor(Color.RED);
+        int currentHungry = petmodel.getHungriness();
+        hungrinessState.setCurrentCount(currentHungry);
+
+        //init MoodState bar
+        moodState = findViewById(R.id.moodState);
+        moodState.setMaxCount(100);
+        moodState.setColor(Color.BLUE);
+        int currentMood = petmodel.getMood();
+        moodState.setCurrentCount(currentMood);
+
+        //init MoodState bar
+        expState = findViewById(R.id.expState);
 
         mHungry.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +117,8 @@ public class Minigame extends AppCompatActivity {
         PetModel oldPetmodel = petDatabaseHelper.getCurrentStat();
         int currentMood = oldPetmodel.getMood();
         currentMood = toy(currentMood);
+        //update mood state bar
+        moodState.setCurrentCount(currentMood);
         //check your pet's current mood
         if(currentMood <= 40){
             Toast.makeText(this, "your pet is sad!", Toast.LENGTH_LONG).show();
@@ -113,6 +138,7 @@ public class Minigame extends AppCompatActivity {
         if(mood > 100){
             mood = 100;
         }
+
         return mood;
     }
 
@@ -124,6 +150,8 @@ public class Minigame extends AppCompatActivity {
         int currentHungry = oldPetmodel.getHungriness();
         //feed pet function
         currentHungry = feed(currentHungry);
+        //set hungry bar state
+        hungrinessState.setCurrentCount(currentHungry);
         oldPetmodel.setHungriness(currentHungry);
         //update pet sqlite
         petDatabaseHelper.updateData(oldPetmodel);
