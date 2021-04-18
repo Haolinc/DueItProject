@@ -7,17 +7,11 @@ import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
-
-import pl.droidsonroids.gif.GifImageView;
 
 public class TreatmentActivity extends AppCompatActivity {
     AnimationDrawable go321Animation;
@@ -34,7 +28,7 @@ public class TreatmentActivity extends AppCompatActivity {
         mEditTimeInput = findViewById(R.id.edit_time_input);
         mButtonSet = findViewById(R.id.btn_setTime);
         ImageButton imageButton = (ImageButton) findViewById(R.id.go321button);
-        imageButton.setBackgroundResource(R.drawable.go_3_2_1);
+        imageButton.setBackgroundResource(R.drawable.btn_go_321_list);
         informat = (TextView) findViewById(R.id.startText);
         go321Animation = (AnimationDrawable) imageButton.getBackground();
 

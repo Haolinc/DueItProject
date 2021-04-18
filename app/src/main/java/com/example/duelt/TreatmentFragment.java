@@ -34,7 +34,7 @@ public class TreatmentFragment extends Fragment {
         mEditTimeInput = rootView.findViewById(R.id.edit_time_input);
         mButtonSet = rootView.findViewById(R.id.btn_setTime);
         ImageButton imageButton = (ImageButton) rootView.findViewById(R.id.go321button);
-        imageButton.setBackgroundResource(R.drawable.go_3_2_1);
+        imageButton.setBackgroundResource(R.drawable.btn_go_321_list);
         informat = (TextView) rootView.findViewById(R.id.startText);
         go321Animation = (AnimationDrawable) imageButton.getBackground();
 

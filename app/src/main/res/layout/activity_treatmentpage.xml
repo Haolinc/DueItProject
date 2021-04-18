@@ -15,7 +15,7 @@
             android:id="@+id/button_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/custom_buttonblue"
+            android:background="@drawable/custom_button_selector"
             android:text="back"
             android:onClick="back"
             app:layout_constraintEnd_toEndOf="parent"
@@ -23,6 +23,15 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteY="0dp" />
+
+        <Button
+            android:id="@+id/test_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="test_Button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/button_back"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,7 +49,7 @@
             android:id="@+id/gifImageView"
             android:layout_width="250dp"
             android:layout_height="250dp"
-            android:src="@drawable/countdowncharactertest"
+            android:src="@drawable/treatmentpage_character_jump"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
@@ -82,7 +91,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/custom_buttonblue"
+            android:background="@drawable/custom_button_selector"
             android:text="start"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -104,4 +113,5 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </RelativeLayout>

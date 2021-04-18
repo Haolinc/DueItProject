@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Duelt">
+        <activity android:name=".Congratulation_Window"></activity>
         <activity
             android:name=".ScheduleEventAddWindow"
             android:theme="@style/AppTheme.CustomTheme" />

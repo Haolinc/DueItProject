@@ -27,6 +27,7 @@ public class treatmentpage extends AppCompatActivity {
     private Button mButtonStartPause;
     //bug test****************************************************************************************
     private TextView mbug;
+    private Button mTestButton;
     //bug test****************************************************************************************
     //MediaPlayer alarmSoundMP = MediaPlayer.create(this, R.raw.alarmclock);
     private CountDownTimer mCountDownTimer;
@@ -42,6 +43,15 @@ public class treatmentpage extends AppCompatActivity {
         final MediaPlayer alarmSoundMP = MediaPlayer.create(this, R.raw.alarmclock);
         //bug test****************************************************************************************
         mbug = findViewById(R.id.text_bug);
+        mTestButton = findViewById(R.id.test_button);
+
+        mTestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(v.getContext(), Congratulation_Window.class));
+            }
+        });
         //bug test****************************************************************************************
         mCountDown = findViewById(R.id.countdown_text);
         mCountDownDisplay = findViewById(R.id.countDown_distext);
