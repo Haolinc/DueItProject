@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.example.duelt.db.DatabaseHelper;
 
+import java.util.ArrayList;
+
 public class Minigame extends AppCompatActivity {
     private TextView petHungry;
     private TextView petMood;
@@ -22,10 +24,12 @@ public class Minigame extends AppCompatActivity {
     private Button mExp;
     private Button mLevel;
     private Button mPlay;
-
     private StatesView hungrinessState;
     private StatesView moodState;
     private StatesView expState;
+
+    //TESTING Purpose;
+    private Button showEXP_Table;
 
     DatabaseHelper petDatabaseHelper = new DatabaseHelper(this);
 
@@ -43,6 +47,9 @@ public class Minigame extends AppCompatActivity {
         mExp = findViewById(R.id.btn_exp);
         mLevel = findViewById(R.id.btn_lv);
         mPlay = findViewById(R.id.btn_play);
+
+        //TESTING Purpose;
+        showEXP_Table = findViewById(R.id.SHOW_EXP_TABLE);
 
         PetModel petmodel = petDatabaseHelper.getCurrentStat();
 
@@ -97,6 +104,22 @@ public class Minigame extends AppCompatActivity {
                 toyPet();
             }
         });
+
+        //TESTING Purpose;
+        showEXP_Table.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showExpTable();
+            }
+
+        });
+
+    }
+
+    private void showExpTable() {
+        ArrayList<Integer> expTable = petDatabaseHelper.getExpForLevelTable();
+        Toast.makeText(this, expTable.toString(), Toast.LENGTH_SHORT).show();
     }
 
     private void updateText1(){
