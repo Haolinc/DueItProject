@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -68,27 +69,30 @@ public class TabActivity extends AppCompatActivity {
         Class fragmentClass;
         switch(menuItem.getItemId()) {
             case R.id.nav_first_fragment:
-                fragmentClass = test_frag.class;
+//                fragmentClass = test_frag.class;
+                startActivity(new Intent(this, MemoActivity.class));
                 break;
             case R.id.nav_second_fragment:
-                fragmentClass = test_frag.class;
+//                fragmentClass = test_frag.class;
+                startActivity(new Intent(this, DailyActivity.class));
                 break;
             case R.id.nav_third_fragment:
-                fragmentClass = test_frag.class;
+//                fragmentClass = test_frag.class;
+                startActivity(new Intent(this, MiniActivity.class));
                 break;
             default:
-                fragmentClass = MainFragment.class;
+//                fragmentClass = MainFragment.class;
         }
 
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            fragment = (Fragment) fragmentClass.newInstance();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.viewpager, fragment).commit();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        fragmentManager.beginTransaction().replace(R.id.viewpager, fragment).commit();
 
         // Highlight the selected item has been done by NavigationView
         menuItem.setChecked(true);
