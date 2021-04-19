@@ -78,7 +78,7 @@ public class TabActivity extends AppCompatActivity {
                 break;
             case R.id.nav_third_fragment:
 //                fragmentClass = test_frag.class;
-                startActivity(new Intent(this, MiniActivity.class));
+                startActivity(new Intent(this, Setting.class));
                 break;
             default:
 //                fragmentClass = MainFragment.class;
