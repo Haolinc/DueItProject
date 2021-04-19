@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -59,6 +60,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String END_TIME_POSITION_COLUMN = "END_POSITION";
     private static final String BACKGROUND_COLOR_COLUMN = "COLOR";
 
+    //expForLevel table
+    private static final String EXP_FOR_LEVEL_TABLE = "EXP_FOR_LEVEL_TABLE"  ;
+    private static final String EXP_FOR_EACH_LEVEL_COLUMN = "EXP_FOR_EACH_LEVEL";
+    private static final String E_LEVEL_COLUMN = "E_LEVEL";
+
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE, null, VERSION);
     }
@@ -100,6 +107,53 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + END_TIME_POSITION_COLUMN + " INT, "
                 + BACKGROUND_COLOR_COLUMN + " TEXT);";
         db.execSQL(createWeekDayTableStatement);
+
+        createExpForLevelTable(100, 100, 0.25 );
+    }
+
+    private void createExpForLevelTable(int maxLevel, int expForLevel1, double increateRatio) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        //DELETE OLD TABLE BEFORE CREATE A NEW ONE
+        db.execSQL("DROP TABLE IF EXISTS " + EXP_FOR_LEVEL_TABLE);
+        //Create a new table
+        final String createExpForLevelStatement = "CREATE TABLE IF NOT EXISTS " + EXP_FOR_LEVEL_TABLE + " ( "
+                + EXP_FOR_EACH_LEVEL_COLUMN + " INT, "
+                + E_LEVEL_COLUMN + " INT);" ;
+        db.execSQL(createExpForLevelStatement);
+
+        int currentExp = expForLevel1;
+        for(int level = 0; level<100; level ++ ){
+
+            cv.put(E_LEVEL_COLUMN, level);
+            //exp calculation formula 
+            currentExp = currentExp + expForLevel1 ;
+            cv.put(EXP_FOR_EACH_LEVEL_COLUMN, currentExp);
+            db.insert(EXP_FOR_LEVEL_TABLE, null, cv);
+
+        }
+        db.close();
+    }
+
+    public ArrayList<Integer> getExpForLevelTable(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        ArrayList<Integer> table = new ArrayList<Integer>();
+        Cursor cursor = db.rawQuery("SELECT * From  "+ EXP_FOR_LEVEL_TABLE, null);
+
+        if(cursor.moveToFirst()){
+
+            do{
+                int exp = cursor.getInt(cursor.getColumnIndex(EXP_FOR_EACH_LEVEL_COLUMN));
+                table.add(exp);
+
+            }while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return table;
+
     }
 
     @Override
@@ -107,6 +161,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TIME_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + PET_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + ITEM_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + EXP_FOR_LEVEL_TABLE);
         onCreate(db);
     }
 
@@ -116,6 +171,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + PET_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + ITEM_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + WEEKLY_SCHEDULE_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + EXP_FOR_LEVEL_TABLE);
         onCreate(db);
     }
 
