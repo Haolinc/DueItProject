@@ -114,8 +114,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private void createExpForLevelTable(int maxLevel, int expForLevel1, double increateRatio) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        //DELETE OLD TABLE BEFORE CREATE A NEW ONE
-        db.execSQL("DROP TABLE IF EXISTS " + EXP_FOR_LEVEL_TABLE);
         //Create a new table
         final String createExpForLevelStatement = "CREATE TABLE IF NOT EXISTS " + EXP_FOR_LEVEL_TABLE + " ( "
                 + EXP_FOR_EACH_LEVEL_COLUMN + " INT, "
@@ -127,7 +125,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             cv.put(E_LEVEL_COLUMN, level);
             //exp calculation formula 
-            currentExp = currentExp + expForLevel1 ;
+            currentExp = (int)(currentExp + (expForLevel1 * increateRatio)) ;
             cv.put(EXP_FOR_EACH_LEVEL_COLUMN, currentExp);
             db.insert(EXP_FOR_LEVEL_TABLE, null, cv);
 
