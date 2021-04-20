@@ -133,6 +133,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public int getExpForLevelUp(int level){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + EXP_FOR_LEVEL_TABLE + " WHERE " + E_LEVEL_COLUMN + " = " + level + ";", null);
+        cursor.moveToFirst();
+        int exp = cursor.getInt(cursor.getColumnIndex(EXP_FOR_EACH_LEVEL_COLUMN));
+        cursor.close();
+        db.close();
+        return exp;
+    }
+
     public ArrayList<Integer> getExpForLevelTable(){
         SQLiteDatabase db = this.getReadableDatabase();
 

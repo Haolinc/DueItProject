@@ -34,6 +34,7 @@ public class StatesView extends View {
     private void init(@Nullable AttributeSet attrs){
     }
 
+
     @Override
     protected void onDraw(Canvas canvas){
         super.onDraw(canvas);
@@ -49,7 +50,7 @@ public class StatesView extends View {
 
         float ratio = currentCount/maxCount;
         RectF rectProgressBg = new RectF(3, 3, (mWidth-3)*ratio, mHeight-3);
-        if(ratio == 0.0f) mPaint.setColor(Color.TRANSPARENT);
+        if(ratio <= 0.01f) mPaint.setColor(Color.TRANSPARENT);
         else mPaint.setColor(color);
         canvas.drawRoundRect(rectProgressBg, round, round, mPaint);
 

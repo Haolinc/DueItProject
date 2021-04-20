@@ -38,6 +38,7 @@
             app:layout_constraintTop_toBottomOf="@+id/pet_hungriness"
             app:layout_constraintVertical_bias="0.201" />
 
+
         <TextView
             android:id="@+id/pet_exp"
             android:layout_width="wrap_content"
@@ -45,7 +46,7 @@
             android:text="pet exp"
             app:layout_constraintBottom_toTopOf="@+id/imageView2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.016"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.522" />
@@ -54,13 +55,12 @@
             android:id="@+id/pet_lv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="pet lv"
-            app:layout_constraintBottom_toTopOf="@+id/imageView2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.068"
+            android:layout_marginStart="4dp"
+            android:text="pet lv :  "
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pet_exp"
-            app:layout_constraintVertical_bias="0.446" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.402" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -141,31 +141,54 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.673" />
 
+        <TextView
+            android:id="@+id/pet_lv_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.021"
+            app:layout_constraintStart_toEndOf="@+id/pet_lv"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.402" />
+
+        <Button
+            android:id="@+id/btn_exp_puls"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="84dp"
+            android:text="+Exp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
-        android:id="@+id/btn_hungry"
+        android:id="@+id/btn_set_pet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SET PET"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_mood"
+        app:layout_constraintEnd_toStartOf="@+id/btn_getCurrentStat"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btn_mood"
+        android:id="@+id/btn_getCurrentStat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:text="GET STAT"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_lv"
+        app:layout_constraintEnd_toStartOf="@+id/btn_delete"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btn_lv"
+        android:id="@+id/btn_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="224dp"
@@ -174,13 +197,13 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btn_exp"
+        android:id="@+id/btn_feed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="+HUNGER"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_lv" />
+        app:layout_constraintStart_toEndOf="@+id/btn_delete" />
 
     <Button
         android:id="@+id/btn_shop"

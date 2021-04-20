@@ -19,18 +19,18 @@ public class Minigame extends AppCompatActivity {
     private TextView petMood;
     private TextView petexp;
     private TextView petlv;
-    private Button mHungry;
-    private Button mMood;
+    private Button setPet;
+    private Button getCurrentStat;
     private Button mExp;
-    private Button mLevel;
+    private Button mDelete;
     private Button mPlay;
+    private Button feed;
     private StatesView hungrinessState;
     private StatesView moodState;
     private StatesView expState;
-
+    private TextView petLvNum;
     //TESTING Purpose;
     private Button showEXP_Table;
-
     DatabaseHelper petDatabaseHelper = new DatabaseHelper(this);
 
     @Override
@@ -42,12 +42,13 @@ public class Minigame extends AppCompatActivity {
         petMood = findViewById(R.id.pet_mood);
         petexp = findViewById(R.id.pet_exp);
         petlv = findViewById(R.id.pet_lv);
-        mHungry = findViewById(R.id.btn_hungry);
-        mMood = findViewById(R.id.btn_mood);
-        mExp = findViewById(R.id.btn_exp);
-        mLevel = findViewById(R.id.btn_lv);
+        setPet = findViewById(R.id.btn_set_pet);
+        getCurrentStat = findViewById(R.id.btn_getCurrentStat);
+        mExp = findViewById(R.id.btn_exp_puls);
+        mDelete = findViewById(R.id.btn_delete);
         mPlay = findViewById(R.id.btn_play);
-
+        petLvNum = findViewById(R.id.pet_lv_number);
+        feed = findViewById(R.id.btn_feed);
         //TESTING Purpose;
         showEXP_Table = findViewById(R.id.SHOW_EXP_TABLE);
 
@@ -67,34 +68,48 @@ public class Minigame extends AppCompatActivity {
         int currentMood = petmodel.getMood();
         moodState.setCurrentCount(currentMood);
 
+        int level = petmodel.getLv();
+        petLvNum.setText(level + " ");
+
         //init MoodState bar
         expState = findViewById(R.id.expState);
+        expState.setMaxCount(petDatabaseHelper.getExpForLevelUp(level));
+        expState.setColor(Color.GREEN);
+        int currentExp = petmodel.getExp();
+        moodState.setCurrentCount(currentExp);
 
-        mHungry.setOnClickListener(new View.OnClickListener() {
+        setPet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateText1();
-            }
-        });
-
-        mMood.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateText2();
+                setPet();
             }
         });
 
         mExp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                expPlus(5);
+            }
+        });
+
+        getCurrentStat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getCurrentStat();
+            }
+        });
+
+        feed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                feedPet();
             }
         });
 
-        mLevel.setOnClickListener(new View.OnClickListener() {
+        mDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateText4();
+                killPet();
             }
         });
 
@@ -117,22 +132,43 @@ public class Minigame extends AppCompatActivity {
 
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //update Pet StatesBar
+        updatePetStates();
+    }
+
+    private void updatePetStates() {
+        PetModel petmodel = petDatabaseHelper.getCurrentStat();
+
+        moodState.setCurrentCount(petmodel.getMood());
+        hungrinessState.setCurrentCount(petmodel.getHungriness());
+        int level = petmodel.getLv();
+        petLvNum.setText(level + " ");
+        expState.setMaxCount(petDatabaseHelper.getExpForLevelUp(level));
+        expState.setCurrentCount(petmodel.getExp());
+
+
+    }
+
     private void showExpTable() {
         ArrayList<Integer> expTable = petDatabaseHelper.getExpForLevelTable();
         Toast.makeText(this, expTable.toString(), Toast.LENGTH_SHORT).show();
     }
 
-    private void updateText1(){
-        PetModel petmodel = new PetModel(50, 50, 0, 1, "Boo");
+    private void setPet(){
+        PetModel petmodel = new PetModel(0, 0, 0, 1, "Boo");
         petDatabaseHelper.addOne(petmodel);
         String petmodelText = "New Pet Set";
-        petHungry.setText(petmodelText);
+        Toast.makeText(this, petmodelText, Toast.LENGTH_SHORT).show();
     }
-    private void updateText2(){
+    private void getCurrentStat(){
         PetModel petmodel = petDatabaseHelper.getCurrentStat();
         String petmodelText = "From Database: " + " Name: "+ petmodel.getName() + " Hungriness: " + petmodel.getHungriness()
                 + " Exp: " + petmodel.getExp()+ " Level: " + petmodel.getLv() + " Mood: " + petmodel.getMood();
-        petMood.setText(petmodelText);
+        Toast.makeText(this, petmodelText, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -153,7 +189,8 @@ public class Minigame extends AppCompatActivity {
         oldPetmodel.setMood(currentMood);
         petDatabaseHelper.updateData(oldPetmodel);
         String petmodelText = "add 5 mood to the pet";
-        petMood.setText(petmodelText);
+        Toast.makeText(this, petmodelText, Toast.LENGTH_SHORT).show();
+
     }
     //play with pet, mood will increase by 5
     private int toy(int mood) {
@@ -164,6 +201,7 @@ public class Minigame extends AppCompatActivity {
 
         return mood;
     }
+
 
 
 
@@ -179,7 +217,8 @@ public class Minigame extends AppCompatActivity {
         //update pet sqlite
         petDatabaseHelper.updateData(oldPetmodel);
         String petmodelText = "add 5 hungriness to the pet";
-        petexp.setText(petmodelText);
+        Toast.makeText(this, petmodelText, Toast.LENGTH_SHORT).show();
+
     }
 
     //feed the pet, hungriness will increase by 5
@@ -191,7 +230,7 @@ public class Minigame extends AppCompatActivity {
         return hungriness;
     }
 
-    private void updateText4(){
+    private void killPet(){
         petDatabaseHelper.killPet();
         petlv.setText("Dropped table");
     }
@@ -201,5 +240,15 @@ public class Minigame extends AppCompatActivity {
         /*Intent i = new Intent(this, ShopPage.class);
         startActivity(i);*/
         startActivity(new Intent(this,ShopPage.class));
+    }
+
+    private void expPlus(int gotExp) {
+        PetModel petModel = petDatabaseHelper.getCurrentStat();
+        petModel.expPlus(this, gotExp);
+        expState.setMaxCount(petDatabaseHelper.getExpForLevelUp(petModel.getLv()));
+        expState.setCurrentCount(petModel.getExp());
+        petLvNum.setText(petModel.getLv() + " ");
+        petDatabaseHelper.updateData(petModel);
+
     }
 }

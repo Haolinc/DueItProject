@@ -1,5 +1,10 @@
 package com.example.duelt;
 
+import android.content.Context;
+import android.view.View;
+
+import com.example.duelt.db.DatabaseHelper;
+
 public class PetModel {
     private int hungriness;
     private int  mood;
@@ -39,12 +44,16 @@ public class PetModel {
         }
     }
     //if complete a task, pet will gain exp
-    public void experience(){
-        exp += 5;
+    public void expPlus(Context context, int gotExp){
+        exp += gotExp;
+        lvUp(context);
     }
     //if exp is bigger than 100, pet will level up
-    public void lvUp(){
-        if (exp>100){
+    public void lvUp(Context context){
+        DatabaseHelper db = new DatabaseHelper(context);
+        int expForLevelUp = db.getExpForLevelUp(level);
+        if (exp> expForLevelUp ){
+            exp = exp - expForLevelUp;
             level += 1;
         }
     }
