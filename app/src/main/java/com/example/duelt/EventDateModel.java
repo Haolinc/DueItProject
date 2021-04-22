@@ -3,8 +3,11 @@ package com.example.duelt;
 import android.content.Context;
 import android.widget.Toast;
 
+import androidx.core.os.UserManagerCompat;
+
 import com.example.duelt.db.DatabaseHelper;
 
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -13,9 +16,11 @@ import java.util.stream.Stream;
 public class EventDateModel {
     private String eventTitle;
     private String eventDetail;
+    private Calendar setDate, dueDate;
     private int year, month, day, hour, minute;
     private int timeForOrder, ID, waked;
     private int ID2, ID3, ID4;
+    Calendar cal = Calendar.getInstance();
     public EventDateModel() {
         this.eventTitle = "ERROR";
         this.eventDetail = "ERROR";
@@ -33,12 +38,8 @@ public class EventDateModel {
     public EventDateModel(String eventTitle, String eventDetail, int year, int month, int day, int hour, int minute, Context ctx) {
         this.eventTitle = eventTitle;
         this.eventDetail = eventDetail;
-        this.year = year;
-        this.month = month ;
-        this.day = day;
-        this.hour = hour;
-        this.minute = minute;
-        timeForOrder =   minute + hour*100 + day*10000 + month * 1000000 + year*100000000;
+        cal.set(year, month, day, hour, minute);
+        dueDate = cal;
         this.ID = autoAssignID(ctx);
         this.ID2 = ID + 1;
         this.ID3 = ID + 2;
@@ -47,14 +48,13 @@ public class EventDateModel {
     }
 
     //use for duedate constructor in database
-    public EventDateModel(String eventTitle, String eventDetail, int year, int month, int day, int hour, int minute, int id, int waked) {
+    public EventDateModel(String eventTitle, String eventDetail, long setDate, long dueDate, int id, int waked) {
         this.eventTitle = eventTitle;
         this.eventDetail = eventDetail;
-        this.year = year;
-        this.month = month ;
-        this.day = day;
-        this.hour = hour;
-        this.minute = minute;
+        cal.setTimeInMillis(setDate);
+        this.setDate = cal;
+        cal.setTimeInMillis(dueDate);
+        this.dueDate = cal;
         timeForOrder =   minute + hour*100 + day*10000 + month * 1000000 + year*100000000;
         this.ID = id;
         this.ID2 = id + 1;
@@ -67,9 +67,6 @@ public class EventDateModel {
     public EventDateModel(String eventTitle, int hour, int minute, int id, int waked) {
         this.eventTitle = eventTitle;
         this.eventDetail = "";
-        this.year = 0;
-        this.month = 0 ;
-        this.day = 0;
         this.hour = hour;
         this.minute = minute;
         timeForOrder = hour*100 + minute;
@@ -107,9 +104,6 @@ public class EventDateModel {
 
     //constructor for daily routine
     public EventDateModel(String eventTitle, int hour, int minute, Context ctx) {
-        this.year = 0;
-        this.month = 0;
-        this.day = 0;
         this.eventDetail = "";
         this.eventTitle = eventTitle;
         this.hour= hour;
@@ -117,6 +111,14 @@ public class EventDateModel {
         this.timeForOrder = hour*100 + minute;
         this.ID = autoAssignID(ctx);
         waked = 0;
+    }
+
+    public EventDateModel(Calendar calendar){
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        minute = calendar.get(Calendar.MINUTE);
+        hour = calendar.get(Calendar.HOUR);
     }
 
     public String getEventTitle() {
@@ -147,6 +149,10 @@ public class EventDateModel {
         return day;
     }
 
+    public Calendar getSetDate() {return setDate;}
+
+    public Calendar getDueDate() {return dueDate;}
+
     public int getHour() {
         return hour;
     }
@@ -156,6 +162,8 @@ public class EventDateModel {
     }
 
     public int getWaked() { return waked;}
+
+    public Calendar getDate() { return Calendar.getInstance();}
 
     public void setEventTitle(String eventTitle) {
         this.eventTitle = eventTitle;
@@ -215,15 +223,18 @@ public class EventDateModel {
         return idFromDatabase.size()*4;
     }
 
+    //for current date and time
     public String toStringTimeOnly() {
-        int correctedMonth = month +1 ;
-        return
-                year + "/" + correctedMonth +"/"+ day + "  "+ hour + ": " + minute +"\n";
+        int correctMonth = month+1;
+        return year + "/" + correctMonth +"/"+ day + "  "+ hour + ": " + minute +"\n";
     }
 
+    //for duedate only
     public String getTitleAndDate() {
-        int correctedMonth = month +1 ;
-        return eventTitle+ " " + correctedMonth  + "/" + day + "  " + hour + ":" + minute;
+        int correctedMonth = dueDate.get(Calendar.MONTH) +1 ;
+        String s = eventTitle+ " " + correctedMonth  + "/" + dueDate.get(Calendar.DAY_OF_MONTH) + "  " + dueDate.get(Calendar.HOUR_OF_DAY) + ":" + dueDate.get(Calendar.MINUTE)
+                + "\n" + "id: " + ID;
+        return s;
     }
 
     public String getDailyRoutineString(){
@@ -248,11 +259,8 @@ public class EventDateModel {
     }
 
     public int minusInDay(EventDateModel edm){
-        Date endDay = new Date(edm.year,edm.month,edm.day);
-        Date startDay = new Date(this.year,this.month,this.day);
-        long diffInMillSecond = startDay.getTime() - endDay.getTime();
+        long diffInMillSecond = edm.dueDate.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
         long lDay = diffInMillSecond/86400000;
-        int day = (int)lDay;
-        return day;
+        return (int)lDay;
     }
 }

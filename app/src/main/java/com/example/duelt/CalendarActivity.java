@@ -17,6 +17,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 public class CalendarActivity extends AppCompatActivity {
     private CalendarView mCalendarView;
     //data to store information about date and event
@@ -73,7 +75,7 @@ public class CalendarActivity extends AppCompatActivity {
 
     private boolean checkDate(int year, int month, int dayOfMonth, int hourOfDay, int minute) {
         CalenderTimer ct = new CalenderTimer();
-        EventDateModel currentDay = ct.getSystemDay();
+        EventDateModel currentDay = new EventDateModel(Calendar.getInstance());
         EventDateModel date = new EventDateModel(year,month,dayOfMonth,hourOfDay,minute);
         boolean flag = !currentDay.isLessThanInTime(date);
         if(flag)  Toast.makeText(this, errDateInfo, Toast.LENGTH_SHORT).show();

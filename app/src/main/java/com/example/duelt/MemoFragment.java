@@ -22,6 +22,7 @@ import com.example.duelt.db.DatabaseHelper;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -69,8 +70,8 @@ public class MemoFragment extends Fragment {
         btn_getDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CalenderTimer calenderTimer = new CalenderTimer();
-                EventDateModel edm = calenderTimer.getSystemDay();
+                Calendar calendar = Calendar.getInstance();
+                EventDateModel edm = new EventDateModel(calendar);
                 Toast.makeText(getActivity(), edm.toStringTimeOnly(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -96,9 +97,8 @@ public class MemoFragment extends Fragment {
         TextView tv = new TextView(getActivity());
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-2, -2);  //wrap_content
         CalenderTimer calenderTimer = new CalenderTimer();
-        EventDateModel today = calenderTimer.getSystemDay();
 
-        int days = edm.minusInDay(today);
+        int days = edm.minusInDay(edm);
 
         tv.setText(edm.getEventTitle() + " ONLY " + days + " DAY LEFT !!");
         tv.setLayoutParams(lp);

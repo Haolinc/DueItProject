@@ -95,8 +95,8 @@ public class MemoActivity extends AppCompatActivity implements Serializable {
 
     public void getDate(View view) {
       CalenderTimer calenderTimer = new CalenderTimer();
-      EventDateModel edm = calenderTimer.getSystemDay();
-      Toast.makeText(this, edm.toStringTimeOnly(), Toast.LENGTH_SHORT).show();
+//      EventDateModel edm = calenderTimer.getSystemDay();
+//      Toast.makeText(this, edm.toStringTimeOnly(), Toast.LENGTH_SHORT).show();
     }
 
     public void testNotification(View v){

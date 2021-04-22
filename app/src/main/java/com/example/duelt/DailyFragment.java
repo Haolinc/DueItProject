@@ -18,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -55,6 +56,9 @@ public class DailyFragment extends Fragment {
         databaseHelper = new DatabaseHelper(getActivity());
         createCheckBox();
         TimePicker tp = rootView.findViewById(R.id.datePicker1);
+
+        TextView date = rootView.findViewById(R.id.date_view);
+
 
         ConstraintLayout cl = rootView.findViewById(R.id.dailyLayout);
         cl.setOnClickListener(new View.OnClickListener() {
