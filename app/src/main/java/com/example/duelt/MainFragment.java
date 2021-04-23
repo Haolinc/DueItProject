@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.duelt.db.DatabaseHelper;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class MainFragment extends Fragment {
@@ -146,7 +147,7 @@ public class MainFragment extends Fragment {
                 if (isChecked) {
                     AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
                     alertDialog.setTitle("alert");
-                    alertDialog.setMessage("Are you sure you want to delete this?");
+                    alertDialog.setMessage("Are you sure you have completed?");
                     alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Yes",
                             new DialogInterface.OnClickListener() {
                                 @Override
@@ -156,6 +157,9 @@ public class MainFragment extends Fragment {
                                     cancelAlarm(edm.getID2());
                                     cancelAlarm(edm.getID3());
                                     cancelAlarm(edm.getID4());
+                                    HashMap<String, Integer> reward = RewardCalculation.calculateReward(edm.getSetDateMillis(), edm.getDueDateMillis());
+                                    if (reward.get("currency")!=null)
+                                        dh.updateCurrency(dh.getCurrency()+reward.get("currency"));
                                     dh.deleteOneFromDueDate(edm.getID());
                                     updateCheckBox();
                                 }

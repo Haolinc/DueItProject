@@ -60,27 +60,22 @@ public class ShopPage extends AppCompatActivity {
             }
         });
 
-
-
-
-
     }
     private void setStat(){
-        ItemModel itemModel = new ItemModel(100, 1, 1);
-        itemDatabaseHelper.addItem(itemModel);
+        itemDatabaseHelper.updateAllItem(50,50,100);
         String itemmodelText = "New item Set";
         mText1.setText(itemmodelText);
     }
+
     private void getStat(){
-        ItemModel itemmodel = itemDatabaseHelper.getItemStat();
-        String itemmodelText = "From Database: " + " Currency: "+ itemmodel.getCurrency() + " Food: " + itemmodel.getFood()
-                + " Toy: " + itemmodel.getToy();
+        String itemmodelText = "From Database: " + " Currency: "+ itemDatabaseHelper.getCurrency() + " Food: " + itemDatabaseHelper.getFood()
+                + " Toy: " + itemDatabaseHelper.getToy();
         mText2.setText(itemmodelText);
     }
 
     private void removeStat(){
-        itemDatabaseHelper.removeItem();
-        mText3.setText("Dropped table");
+        itemDatabaseHelper.removeAllItem();
+        mText3.setText("Removed");
     }
 
 

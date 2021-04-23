@@ -17,6 +17,7 @@ public class EventDateModel {
     private String eventTitle;
     private String eventDetail;
     private Calendar setDate, dueDate;
+    private long setDateMillis, dueDateMillis;
     private int year, month, day, hour, minute;
     private int timeForOrder, ID, waked;
     private int ID2, ID3, ID4;
@@ -38,6 +39,7 @@ public class EventDateModel {
     public EventDateModel(String eventTitle, String eventDetail, int year, int month, int day, int hour, int minute, Context ctx) {
         this.eventTitle = eventTitle;
         this.eventDetail = eventDetail;
+        setDate = Calendar.getInstance();
         cal.set(year, month, day, hour, minute);
         dueDate = cal;
         this.ID = autoAssignID(ctx);
@@ -51,6 +53,8 @@ public class EventDateModel {
     public EventDateModel(String eventTitle, String eventDetail, long setDate, long dueDate, int id, int waked) {
         this.eventTitle = eventTitle;
         this.eventDetail = eventDetail;
+        setDateMillis = setDate;
+        dueDateMillis = dueDate;
         cal.setTimeInMillis(setDate);
         this.setDate = cal;
         cal.setTimeInMillis(dueDate);
@@ -152,6 +156,10 @@ public class EventDateModel {
     public Calendar getSetDate() {return setDate;}
 
     public Calendar getDueDate() {return dueDate;}
+
+    public long getSetDateMillis() {return setDateMillis;}
+
+    public long getDueDateMillis() {return dueDateMillis;}
 
     public int getHour() {
         return hour;

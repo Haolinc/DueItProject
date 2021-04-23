@@ -57,9 +57,6 @@ public class DailyFragment extends Fragment {
         createCheckBox();
         TimePicker tp = rootView.findViewById(R.id.datePicker1);
 
-        TextView date = rootView.findViewById(R.id.date_view);
-
-
         ConstraintLayout cl = rootView.findViewById(R.id.dailyLayout);
         cl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,6 +184,9 @@ public class DailyFragment extends Fragment {
     public void updateView(){
         deleteView();
         createCheckBox();
+        int currency = databaseHelper.getCurrency();
+        TextView date = getActivity().findViewById(R.id.date_view);
+        date.setText(""+currency);
     }
 
 

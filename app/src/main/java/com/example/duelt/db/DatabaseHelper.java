@@ -11,7 +11,6 @@ import androidx.annotation.Nullable;
 
 import com.example.duelt.CalenderTimer;
 import com.example.duelt.EventDateModel;
-import com.example.duelt.ItemModel;
 import com.example.duelt.PetModel;
 import com.example.duelt.WeeklyScheduleModel;
 
@@ -100,11 +99,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + LEVEL_COLUMN + " INT);";
         db.execSQL(createPetTableStatement);
 
+
         final String createItemTableStatement = "CREATE TABLE IF NOT EXISTS " + ITEM_TABLE_NAME + " ( "
                 + CURRENCY_COLUMN + " INT, "
                 + FOOD_COLUMN + " INT, "
                 + TOY_COLUMN + " INT);";
         db.execSQL(createItemTableStatement);
+
+        addItem(db);
 
         final String createWeekDayTableStatement = "CREATE TABLE IF NOT EXISTS " + WEEKLY_SCHEDULE_TABLE_NAME + "("
                 + EVENT_ID_COLUMN + " INT, "
@@ -117,7 +119,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + BACKGROUND_COLOR_COLUMN + " TEXT);";
         db.execSQL(createWeekDayTableStatement);
 
-        //createExpForLevelTable(100, 100, 0.25, db);
+        createExpForLevelTable(100, 100, 0.25, db);
     }
 
     private void createExpForLevelTable(int maxLevel, int expForLevel1, double increateRatio, SQLiteDatabase db) {
@@ -194,55 +196,84 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //item model updateData****************************************************************************************************
-    public void updateItem(ItemModel item){
-        SQLiteDatabase db = this.getReadableDatabase();
+    public void updateAllItem(int currency, int food, int toy){
+        SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("UPDATE " + ITEM_TABLE_NAME + " SET "
-                + CURRENCY_COLUMN + " = "+ item.getCurrency() + ", "
-                + FOOD_COLUMN + " = " + item.getFood() + ", "
-                + TOY_COLUMN + " = " + item.getToy() + ";");
+                + CURRENCY_COLUMN + " = "+ currency + ", "
+                + FOOD_COLUMN + " = " + food + ", "
+                + TOY_COLUMN + " = " + toy + ";");
         db.close();
     }
 
-    public void addItem(ItemModel item){
+    public void updateCurrency(int currency){
         SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE " + ITEM_TABLE_NAME + " SET "
+                + CURRENCY_COLUMN + " = " + currency + ";");
+        db.close();
+    }
+
+    public void updateFood(int food){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE " + ITEM_TABLE_NAME + " SET "
+                + FOOD_COLUMN + " = " + food + ";");
+        db.close();
+    }
+
+    public void updateToy(int toy){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE " + ITEM_TABLE_NAME + " SET "
+                + TOY_COLUMN + " = " + toy + ";");
+        db.close();
+    }
+
+    public int getCurrency() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * From  "+ ITEM_TABLE_NAME, null);
+        cursor.moveToFirst();
+        int currency = cursor.getInt(cursor.getColumnIndex(CURRENCY_COLUMN));
+        cursor.close();
+        db.close();
+        return currency;
+    }
+
+    public int getFood() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * From  "+ ITEM_TABLE_NAME, null);
+        cursor.moveToFirst();
+        int food = cursor.getInt(cursor.getColumnIndex(FOOD_COLUMN));
+        cursor.close();
+        db.close();
+        return food;
+    }
+
+    public int getToy() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * From  "+ ITEM_TABLE_NAME, null);
+        cursor.moveToFirst();
+        int toy = cursor.getInt(cursor.getColumnIndex(TOY_COLUMN));
+        cursor.close();
+        db.close();
+        return toy;
+    }
+
+
+
+
+    public void addItem(SQLiteDatabase db){
         ContentValues cv = new ContentValues();
 
-        cv.put(CURRENCY_COLUMN, item.getCurrency());
-        cv.put(FOOD_COLUMN, item.getFood());
-        cv.put(TOY_COLUMN, item.getToy());
+        cv.put(CURRENCY_COLUMN, 0);
+        cv.put(FOOD_COLUMN, 0);
+        cv.put(TOY_COLUMN, 0);
 
         db.insert(ITEM_TABLE_NAME, null, cv);
-        db.close();
     }
 
-    public void removeItem(){
+    public void removeAllItem(){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + ITEM_TABLE_NAME + ";");
         onCreate(db);
         db.close();
-    }
-
-    public ItemModel getItemStat(){
-        SQLiteDatabase db = this.getReadableDatabase();
-        ItemModel itemStat = new ItemModel(0, 0, 0);
-
-        Cursor cursor = db.rawQuery("SELECT * From  "+ ITEM_TABLE_NAME, null);
-
-        if(cursor.moveToFirst()){
-
-            do{
-                int currency = cursor.getInt(cursor.getColumnIndex(CURRENCY_COLUMN));
-                int food = cursor.getInt(cursor.getColumnIndex(FOOD_COLUMN)) ;
-                int toy = cursor.getInt(cursor.getColumnIndex(TOY_COLUMN));
-
-                itemStat = new ItemModel(currency,food,toy);
-
-            }while (cursor.moveToNext());
-        }
-
-        cursor.close();
-        db.close();
-        return itemStat;
     }
 
 
@@ -335,14 +366,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return  new EventDateModel(cal);
     }
 
-    public Date getDueDate (int id) {
+    public long getDueDate (int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + DUE_DATE_COLUMN + " WHERE " + ID_COLUMN + " = " + id + ";", null);
         cursor.moveToFirst();
         long setDateMilli = cursor.getLong(cursor.getColumnIndex(DUE_DATE_COLUMN));
         cursor.close();
         db.close();
-        return new Date(setDateMilli);
+        return setDateMilli;
     }
 
     public void deleteOneFromDueDate(int id){
