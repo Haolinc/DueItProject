@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Duelt">
-        <activity android:name=".setting_list_items"></activity>
+        <activity android:name=".linechart"></activity>
+        <activity android:name=".Profile" />
+        <activity android:name=".setting_list_items" />
         <activity android:name=".Setting" />
         <activity android:name=".Congratulation_Window" />
         <activity

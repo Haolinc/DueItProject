@@ -28,6 +28,8 @@ android {
     }
 }
 
+
+
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -43,4 +45,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     //git-image implementation
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.12'
+    //Mp chart
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
 }
