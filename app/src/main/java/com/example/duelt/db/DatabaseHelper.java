@@ -68,6 +68,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String EXP_FOR_EACH_LEVEL_COLUMN = "EXP_FOR_EACH_LEVEL";
     private static final String E_LEVEL_COLUMN = "E_LEVEL";
 
+    //table for chart
+    private static final String PROFILE_CHART = "PROFILE_CHART";
+    private static final String NUMBER_OF_THE_WEEK = "NUMBER_WEEK";
+    private static final String DATE_FOR_THE_WEEK_START = "DATE_FOR_THE_WEEK_START";
+    private static final String DATE_FOR_THE_WEEK_END = "DATE_FOR_THE_WEEK_END";
+    private static final String DAILY_COUNT = "DAILY_COUNT";
+    private static final String MEMO_COUNT = "MEMO_COUNT";
+    private static final String TREATMENT_COUNT = "TREATMENT_COUNT";
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE, null, VERSION);
     }
@@ -77,6 +86,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        final String createProfileCount = "CREATE TABLE IF NOT EXISTS " + PROFILE_CHART + " ( "
+                + NUMBER_OF_THE_WEEK + " INT UNIQUE, "
+                + DATE_FOR_THE_WEEK_START + "INT, "
+                + DAILY_COUNT + " INT, "
+                + MEMO_COUNT + " INT, "
+                + TREATMENT_COUNT + " INT);";
+        db.execSQL(createProfileCount);
+
         final String createDueDateTableStatement = "CREATE TABLE IF NOT EXISTS " + DUEDATE_TABLE_NAME + " ( "
                 + EVENT_TITLE_COLUMN + " TEXT, "
                 + EVENT_DETAIL_COLUMN + " TEXT, "
@@ -119,8 +136,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + BACKGROUND_COLOR_COLUMN + " TEXT);";
         db.execSQL(createWeekDayTableStatement);
 
+
+
         createExpForLevelTable(100, 100, 0.25, db);
     }
+
+
+    //profile chart upgrade ***********************************************************************************************************************
+    public void updateProfileCount(int numberOfWeek, int weekStart, int dailyCount, int memoCount, int treatmentCount){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE " + PROFILE_CHART + " SET "
+                + NUMBER_OF_THE_WEEK + " = "+ numberOfWeek + ", "
+                + DATE_FOR_THE_WEEK_START + " = " + weekStart + ", "
+                + DAILY_COUNT + " = " + dailyCount + ", "
+                + MEMO_COUNT + " = " + memoCount + ", "
+                + TREATMENT_COUNT + " = " + treatmentCount + ";");
+        db.close();
+    }
+
+
+
 
     private void createExpForLevelTable(int maxLevel, int expForLevel1, double increateRatio, SQLiteDatabase db) {
         ContentValues cv = new ContentValues();
