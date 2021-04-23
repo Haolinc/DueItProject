@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.github.mikephil.charting.charts.LineChart;
+//import com.github.mikephil.charting.data.Entry;
+//import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -27,7 +29,7 @@ public class Profile extends AppCompatActivity {
         ArrayList<ILineDataSet> iLineDataSets = new ArrayList<>();
         iLineDataSets.add(lineDataSet);
 
-        LineData lineData = new LineData();
+        LineData lineData = new LineData(iLineDataSets);
         lineChart.setData(lineData);
         lineChart.invalidate();
 
@@ -42,10 +44,10 @@ public class Profile extends AppCompatActivity {
         dataSet.add(new Entry(2,20));
         dataSet.add(new Entry(3,30));
         dataSet.add(new Entry(4,40));
-        dataSet.add(new Entry(5,50));
-        dataSet.add(new Entry(6,60));
-        dataSet.add(new Entry(7,70));
-        dataSet.add(new Entry(8,80));
+//        dataSet.add(new Entry(5,50));
+//        dataSet.add(new Entry(6,60));
+//        dataSet.add(new Entry(7,70));
+//        dataSet.add(new Entry(8,80));
 
         return dataSet;
     }
