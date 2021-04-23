@@ -70,7 +70,7 @@ public class TabActivity extends AppCompatActivity {
         switch(menuItem.getItemId()) {
             case R.id.nav_first_fragment:
 //                fragmentClass = test_frag.class;
-                startActivity(new Intent(this, MemoActivity.class));
+                startActivity(new Intent(this, Profile.class));
                 break;
             case R.id.nav_second_fragment:
 //                fragmentClass = test_frag.class;
@@ -78,7 +78,7 @@ public class TabActivity extends AppCompatActivity {
                 break;
             case R.id.nav_third_fragment:
 //                fragmentClass = test_frag.class;
-                startActivity(new Intent(this, Setting.class));
+                startActivity(new Intent(this, Profile.class));
                 break;
             default:
 //                fragmentClass = MainFragment.class;
