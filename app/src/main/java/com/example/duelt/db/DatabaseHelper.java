@@ -704,4 +704,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return weeklyScheduleModelList;
     }
 
+    public List<WeeklyScheduleModel> getDailySchedule(String weeday){
+        List<WeeklyScheduleModel> weeklyScheduleModelList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * From  "+WEEKLY_SCHEDULE_TABLE_NAME + " WHERE " + WEEK_DAY_COLUMN + " LIKE '" + weeday + "' ORDER BY "+ EVENT_ID_COLUMN, null);
+
+        if(cursor.moveToFirst()){
+
+            do{
+                String eventName = cursor.getString(cursor.getColumnIndex(EVENT_NAME_COLUMN));
+                String color = cursor.getString(cursor.getColumnIndex(BACKGROUND_COLOR_COLUMN));
+                String weekDay = cursor.getString(cursor.getColumnIndex(WEEK_DAY_COLUMN));
+                String startTime = cursor.getString(cursor.getColumnIndex(START_TIME_COLUMN));
+                String endTime = cursor.getString(cursor.getColumnIndex(END_TIME_COLUMN));
+                int startPosition = cursor.getInt(cursor.getColumnIndex(START_TIME_POSITION_COLUMN));
+                int endPosition = cursor.getInt(cursor.getColumnIndex(END_TIME_POSITION_COLUMN));
+                int id  = cursor.getInt(cursor.getColumnIndex(EVENT_ID_COLUMN));
+
+                WeeklyScheduleModel weeklyScheduleModel = new WeeklyScheduleModel(eventName, color, weekDay, startTime, endTime, startPosition, endPosition, id);
+                weeklyScheduleModelList.add(weeklyScheduleModel);
+
+            }while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return weeklyScheduleModelList;
+    }
+
 }

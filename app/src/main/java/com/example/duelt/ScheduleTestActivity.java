@@ -7,10 +7,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.duelt.db.DatabaseHelper;
 
@@ -65,6 +68,13 @@ public class ScheduleTestActivity extends AppCompatActivity {
                 params1.bottomMargin=dpToPx(2);
                 params1.rightMargin=dpToPx(2);
                 mondayLayout.addView(card2,params1);
+
+                TextView eventText = new TextView(ScheduleTestActivity.this);
+                eventText.setText("Physics");
+                eventText.setGravity(Gravity.CENTER);
+                card.addView(eventText);
+                //card2.addView(eventText);
+
             }
         });
 
@@ -115,6 +125,10 @@ public class ScheduleTestActivity extends AppCompatActivity {
         weekDayLayout.addView(card,params);
 
         //Create content for card
+        TextView eventText = new TextView(ScheduleTestActivity.this);
+        eventText.setText(model.getEventName());
+        eventText.setGravity(Gravity.CENTER);
+        card.addView(eventText);
     }
 
     //Because LayoutParams works in px. In order to convert dp into px, we need the following conversion

@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
@@ -22,6 +23,7 @@ import androidx.cardview.widget.CardView;
 import com.example.duelt.db.DatabaseHelper;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class ScheduleEventAddWindow extends AppCompatActivity {
 
@@ -114,7 +116,6 @@ public class ScheduleEventAddWindow extends AppCompatActivity {
 
     // !!!!Write logic to check for existing hour range to prevent duplicates.
     public void addEventToWeeklySchedule(View view) {
-        //Toast.makeText(this,"start: " + spinner_start.getSelectedItem().toString() + " ,end: " + spinner_end.getSelectedItem().toString() + " ,weekday: " + spinner_weekDay.getSelectedItem().toString() + " ,color: " + spinner_color.getSelectedItem().toString(),Toast.LENGTH_SHORT).show();
         DatabaseHelper databaseHelper = new DatabaseHelper(ScheduleEventAddWindow.this);
         String eventName = eventText.getText().toString();
         String color = spinner_color.getSelectedItem().toString();
@@ -122,19 +123,44 @@ public class ScheduleEventAddWindow extends AppCompatActivity {
         String startTime = spinner_start.getSelectedItem().toString();
         String endTime = spinner_end.getSelectedItem().toString();
         endPosition = startPosition + endPosition + 1;
+        List<WeeklyScheduleModel> list = databaseHelper.getDailySchedule(weekDay);
+
+        //Set error message if eventName is empty.
+        if(TextUtils.isEmpty(eventName)){
+            eventText.setError("The event name cannot be empty.");
+//            Toast.makeText(ScheduleEventAddWindow.this,"Size of list:" + list.size(),Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        //Check if time range is in use to prevent overlap events.
+        for (int i = 0; i < list.size(); i++) {
+            WeeklyScheduleModel currentData = list.get(i);
+            if((startPosition>=currentData.getStartPosition() && startPosition <= currentData.getEndPosition()) || (endPosition >= currentData.getStartPosition() && endPosition <= currentData.getEndPosition())){
+                AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+                alertDialog.setTitle("Oops!");
+                alertDialog.setMessage("You already have an event for the time range selected");
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Okay",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                alertDialog.cancel();
+                                finish();
+                            }
+                        });
+                alertDialog.show();
+                return;
+            }
+        }
+
 
         WeeklyScheduleModel model = new WeeklyScheduleModel(eventName, color, weekDay, startTime, endTime, startPosition, endPosition,this);
         //insert into database
-
         databaseHelper.addOneToWeeklySchedule(model);
 
-        //make a checkbox in main activity
-
-        //testing
+        //Print Success message
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle("alert");
+        alertDialog.setTitle("Successful!");
         alertDialog.setMessage("Event: " + model.getEventName() + " created!");
-
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Okay",
                 new DialogInterface.OnClickListener() {
                     @Override
