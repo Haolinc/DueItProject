@@ -2,6 +2,7 @@ package com.example.duelt;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,9 +16,7 @@ import com.example.duelt.db.DatabaseHelper;
 import java.util.ArrayList;
 
 public class Minigame extends AppCompatActivity {
-    private TextView petHungry;
-    private TextView petMood;
-    private TextView petexp;
+
     private TextView petlv;
     private Button setPet;
     private Button getCurrentStat;
@@ -29,6 +28,9 @@ public class Minigame extends AppCompatActivity {
     private StatesView moodState;
     private StatesView expState;
     private TextView petLvNum;
+
+    private Button btn_states_pup_up_cancel;
+    private Button btn_open_state;
     //TESTING Purpose;
     private Button showEXP_Table;
     DatabaseHelper petDatabaseHelper = new DatabaseHelper(this);
@@ -38,9 +40,7 @@ public class Minigame extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_minigame);
 
-        petHungry = findViewById(R.id.pet_hungriness);
-        petMood = findViewById(R.id.pet_mood);
-        petexp = findViewById(R.id.pet_exp);
+
         petlv = findViewById(R.id.pet_lv);
         setPet = findViewById(R.id.btn_set_pet);
         getCurrentStat = findViewById(R.id.btn_getCurrentStat);
@@ -49,34 +49,12 @@ public class Minigame extends AppCompatActivity {
         mPlay = findViewById(R.id.btn_play);
         petLvNum = findViewById(R.id.pet_lv_number);
         feed = findViewById(R.id.btn_feed);
+        btn_open_state = findViewById(R.id.btn_open_state);
         //TESTING Purpose;
         showEXP_Table = findViewById(R.id.SHOW_EXP_TABLE);
 
         PetModel petmodel = petDatabaseHelper.getCurrentStat();
 
-        //init  HungrinessState bar
-        hungrinessState = findViewById(R.id.hungrinessState);
-        hungrinessState.setMaxCount(100);
-        hungrinessState.setColor(Color.RED);
-        int currentHungry = petmodel.getHungriness();
-        hungrinessState.setCurrentCount(currentHungry);
-
-        //init MoodState bar
-        moodState = findViewById(R.id.moodState);
-        moodState.setMaxCount(100);
-        moodState.setColor(Color.BLUE);
-        int currentMood = petmodel.getMood();
-        moodState.setCurrentCount(currentMood);
-
-        int level = petmodel.getLv();
-        petLvNum.setText(level + " ");
-
-        //init MoodState bar
-        expState = findViewById(R.id.expState);
-        expState.setMaxCount(petDatabaseHelper.getExpForLevelUp(level));
-        expState.setColor(Color.GREEN);
-        int currentExp = petmodel.getExp();
-        moodState.setCurrentCount(currentExp);
 
         setPet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,12 +98,19 @@ public class Minigame extends AppCompatActivity {
             }
         });
 
+        btn_open_state.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createStateDialog();
+            }
+        });
+
         //TESTING Purpose;
         showEXP_Table.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                showExpTable();
+                createStateDialog();
             }
 
         });
@@ -137,7 +122,7 @@ public class Minigame extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         //update Pet StatesBar
-        updatePetStates();
+       // updatePetStates();
     }
 
     private void updatePetStates() {
@@ -249,6 +234,53 @@ public class Minigame extends AppCompatActivity {
         expState.setCurrentCount(petModel.getExp());
         petLvNum.setText(petModel.getLv() + " ");
         petDatabaseHelper.updateData(petModel);
+
+    }
+
+    private void createStateDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final View states_pop_up_view = getLayoutInflater().inflate(R.layout.states_pup_up, null);
+
+        PetModel petmodel = petDatabaseHelper.getCurrentStat();
+
+        //init  HungrinessState bar
+        hungrinessState = states_pop_up_view.findViewById(R.id.hungrinessState);
+        hungrinessState.setMaxCount(100);
+        hungrinessState.setColor(Color.RED);
+        int currentHungry = petmodel.getHungriness();
+        hungrinessState.setCurrentCount(currentHungry);
+
+        //init MoodState bar
+        moodState = states_pop_up_view.findViewById(R.id.moodState);
+        moodState.setMaxCount(100);
+        moodState.setColor(Color.BLUE);
+        int currentMood = petmodel.getMood();
+        moodState.setCurrentCount(50);
+
+        petLvNum = states_pop_up_view.findViewById(R.id.pet_lv_number);
+        int level_text = petmodel.getLv();
+        petLvNum.setText(level_text + "  ");
+
+        //init exp bar
+        expState = states_pop_up_view.findViewById(R.id.expState);
+        expState.setMaxCount(petDatabaseHelper.getExpForLevelUp(level_text));
+        expState.setColor(Color.GREEN);
+        int currentExp = petmodel.getExp();
+        expState.setCurrentCount(currentExp);
+
+
+        btn_states_pup_up_cancel = states_pop_up_view.findViewById(R.id.close_button);
+
+        builder.setView(states_pop_up_view);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        btn_states_pup_up_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
 
     }
 }

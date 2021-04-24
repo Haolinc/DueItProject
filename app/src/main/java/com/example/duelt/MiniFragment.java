@@ -95,7 +95,7 @@ public class MiniFragment extends Fragment {
         expState.setMaxCount(petDatabaseHelper.getExpForLevelUp(level_text));
         expState.setColor(Color.GREEN);
         int currentExp = petmodel.getExp();
-        moodState.setCurrentCount(currentExp);
+        expState.setCurrentCount(currentExp);
 
 
         states_pup_up_cancel_btn = states_pop_up_view.findViewById(R.id.close_button);
