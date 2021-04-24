@@ -38,7 +38,7 @@
         app:layout_constraintVertical_bias="0.023" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/states_button"
         android:layout_width="127dp"
         android:layout_height="65dp"
         android:text="Status"

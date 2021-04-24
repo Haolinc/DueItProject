@@ -59,9 +59,9 @@ public class PetModel {
     }
 
     //time pass states decrease
-    public void passTime(){
-        hungriness--;
-        mood--;
+    public void passTime(int num){
+        hungriness-= num;
+        mood-= num;
         if (hungriness<0){
             hungriness = 0;
         }
