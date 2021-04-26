@@ -19,7 +19,7 @@
         <activity
             android:name=".ScheduleEventAddWindow"
             android:theme="@style/AppTheme.CustomTheme" />
-        <activity android:name=".ScheduleTestActivity" /> <!-- This Activity is set to default display -->
+        <activity android:name=".WeeklyScheduleActivity" /> <!-- This Activity is set to default display -->
         <activity android:name=".TabActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

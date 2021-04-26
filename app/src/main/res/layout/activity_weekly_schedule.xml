@@ -575,29 +575,20 @@
                     <include layout="@layout/calendar_line_divider" />
 
  <!-- This part is for testing, Real cardView will be created through ScheduleActivity.java -->
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="117dp"
-                        app:cardBackgroundColor="#77FDE3"
-                        android:layout_margin="2dp">
+<!--                    <androidx.cardview.widget.CardView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="117dp"-->
+<!--                        app:cardBackgroundColor="#77FDE3"-->
+<!--                        android:layout_margin="2dp">-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text="Physics"
-                            android:textColor="@color/black" />
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center_vertical"-->
+<!--                            android:text="Physics"-->
+<!--                            android:textColor="@color/black" />-->
 
-                    </androidx.cardview.widget.CardView>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="117dp"
-                        android:layout_marginTop="122dp"
-                        android:layout_marginBottom="2dp"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:background="@drawable/rounded_corner"/>
+<!--                    </androidx.cardview.widget.CardView>-->
 
 <!--                    <androidx.cardview.widget.CardView-->
 <!--                        android:layout_width="match_parent"-->

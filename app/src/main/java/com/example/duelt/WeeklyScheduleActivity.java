@@ -1,9 +1,10 @@
 package com.example.duelt;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,9 +12,9 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.duelt.db.DatabaseHelper;
 
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ScheduleTestActivity extends AppCompatActivity {
+public class WeeklyScheduleActivity extends AppCompatActivity {
 
     com.google.android.material.button.MaterialButton btn_addEvent;
     List<RelativeLayout> layoutList ;
@@ -52,7 +53,7 @@ public class ScheduleTestActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //设置layout出现位置.......
                 RelativeLayout mondayLayout = findViewById(R.id.mondayRelativeLayout);
-                CardView card = new CardView(ScheduleTestActivity.this);
+                CardView card = new CardView(WeeklyScheduleActivity.this);
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dpToPx(175));
                 params.leftMargin=dpToPx(2);
                 params.topMargin=dpToPx(2);
@@ -61,7 +62,7 @@ public class ScheduleTestActivity extends AppCompatActivity {
                 card.setCardBackgroundColor(Color.parseColor("#0000FF"));
                 mondayLayout.addView(card,params);
 
-                CardView card2 = new CardView(ScheduleTestActivity.this);
+                CardView card2 = new CardView(WeeklyScheduleActivity.this);
                 RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dpToPx(175));
                 params1.leftMargin=dpToPx(2);
                 params1.topMargin=dpToPx(180);
@@ -69,11 +70,36 @@ public class ScheduleTestActivity extends AppCompatActivity {
                 params1.rightMargin=dpToPx(2);
                 mondayLayout.addView(card2,params1);
 
-                TextView eventText = new TextView(ScheduleTestActivity.this);
+                TextView eventText = new TextView(WeeklyScheduleActivity.this);
                 eventText.setText("Physics");
                 eventText.setGravity(Gravity.CENTER);
                 card.addView(eventText);
                 //card2.addView(eventText);
+                card.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        AlertDialog alertDialog = new AlertDialog.Builder(WeeklyScheduleActivity.this).create();
+                        alertDialog.setTitle("Oops!");
+                        alertDialog.setMessage("You already have an event for the time range selected");
+                        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Delete",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        mondayLayout.removeView(card);
+                                        alertDialog.cancel();
+                                    }
+                                });
+                        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        alertDialog.cancel();
+                                    }
+                                });
+                        alertDialog.show();
+
+                    }
+                });
 
             }
         });
@@ -125,10 +151,37 @@ public class ScheduleTestActivity extends AppCompatActivity {
         weekDayLayout.addView(card,params);
 
         //Create content for card
-        TextView eventText = new TextView(ScheduleTestActivity.this);
+        TextView eventText = new TextView(WeeklyScheduleActivity.this);
         eventText.setText(model.getEventName());
         eventText.setGravity(Gravity.CENTER);
         card.addView(eventText);
+
+        //Set Onclick function for event deletion using AlertDialog.
+        card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog alertDialog = new AlertDialog.Builder(WeeklyScheduleActivity.this).create();
+                alertDialog.setMessage("Do you want to delete this event?");
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Delete",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                DatabaseHelper databaseHelper = new DatabaseHelper(WeeklyScheduleActivity.this);
+                                databaseHelper.deleteOneFromWeeklySchedule(model.getId());
+                                weekDayLayout.removeView(card);
+                                alertDialog.cancel();
+                            }
+                        });
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                alertDialog.cancel();
+                            }
+                        });
+                alertDialog.show();
+            }
+        });
     }
 
     //Because LayoutParams works in px. In order to convert dp into px, we need the following conversion

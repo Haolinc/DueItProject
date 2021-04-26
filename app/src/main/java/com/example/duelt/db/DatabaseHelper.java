@@ -120,7 +120,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         addItem(db);
 
         final String createWeekDayTableStatement = "CREATE TABLE IF NOT EXISTS " + WEEKLY_SCHEDULE_TABLE_NAME + "("
-                + EVENT_ID_COLUMN + " INT, "
+                + EVENT_ID_COLUMN + " INT UNIQUE, "
                 + EVENT_NAME_COLUMN + " TEXT, "
                 + WEEK_DAY_COLUMN + " TEXT, "  //Review this line
                 + START_TIME_COLUMN + " TEXT, "
@@ -655,7 +655,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-//        cv.put(EVENT_ID_COLUMN, weeklyScheduleModel.getId());
+        cv.put(EVENT_ID_COLUMN, weeklyScheduleModel.getId());
         cv.put(EVENT_NAME_COLUMN, weeklyScheduleModel.getEventName());
         cv.put(WEEK_DAY_COLUMN,weeklyScheduleModel.getWeekDay());
         cv.put(START_TIME_COLUMN, weeklyScheduleModel.getStartTime());

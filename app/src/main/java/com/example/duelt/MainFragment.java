@@ -52,7 +52,7 @@ public class MainFragment extends Fragment {
         btn_toSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(),ScheduleTestActivity.class));
+                startActivity(new Intent(getActivity(), WeeklyScheduleActivity.class));
             }
         });
 
