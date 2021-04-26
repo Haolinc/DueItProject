@@ -11,8 +11,6 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.example.duelt.db.DatabaseHelper;
 
-import static com.example.duelt.MainActivity.CHANNEL_1_ID;
-
 public class MemoAlarmReceiver  extends BroadcastReceiver {
     private NotificationManagerCompat notificationManagerCompat;
     @Override
@@ -33,8 +31,8 @@ public class MemoAlarmReceiver  extends BroadcastReceiver {
                 .build();
         notificationManagerCompat.notify(i.getIntExtra("EDMID", 1),notification);
 
-        if(i.getBooleanExtra("IsFinalDate", false))
-             databaseHelper.deleteOneFromDueDate(i.getIntExtra("EDMID", 0));
+        if(i.getBooleanExtra("IsFinalDate", false)) {}
+             //databaseHelper.deleteOneFromDueDate(i.getIntExtra("EDMID", 0));
 
     }
 }

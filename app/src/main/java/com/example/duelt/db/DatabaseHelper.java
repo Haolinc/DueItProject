@@ -5,19 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-
-import com.example.duelt.CalenderTimer;
 import com.example.duelt.EventDateModel;
 import com.example.duelt.PetModel;
 import com.example.duelt.WeeklyScheduleModel;
 
-import java.lang.reflect.Executable;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -479,11 +473,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //update wake status in duedate table
-    public void updateWakedStatusInDueDate(EventDateModel edm){
+    public void updateWakedStatusInDueDate(int id, int wakedStatus){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("UPDATE " + DUEDATE_TABLE_NAME + " SET "
-                + WAKED_COLUMN + " = "+ edm.getWaked()
-                + " WHERE " + ID_COLUMN + " = " + edm.getID() + ";");
+                + WAKED_COLUMN + " = "+ wakedStatus
+                + " WHERE " + ID_COLUMN + " = " + id + ";");
         db.close();
     }
 
@@ -608,11 +602,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     //update wake status in daily table
-    public void updateWakedStatusInDaily(EventDateModel edm){
+    public void updateWakedStatusInDaily(int id, int wakedStatus){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("UPDATE " + DAILY_TABLE_NAME + " SET "
-                + WAKED_COLUMN + " = "+ edm.getWaked()
-                + " WHERE " + ID_COLUMN + " = " + edm.getID() + ";");
+                + WAKED_COLUMN + " = "+ wakedStatus
+                + " WHERE " + ID_COLUMN + " = " + id + ";");
         db.close();
     }
 

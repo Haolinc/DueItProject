@@ -1,8 +1,5 @@
 package com.example.duelt;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -11,16 +8,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
+import android.widget.EditText;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.duelt.db.DatabaseHelper;
 
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
 
 import static com.example.duelt.MainActivity.CHANNEL_1_ID;
 import static com.example.duelt.MainFragment.CHANNEL_2_ID;
@@ -67,7 +63,7 @@ public class TextEntering extends AppCompatActivity {
         eventTitle = eventTitleInput.getText().toString();
 
         eventDateModel = new EventDateModel(eventTitle, eventDetail, year,month,day,hour,minute,this);
-        setAlarm(v);
+        setAlarm(v, eventDateModel.getID());
         //insert into database
 
         databaseHelper.addDate(eventDateModel);
@@ -91,7 +87,7 @@ public class TextEntering extends AppCompatActivity {
 
     }
 
-    public void setAlarm(View view) {
+    public void setAlarm(View view, int id) {
         Calendar date = Calendar.getInstance();
         date.set(Calendar.SECOND, 0);
         date.set(Calendar.HOUR_OF_DAY, hour);
@@ -102,6 +98,11 @@ public class TextEntering extends AppCompatActivity {
         AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         Calendar now = Calendar.getInstance();
 
+        Intent i = new Intent(this, AlarmReceiver.class);
+        i.putExtra("EDMID", id);
+        i.putExtra("Table", "Duedate");
+        PendingIntent pi = PendingIntent.getBroadcast(this, id, i, 0);
+        am.setExact(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), pi);
 
 
 

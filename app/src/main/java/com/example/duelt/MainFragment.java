@@ -123,6 +123,16 @@ public class MainFragment extends Fragment {
             createCheckBoxInDueDate(list.get(i));
         }
 
+        for (int i=0; i<list.size();i++){
+            if (list.get(i).getWaked()==1){
+                Intent intent= new Intent(getActivity(), PopWindow.class);
+                intent.putExtra("EDMID", list.get(i).getID());
+                intent.putExtra("Table", "Duedate");
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                getActivity().startActivity(intent);
+            }
+        }
+
     }
     private void removeAllViews() {
         LinearLayout dueDate = getView().findViewById(R.id.dueDate_layout);

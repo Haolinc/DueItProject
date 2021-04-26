@@ -20,20 +20,15 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 
 import com.example.duelt.db.DatabaseHelper;
 
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 public class DailyFragment extends Fragment {
     DatabaseHelper databaseHelper;
@@ -94,6 +89,7 @@ public class DailyFragment extends Fragment {
 
                 Intent i = new Intent(getActivity(), AlarmReceiver.class);
                 i.putExtra("EDMID", edm.getID());
+                i.putExtra("Table", "Daily");
                 PendingIntent pi = PendingIntent.getBroadcast(getActivity(), edm.getID(), i, 0);
                 am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi);
 
