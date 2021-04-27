@@ -17,11 +17,9 @@ import java.util.ArrayList;
 
 public class Minigame extends AppCompatActivity {
 
-    private TextView petlv;
-    private Button setPet;
+
     private Button getCurrentStat;
-    private Button mExp;
-    private Button mDelete;
+    private Button btn_exp_puls;
     private Button mPlay;
     private Button feed;
     private StatesView hungrinessState;
@@ -31,6 +29,8 @@ public class Minigame extends AppCompatActivity {
 
     private Button btn_states_pup_up_cancel;
     private Button btn_open_state;
+    private Button btn_open_shop;
+
     //TESTING Purpose;
     private Button showEXP_Table;
     DatabaseHelper petDatabaseHelper = new DatabaseHelper(this);
@@ -41,29 +41,20 @@ public class Minigame extends AppCompatActivity {
         setContentView(R.layout.activity_minigame);
 
 
-        petlv = findViewById(R.id.pet_lv);
-        setPet = findViewById(R.id.btn_set_pet);
         getCurrentStat = findViewById(R.id.btn_getCurrentStat);
-        mExp = findViewById(R.id.btn_exp_puls);
-        mDelete = findViewById(R.id.btn_delete);
+        btn_exp_puls = findViewById(R.id.btn_exp_puls);
         mPlay = findViewById(R.id.btn_play);
         petLvNum = findViewById(R.id.pet_lv_number);
         feed = findViewById(R.id.btn_feed);
         btn_open_state = findViewById(R.id.btn_open_state);
+        btn_open_shop = findViewById(R.id.btn_shop);
         //TESTING Purpose;
         showEXP_Table = findViewById(R.id.SHOW_EXP_TABLE);
 
         PetModel petmodel = petDatabaseHelper.getCurrentStat();
 
 
-        setPet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setPet();
-            }
-        });
-
-        mExp.setOnClickListener(new View.OnClickListener() {
+        btn_exp_puls.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 expPlus(5);
@@ -84,12 +75,6 @@ public class Minigame extends AppCompatActivity {
             }
         });
 
-        mDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                killPet();
-            }
-        });
 
         mPlay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +87,13 @@ public class Minigame extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 createStateDialog();
+            }
+        });
+
+        btn_open_shop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createShopDialog();
             }
         });
 
@@ -118,37 +110,15 @@ public class Minigame extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //update Pet StatesBar
-       // updatePetStates();
-    }
-
-    private void updatePetStates() {
-        PetModel petmodel = petDatabaseHelper.getCurrentStat();
-
-        moodState.setCurrentCount(petmodel.getMood());
-        hungrinessState.setCurrentCount(petmodel.getHungriness());
-        int level = petmodel.getLv();
-        petLvNum.setText(level + " ");
-        expState.setMaxCount(petDatabaseHelper.getExpForLevelUp(level));
-        expState.setCurrentCount(petmodel.getExp());
 
 
-    }
 
     private void showExpTable() {
         ArrayList<Integer> expTable = petDatabaseHelper.getExpForLevelTable();
         Toast.makeText(this, expTable.toString(), Toast.LENGTH_SHORT).show();
     }
 
-    private void setPet(){
-        PetModel petmodel = new PetModel(0, 0, 0, 1, "Boo");
-        petDatabaseHelper.addOne(petmodel);
-        String petmodelText = "New Pet Set";
-        Toast.makeText(this, petmodelText, Toast.LENGTH_SHORT).show();
-    }
+
     private void getCurrentStat(){
         PetModel petmodel = petDatabaseHelper.getCurrentStat();
         String petmodelText = "From Database: " + " Name: "+ petmodel.getName() + " Hungriness: " + petmodel.getHungriness()
@@ -161,8 +131,7 @@ public class Minigame extends AppCompatActivity {
         PetModel oldPetmodel = petDatabaseHelper.getCurrentStat();
         int currentMood = oldPetmodel.getMood();
         currentMood = toy(currentMood);
-        //update mood state bar
-        moodState.setCurrentCount(currentMood);
+
         //check your pet's current mood
         if(currentMood <= 40){
             Toast.makeText(this, "your pet is sad!", Toast.LENGTH_LONG).show();
@@ -188,16 +157,12 @@ public class Minigame extends AppCompatActivity {
     }
 
 
-
-
     private void feedPet(){
         PetModel oldPetmodel = petDatabaseHelper.getCurrentStat();
         //get old pet's hungriness
         int currentHungry = oldPetmodel.getHungriness();
         //feed pet function
         currentHungry = feed(currentHungry);
-        //set hungry bar state
-        hungrinessState.setCurrentCount(currentHungry);
         oldPetmodel.setHungriness(currentHungry);
         //update pet sqlite
         petDatabaseHelper.updateData(oldPetmodel);
@@ -215,10 +180,6 @@ public class Minigame extends AppCompatActivity {
         return hungriness;
     }
 
-    private void killPet(){
-        petDatabaseHelper.killPet();
-        petlv.setText("Dropped table");
-    }
 
 
     public void openShop(View v){
@@ -230,9 +191,6 @@ public class Minigame extends AppCompatActivity {
     private void expPlus(int gotExp) {
         PetModel petModel = petDatabaseHelper.getCurrentStat();
         petModel.expPlus(this, gotExp);
-        expState.setMaxCount(petDatabaseHelper.getExpForLevelUp(petModel.getLv()));
-        expState.setCurrentCount(petModel.getExp());
-        petLvNum.setText(petModel.getLv() + " ");
         petDatabaseHelper.updateData(petModel);
 
     }
@@ -255,7 +213,7 @@ public class Minigame extends AppCompatActivity {
         moodState.setMaxCount(100);
         moodState.setColor(Color.BLUE);
         int currentMood = petmodel.getMood();
-        moodState.setCurrentCount(50);
+        moodState.setCurrentCount(currentMood);
 
         petLvNum = states_pop_up_view.findViewById(R.id.pet_lv_number);
         int level_text = petmodel.getLv();
@@ -282,5 +240,91 @@ public class Minigame extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void createShopDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final View shop_pop_up_view = getLayoutInflater().inflate(R.layout.shop_pup_up, null);
+
+        Button btn_shop_pop_up_cancel = shop_pop_up_view.findViewById(R.id.btn_close_shop);
+        Button btn_buy_food = shop_pop_up_view.findViewById(R.id.btn_buy_food);
+        Button btn_buy_toy = shop_pop_up_view.findViewById(R.id.btn_buy_toy);
+
+        TextView text_currency = shop_pop_up_view.findViewById(R.id.textView_currency);
+        TextView text_toy_price = shop_pop_up_view.findViewById(R.id.textView_foodPrice);
+        TextView text_food_price = shop_pop_up_view.findViewById(R.id.textView_toyPrice);
+        TextView text_foodNum = shop_pop_up_view.findViewById(R.id.textView_food_num);
+        TextView text_toyNum = shop_pop_up_view.findViewById(R.id.textView_toy_num);
+
+
+        int totalCurrency = petDatabaseHelper.getCurrency();
+        int numOfFood = petDatabaseHelper.getFood();
+        int numOfToy  = petDatabaseHelper.getToy();
+        int foodPrice = 10;
+        int toyPrice = 10;
+        text_currency.setText(totalCurrency + "");
+        text_food_price.setText(foodPrice + "");
+        text_toy_price.setText(toyPrice + "");
+        text_foodNum.setText(numOfFood + "");
+        text_toyNum.setText(numOfToy + "");
+
+        btn_buy_food.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int newCurrency = buyFood(foodPrice, shop_pop_up_view);
+                text_currency.setText(newCurrency + "");
+                int newNumFood = petDatabaseHelper.getFood();
+                text_foodNum.setText(newNumFood + "");
+            }
+        });
+        btn_buy_toy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int newCurrency = buyToy(toyPrice, shop_pop_up_view);
+                text_currency.setText(newCurrency + "");
+                int newNumToy = petDatabaseHelper.getToy();
+                text_toyNum.setText(newNumToy + "");
+            }
+        });
+        builder.setView(shop_pop_up_view);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        btn_shop_pop_up_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+    }
+
+    //got the food price and view of shop, return the rest of currency
+    private int buyFood(int foodPrice, View view) {
+        int totalCurrency = petDatabaseHelper.getCurrency();
+        int numOfFood = petDatabaseHelper.getFood();
+        if(totalCurrency >= foodPrice){
+             totalCurrency = totalCurrency - foodPrice;
+             numOfFood ++;
+            petDatabaseHelper.updateCurrency(totalCurrency);
+            petDatabaseHelper.updateFood(numOfFood);
+        }else{
+            Toast.makeText(this, "You do not have enough currency", Toast.LENGTH_SHORT).show();
+        }
+        return totalCurrency;
+    }
+
+    //got the food price and view of shop, return the rest of currency
+    private int buyToy(int toyPrice, View view) {
+        int totalCurrency = petDatabaseHelper.getCurrency();
+        int numOfToy = petDatabaseHelper.getToy();
+        if(totalCurrency >= toyPrice){
+            totalCurrency = totalCurrency - toyPrice;
+            numOfToy ++;
+            petDatabaseHelper.updateCurrency(totalCurrency);
+            petDatabaseHelper.updateToy(numOfToy);
+        }else{
+            Toast.makeText(this, "You do not have enough currency", Toast.LENGTH_SHORT).show();
+        }
+        return totalCurrency;
     }
 }

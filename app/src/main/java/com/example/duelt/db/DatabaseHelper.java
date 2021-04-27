@@ -110,6 +110,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + LEVEL_COLUMN + " INT);";
         db.execSQL(createPetTableStatement);
 
+        PetModel petmodel = new PetModel(0, 0, 0, 1, "Boo");
+        addPet(petmodel);
 
         final String createItemTableStatement = "CREATE TABLE IF NOT EXISTS " + ITEM_TABLE_NAME + " ( "
                 + CURRENCY_COLUMN + " INT, "
@@ -117,7 +119,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + TOY_COLUMN + " INT);";
         db.execSQL(createItemTableStatement);
 
-        addItem(db);
+        addItem();
 
         final String createWeekDayTableStatement = "CREATE TABLE IF NOT EXISTS " + WEEKLY_SCHEDULE_TABLE_NAME + "("
                 + EVENT_ID_COLUMN + " INT UNIQUE, "
@@ -233,6 +235,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + TOY_COLUMN + " = " + toy + ";");
         db.close();
     }
+    //init Item table
+    private void addItem(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(CURRENCY_COLUMN, 100);
+        cv.put(FOOD_COLUMN, 0);
+        cv.put(TOY_COLUMN, 0);
+
+        db.insert(ITEM_TABLE_NAME, null, cv);
+    }
 
     public void updateCurrency(int currency){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -287,17 +300,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-
-    public void addItem(SQLiteDatabase db){
-        ContentValues cv = new ContentValues();
-
-        cv.put(CURRENCY_COLUMN, 0);
-        cv.put(FOOD_COLUMN, 0);
-        cv.put(TOY_COLUMN, 0);
-
-        db.insert(ITEM_TABLE_NAME, null, cv);
-    }
-
     public void removeAllItem(){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + ITEM_TABLE_NAME + ";");
@@ -330,6 +332,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.insert(PET_TABLE_NAME, null, cv);
         db.close();
+    }
+    //init pet table
+    private void addPet(PetModel pet){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(NAME_COLUMN, pet.getName());
+        cv.put(HUNGRINESS_COLUMN, pet.getHungriness());
+        cv.put(MOOD_COLUMN, pet.getMood());
+        cv.put(EXP_COLUMN, pet.getExp());
+        cv.put(LEVEL_COLUMN, pet.getLv());
+
+        db.insert(PET_TABLE_NAME, null, cv);
     }
 
     public void killPet(){
