@@ -111,7 +111,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(createPetTableStatement);
 
         PetModel petmodel = new PetModel(0, 0, 0, 1, "Boo");
-        addPet(petmodel);
+        initPet(petmodel, db);
 
         final String createItemTableStatement = "CREATE TABLE IF NOT EXISTS " + ITEM_TABLE_NAME + " ( "
                 + CURRENCY_COLUMN + " INT, "
@@ -119,7 +119,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + TOY_COLUMN + " INT);";
         db.execSQL(createItemTableStatement);
 
-        addItem();
+        initItem(db);
 
         final String createWeekDayTableStatement = "CREATE TABLE IF NOT EXISTS " + WEEKLY_SCHEDULE_TABLE_NAME + "("
                 + EVENT_ID_COLUMN + " INT UNIQUE, "
@@ -236,8 +236,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
     //init Item table
-    private void addItem(){
-        SQLiteDatabase db = this.getWritableDatabase();
+    private void initItem(SQLiteDatabase db){
         ContentValues cv = new ContentValues();
 
         cv.put(CURRENCY_COLUMN, 100);
@@ -333,9 +332,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(PET_TABLE_NAME, null, cv);
         db.close();
     }
+
     //init pet table
-    private void addPet(PetModel pet){
-        SQLiteDatabase db = this.getWritableDatabase();
+    private void initPet(PetModel pet, SQLiteDatabase db){
         ContentValues cv = new ContentValues();
 
         cv.put(NAME_COLUMN, pet.getName());
