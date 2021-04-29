@@ -34,12 +34,12 @@
         <activity android:name=".CalendarActivity" />
         <activity android:name=".Minigame" />
 
-        <receiver android:name=".AlarmReceiver">
+        <receiver android:name=".alarm.AlarmReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".MemoAlarmReceiver">
+        <receiver android:name=".alarm.MemoAlarmReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>

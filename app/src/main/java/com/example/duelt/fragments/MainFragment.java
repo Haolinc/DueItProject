@@ -22,7 +22,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.example.duelt.db.EventDateModel;
-import com.example.duelt.MemoAlarmReceiver;
+import com.example.duelt.alarm.MemoAlarmReceiver;
 import com.example.duelt.popWindows.PopWindow;
 import com.example.duelt.R;
 import com.example.duelt.RewardCalculation;

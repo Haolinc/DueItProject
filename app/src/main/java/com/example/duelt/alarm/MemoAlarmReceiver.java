@@ -1,4 +1,4 @@
-package com.example.duelt;
+package com.example.duelt.alarm;
 
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -9,6 +9,7 @@ import android.content.Intent;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.example.duelt.R;
 import com.example.duelt.db.DatabaseHelper;
 import com.example.duelt.fragments.MainFragment;
 

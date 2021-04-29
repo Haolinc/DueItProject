@@ -14,10 +14,9 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.example.duelt.CalendarActivity;
-import com.example.duelt.CalenderTimer;
-import com.example.duelt.db.EventDateModel;
 import com.example.duelt.R;
 import com.example.duelt.db.DatabaseHelper;
+import com.example.duelt.db.EventDateModel;
 
 import java.util.Calendar;
 import java.util.List;
@@ -83,7 +82,6 @@ public class MemoFragment extends Fragment {
     private void createOneTextViewInDayLeft(EventDateModel edm) {
         TextView tv = new TextView(getActivity());
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-2, -2);  //wrap_content
-        CalenderTimer calenderTimer = new CalenderTimer();
 
         int days = edm.minusInDay(edm);
 

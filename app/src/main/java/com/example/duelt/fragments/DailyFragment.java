@@ -25,7 +25,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
-import com.example.duelt.AlarmReceiver;
+import com.example.duelt.alarm.AlarmReceiver;
 import com.example.duelt.db.EventDateModel;
 import com.example.duelt.R;
 import com.example.duelt.db.DatabaseHelper;

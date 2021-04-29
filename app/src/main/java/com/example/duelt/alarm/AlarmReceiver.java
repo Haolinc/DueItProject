@@ -1,4 +1,4 @@
-package com.example.duelt;
+package com.example.duelt.alarm;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

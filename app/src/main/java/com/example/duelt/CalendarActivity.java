@@ -1,8 +1,5 @@
 package com.example.duelt;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +8,9 @@ import android.view.View;
 import android.widget.CalendarView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.duelt.db.EventDateModel;
 import com.example.duelt.fragments.TextEntering;
@@ -72,7 +72,6 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
     private boolean checkDate(int year, int month, int dayOfMonth, int hourOfDay, int minute) {
-        CalenderTimer ct = new CalenderTimer();
         EventDateModel currentDay = new EventDateModel(Calendar.getInstance());
         EventDateModel date = new EventDateModel(year,month,dayOfMonth,hourOfDay,minute);
         boolean flag = !currentDay.isLessThanInTime(date);

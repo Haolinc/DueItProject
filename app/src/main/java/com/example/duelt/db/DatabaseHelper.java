@@ -293,8 +293,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return toy;
     }
 
-
-
     public void removeAllItem(){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + ITEM_TABLE_NAME + ";");
