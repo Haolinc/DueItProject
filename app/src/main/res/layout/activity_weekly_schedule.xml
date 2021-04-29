@@ -574,7 +574,7 @@
 
                     <include layout="@layout/calendar_line_divider" />
 
- <!-- This part is for testing, Real cardView will be created through ScheduleActivity.java -->
+<!--  This part is for testing, Real cardView will be created through ScheduleActivity.java -->
 <!--                    <androidx.cardview.widget.CardView-->
 <!--                        android:layout_width="match_parent"-->
 <!--                        android:layout_height="117dp"-->
@@ -585,7 +585,7 @@
 <!--                            android:layout_width="wrap_content"-->
 <!--                            android:layout_height="wrap_content"-->
 <!--                            android:layout_gravity="center_vertical"-->
-<!--                            android:text="Physics"-->
+<!--                            android:text="Physics class"-->
 <!--                            android:textColor="@color/black" />-->
 
 <!--                    </androidx.cardview.widget.CardView>-->

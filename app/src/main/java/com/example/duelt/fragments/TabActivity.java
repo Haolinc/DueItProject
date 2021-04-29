@@ -1,4 +1,4 @@
-package com.example.duelt;
+package com.example.duelt.fragments;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,7 +6,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
@@ -14,6 +13,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 
+import com.example.duelt.Profile;
+import com.example.duelt.R;
+import com.example.duelt.WeeklyScheduleActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
@@ -74,7 +76,7 @@ public class TabActivity extends AppCompatActivity {
                 break;
             case R.id.nav_second_fragment:
 //                fragmentClass = test_frag.class;
-                startActivity(new Intent(this, DailyActivity.class));
+                startActivity(new Intent(this, WeeklyScheduleActivity.class));
                 break;
             case R.id.nav_third_fragment:
 //                fragmentClass = test_frag.class;

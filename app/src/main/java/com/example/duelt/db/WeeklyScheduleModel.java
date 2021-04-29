@@ -1,4 +1,4 @@
-package com.example.duelt;
+package com.example.duelt.db;
 
 import android.content.Context;
 import android.widget.Toast;

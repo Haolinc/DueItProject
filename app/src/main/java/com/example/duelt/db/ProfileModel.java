@@ -1,4 +1,4 @@
-package com.example.duelt;
+package com.example.duelt.db;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

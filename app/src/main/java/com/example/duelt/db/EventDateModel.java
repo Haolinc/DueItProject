@@ -1,17 +1,11 @@
-package com.example.duelt;
+package com.example.duelt.db;
 
 import android.content.Context;
 import android.widget.Toast;
 
-import androidx.core.os.UserManagerCompat;
-
-import com.example.duelt.db.DatabaseHelper;
-
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class EventDateModel {
     private String eventTitle;

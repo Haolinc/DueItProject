@@ -1,4 +1,4 @@
-package com.example.duelt;
+package com.example.duelt.popWindows;
 
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -6,7 +6,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.duelt.R;
+import com.example.duelt.RewardCalculation;
 import com.example.duelt.db.DatabaseHelper;
+import com.example.duelt.db.EventDateModel;
 
 import java.util.HashMap;
 

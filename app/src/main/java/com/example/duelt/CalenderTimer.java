@@ -1,11 +1,8 @@
 package com.example.duelt;
-import android.util.Log;
 
-import java.time.Year;
+import com.example.duelt.db.EventDateModel;
+
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class CalenderTimer {
 

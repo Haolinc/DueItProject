@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".TabActivity">
+    tools:context=".fragments.TabActivity">
 
     <!-- This DrawerLayout has two children at the root  -->
     <androidx.drawerlayout.widget.DrawerLayout

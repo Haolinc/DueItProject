@@ -10,6 +10,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.example.duelt.db.DatabaseHelper;
+import com.example.duelt.fragments.MainFragment;
 
 public class MemoAlarmReceiver  extends BroadcastReceiver {
     private NotificationManagerCompat notificationManagerCompat;

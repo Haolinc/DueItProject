@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.duelt.db.DatabaseHelper;
+import com.example.duelt.db.PetModel;
 
 import java.util.ArrayList;
 

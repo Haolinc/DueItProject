@@ -1,17 +1,15 @@
-package com.example.duelt;
+package com.example.duelt.popWindows;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.duelt.R;
 import com.example.duelt.db.DatabaseHelper;
+import com.example.duelt.fragments.TreatmentFragment;
 
 public class Congratulation_Window extends AppCompatActivity {
     AnimationDrawable mWinnerCup;

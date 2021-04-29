@@ -9,7 +9,9 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.duelt.fragments.TreatmentFragment;
+import com.example.duelt.popWindows.Congratulation_Window;
 
 import java.util.Locale;
 
@@ -132,10 +134,6 @@ public class treatmentpage extends AppCompatActivity {
         mCountDownDisplay.setText("Keep on working, you still have");
     }
 
-    public void back(View v){
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
-    }
 
 
 }

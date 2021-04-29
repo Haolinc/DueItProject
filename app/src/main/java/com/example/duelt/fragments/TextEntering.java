@@ -1,4 +1,4 @@
-package com.example.duelt;
+package com.example.duelt.fragments;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -14,14 +14,19 @@ import android.widget.EditText;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.duelt.AlarmReceiver;
+import com.example.duelt.CalendarActivity;
+import com.example.duelt.db.EventDateModel;
+import com.example.duelt.MemoAlarmReceiver;
+import com.example.duelt.R;
 import com.example.duelt.db.DatabaseHelper;
 
 import java.util.Calendar;
 
-import static com.example.duelt.MainActivity.CHANNEL_1_ID;
-import static com.example.duelt.MainFragment.CHANNEL_2_ID;
-import static com.example.duelt.MainFragment.CHANNEL_3_ID;
-import static com.example.duelt.MainFragment.CHANNEL_4_ID;
+import static com.example.duelt.fragments.MainFragment.CHANNEL_1_ID;
+import static com.example.duelt.fragments.MainFragment.CHANNEL_2_ID;
+import static com.example.duelt.fragments.MainFragment.CHANNEL_3_ID;
+import static com.example.duelt.fragments.MainFragment.CHANNEL_4_ID;
 
 public class TextEntering extends AppCompatActivity {
     private String eventTitle;

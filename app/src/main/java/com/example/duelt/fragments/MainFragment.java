@@ -1,4 +1,4 @@
-package com.example.duelt;
+package com.example.duelt.fragments;
 
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
@@ -21,6 +21,12 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import com.example.duelt.db.EventDateModel;
+import com.example.duelt.MemoAlarmReceiver;
+import com.example.duelt.popWindows.PopWindow;
+import com.example.duelt.R;
+import com.example.duelt.RewardCalculation;
+import com.example.duelt.WeeklyScheduleActivity;
 import com.example.duelt.db.DatabaseHelper;
 
 import java.util.HashMap;
@@ -199,10 +205,6 @@ public class MainFragment extends Fragment {
 
     }
 
-    public void jumpToTestMain(View v){
-        Intent i = new Intent(getActivity(), MiniActivity.class);
-        startActivity(i);
-    }
     public void cancelAlarm(int requestedCode) {
         AlarmManager am = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(getActivity(), MemoAlarmReceiver.class);

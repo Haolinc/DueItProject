@@ -1,4 +1,4 @@
-package com.example.duelt;
+package com.example.duelt.fragments;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -25,6 +25,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import com.example.duelt.AlarmReceiver;
+import com.example.duelt.db.EventDateModel;
+import com.example.duelt.R;
 import com.example.duelt.db.DatabaseHelper;
 
 import java.util.Calendar;

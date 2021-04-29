@@ -4,18 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dailyLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".DailyActivity">
+    android:layout_height="match_parent">
 
-
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back"
-        android:onClick="back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TimePicker
         android:id="@+id/datePicker1"
@@ -45,12 +35,11 @@
         android:layout_width="411dp"
         android:layout_height="294dp"
         android:layout_marginTop="7dp"
-        android:layout_marginBottom="41dp"
         android:background="@drawable/scrollview_stroke"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backButton">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/daily_routine_checkbox"

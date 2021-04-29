@@ -14,9 +14,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.duelt.db.DatabaseHelper;
+import com.example.duelt.db.WeeklyScheduleModel;
+import com.example.duelt.popWindows.ScheduleEventAddWindow;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,7 +42,7 @@ public class WeeklyScheduleActivity extends AppCompatActivity {
         btn_addEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),ScheduleEventAddWindow.class);
+                Intent i = new Intent(getApplicationContext(), ScheduleEventAddWindow.class);
                 startActivity(i);
             }
         });

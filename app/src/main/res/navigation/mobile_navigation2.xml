@@ -7,27 +7,27 @@
 
     <fragment
         android:id="@+id/treatmentFragment"
-        android:name="com.example.duelt.TreatmentFragment"
+        android:name="com.example.duelt.fragments.TreatmentFragment"
         android:label="TreatmentFragment"
         tools:layout="@layout/activity_treatment"/>
     <fragment
         android:id="@+id/dailyFragment"
-        android:name="com.example.duelt.DailyFragment"
+        android:name="com.example.duelt.fragments.DailyFragment"
         android:label="DailyFragment"
         tools:layout="@layout/activity_daily"/>
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.duelt.MainFragment"
+        android:name="com.example.duelt.fragments.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/activity_main"/>
     <fragment
         android:id="@+id/memoFragment"
-        android:name="com.example.duelt.MemoFragment"
+        android:name="com.example.duelt.fragments.MemoFragment"
         android:label="MemoFragment"
         tools:layout="@layout/activity_memo"/>
     <fragment
         android:id="@+id/miniFragment"
-        android:name="com.example.duelt.MiniFragment"
+        android:name="com.example.duelt.fragments.MiniFragment"
         android:label="MiniFragment"
         tools:layout="@layout/activity_minigame"/>
 

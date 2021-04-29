@@ -1,4 +1,4 @@
-package com.example.duelt;
+package com.example.duelt.fragments;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+
+import com.example.duelt.R;
+import com.example.duelt.treatmentpage;
 
 public class TreatmentFragment extends Fragment {
     AnimationDrawable go321Animation;
@@ -59,14 +62,6 @@ public class TreatmentFragment extends Fragment {
             }
         });
 
-        //back Button fucntion
-        Button btn_back = (Button) rootView.findViewById(R.id.button4); //Consider change naming
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().finish();
-            }
-        });
 
         //onClick(ImageButton- go321) button function, consider better naming
         imageButton.setOnClickListener(new View.OnClickListener() {

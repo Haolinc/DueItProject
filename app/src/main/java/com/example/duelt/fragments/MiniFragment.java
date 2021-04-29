@@ -1,7 +1,6 @@
-package com.example.duelt;
+package com.example.duelt.fragments;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,6 +12,10 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.duelt.Minigame;
+import com.example.duelt.db.PetModel;
+import com.example.duelt.R;
+import com.example.duelt.StatesView;
 import com.example.duelt.db.DatabaseHelper;
 
 public class MiniFragment extends Fragment {
@@ -33,15 +36,6 @@ public class MiniFragment extends Fragment {
 
         //Buttons in Fragments should be written here
         // ↓↓↓↓↓↓↓↓
-
-        //back button function
-        Button btn_back = (Button) rootView.findViewById(R.id.back);
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().finish();
-            }
-        });
 
         //dataTesting button function
         Button btn_dataTesting = (Button) rootView.findViewById(R.id.data_testing);

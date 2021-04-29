@@ -1,4 +1,4 @@
-package com.example.duelt;
+package com.example.duelt.popWindows;
 
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -10,17 +10,15 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
+import com.example.duelt.R;
 import com.example.duelt.db.DatabaseHelper;
+import com.example.duelt.db.WeeklyScheduleModel;
 
 import java.util.Arrays;
 import java.util.List;
