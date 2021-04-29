@@ -7,11 +7,21 @@
     app:cardBackgroundColor="#ffffff"
     app:cardPreventCornerOverlap="false"
     >
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Event"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="35dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -104,17 +114,18 @@
                 android:layout_marginTop="20dp"
                 android:spinnerMode="dropdown"
                 />
-
-            <Button
-                android:layout_width="100dp"
-                android:layout_height="56dp"
-                android:id="@+id/btn_addEvent"
-                android:text="Add"
-                android:onClick="addEventToWeeklySchedule"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                app:cornerRadius="20dp"
-                android:layout_marginTop="50dp"/>
         </LinearLayout>
+
     </LinearLayout>
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:id="@+id/btn_addEvent"
+        android:text="Add"
+        android:onClick="addEventToWeeklySchedule"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:cornerRadius="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="400dp"/>
 </androidx.cardview.widget.CardView>

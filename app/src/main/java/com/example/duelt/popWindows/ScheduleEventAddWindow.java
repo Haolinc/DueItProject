@@ -44,7 +44,7 @@ public class ScheduleEventAddWindow extends AppCompatActivity {
         Window window=this.getWindow();
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         //set pop up window size
-        getWindow().setLayout((int)(width * .8),(int)(height*.7));
+        getWindow().setLayout((int)(width * .8),(int)(height*.63));
 
         //Initialize and locate EditText
         eventText = findViewById(R.id.eventText);
