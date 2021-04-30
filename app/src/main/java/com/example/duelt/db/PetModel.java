@@ -1,9 +1,6 @@
 package com.example.duelt.db;
 
 import android.content.Context;
-import android.view.View;
-
-import com.example.duelt.db.DatabaseHelper;
 
 public class PetModel {
     private int hungriness;

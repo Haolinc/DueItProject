@@ -12,6 +12,8 @@ import com.example.duelt.R;
 import com.example.duelt.RewardCalculation;
 import com.example.duelt.db.DatabaseHelper;
 import com.example.duelt.db.EventDateModel;
+import com.example.duelt.db.PetModel;
+import com.example.duelt.fragments.TreatmentFragment;
 
 import java.util.HashMap;
 
@@ -30,15 +32,42 @@ public class PopWindow extends AppCompatActivity {
 
 
         TextView textView = findViewById(R.id.textView2);
-
-        int id= getIntent().getIntExtra("EDMID", -1);
+        int id;
         String table = getIntent().getStringExtra("Table");
-        if (table.equals("Duedate")){
-            dueDatePopWindow(id, textView);
+        switch(table) {
+            case "Duedate":
+                id= getIntent().getIntExtra("EDMID", -1);
+                dueDatePopWindow(id, textView);
+                break;
+            case "Daily":
+                id= getIntent().getIntExtra("EDMID", -1);
+                dailyPopWindow(id, textView);
+                break;
+            case "Treatment":
+                treatmentPopWindow(textView);
+
+            default: System.out.println("error");
         }
-        else if (table.equals("Daily")){
-            dailyPopWindow(id, textView);
-        }
+    }
+
+    private void treatmentPopWindow(TextView textView){
+        DatabaseHelper DatabaseHelper = new DatabaseHelper(this);
+        PetModel petmodel = DatabaseHelper.getCurrentStat();
+        long mTimer = TreatmentFragment.getmStartTimeInMillis();
+
+        ImageView vWinnerCup = findViewById(R.id.cupAnimation);
+        vWinnerCup.setBackgroundResource(R.drawable.winner_cup_list);
+        mWinnerCup = (AnimationDrawable) vWinnerCup.getBackground();
+        mWinnerCup.start();
+
+        int currency = ((int)mTimer/6);
+        int exp = ((int)mTimer/6);
+        DatabaseHelper.updateCurrency(DatabaseHelper.getCurrency()+currency);
+        petmodel.expPlus(this, DatabaseHelper.getCurrency()+exp);
+        DatabaseHelper.updateData(petmodel);
+
+        String textViewText = "You have earned " + currency + " currency and " + exp + " exp.";
+        textView.setText(textViewText);
     }
 
     private void dueDatePopWindow(int id, TextView textView){
@@ -62,7 +91,7 @@ public class PopWindow extends AppCompatActivity {
         textView.setText(textViewText);
         databaseHelper.deleteOneFromDueDate(id);
     }
-    
+
     private void dailyPopWindow(int id, TextView textView){
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         String textViewText = "Your activity of " + databaseHelper.getOneFromDaily(id).getEventTitle() + " is coming up";

@@ -1,7 +1,5 @@
 package com.example.duelt;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -10,8 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.duelt.fragments.TreatmentFragment;
-import com.example.duelt.popWindows.Congratulation_Window;
+import com.example.duelt.popWindows.PopWindow;
 
 import java.util.Locale;
 
@@ -50,8 +50,9 @@ public class treatmentpage extends AppCompatActivity {
         mTestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                startActivity(new Intent(v.getContext(), Congratulation_Window.class));
+                Intent i = new Intent(v.getContext(), PopWindow.class);
+                i.putExtra("Table", "Treatment");
+                startActivity(i);
             }
         });
         //bug test****************************************************************************************
@@ -134,6 +135,8 @@ public class treatmentpage extends AppCompatActivity {
         mCountDownDisplay.setText("Keep on working, you still have");
     }
 
-
+    public void back(View v){
+        finish();
+    }
 
 }

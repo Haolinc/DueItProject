@@ -15,7 +15,6 @@
         <activity android:name=".Profile" />
         <activity android:name=".setting_list_items" />
         <activity android:name=".Setting" />
-        <activity android:name=".popWindows.Congratulation_Window" />
         <activity
             android:name=".popWindows.ScheduleEventAddWindow"
             android:theme="@style/AppTheme.CustomTheme" />
