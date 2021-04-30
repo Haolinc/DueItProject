@@ -176,8 +176,10 @@ public class MainFragment extends Fragment {
                                     HashMap<String, Integer> reward = RewardCalculation.calculateReward(edm.getSetDateMillis(), edm.getDueDateMillis());
                                     if (reward.get("currency")!=null)
                                         dh.updateCurrency(dh.getCurrency()+reward.get("currency"));
-                                    dh.deleteOneFromDueDate(edm.getID());
-                                    updateCheckBox();
+                                    Intent i = new Intent(getActivity(), PopWindow.class);
+                                    i.putExtra("Table", "Duedate");
+                                    i.putExtra("EDMID", edm.getID());
+                                    startActivity(i);
                                 }
                             });
                     alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "No",
