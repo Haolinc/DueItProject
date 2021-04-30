@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -45,6 +47,10 @@ public class TreatmentFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String input = mEditTimeInput.getText().toString();
+                //test animation *********************************************************************************************************************************
+                final Animation treatmentButton = AnimationUtils.loadAnimation(getActivity(),R.anim.treatment_button_bounce);
+                mButtonSet.startAnimation(treatmentButton);
+
                 if(input.length() == 0) {
                     Toast.makeText(getActivity(), "Field can't be empty",Toast.LENGTH_SHORT).show();
                     return;
