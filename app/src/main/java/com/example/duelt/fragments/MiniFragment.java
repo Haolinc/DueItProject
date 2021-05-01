@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.duelt.Minigame;
+import com.example.duelt.ShopPage;
 import com.example.duelt.db.PetModel;
 import com.example.duelt.R;
 import com.example.duelt.StatesView;
@@ -47,14 +48,23 @@ public class MiniFragment extends Fragment {
             }
         });
 
-        //state_button function
-        Button btn_state_button = (Button) rootView.findViewById(R.id.states_button);
-        btn_state_button.setOnClickListener(new View.OnClickListener() {
+        Button btn_shoppage = rootView.findViewById(R.id.mini_shop_button);
+        btn_shoppage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createStateDialog(rootView);
+                startActivity(new Intent(getActivity(), ShopPage.class));
             }
         });
+
+
+        //state_button function
+//        Button btn_state_button = (Button) rootView.findViewById(R.id.states_button);
+//        btn_state_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                createStateDialog(rootView);
+//            }
+//        });
 
         return rootView;
     }
