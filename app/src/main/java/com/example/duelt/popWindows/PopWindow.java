@@ -76,13 +76,19 @@ public class PopWindow extends AppCompatActivity {
         HashMap<String, Integer> penalty= RewardCalculation.calculateReward(eventDateModel.getSetDateMillis(), eventDateModel.getDueDateMillis());
         cupAnimation();
         String textViewText = "";
+
         if (penalty.get("exp")>0){
             textViewText = "You have completed " + eventDateModel.getEventTitle() + "! You have gain " + penalty.get("exp") + " exp and " +
                     penalty.get("currency") + " currency!";
+            PetModel pm = new PetModel(this);
+            pm.expPlus(this, penalty.get("exp"));
+            databaseHelper.updateData(pm);
+            databaseHelper.updateCurrency(databaseHelper.getCurrency()+penalty.get("currency"));
         }
         else if (penalty.get("exp")<0){
             textViewText = "Your duedate of " + eventDateModel.getEventTitle() + " has passed or you have passed above 90% of the time towards duedate! " +
                     "You have loss " + penalty.get("exp") + " exp and " + penalty.get("currency") + " currency!";
+            databaseHelper.updateCurrency(databaseHelper.getCurrency()-penalty.get("currency"));
         }
         else {
             textViewText = "You have reached 90% of the time towards duedate! You did not gain anything or lose anything.";

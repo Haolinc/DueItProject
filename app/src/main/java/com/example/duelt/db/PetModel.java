@@ -21,6 +21,16 @@ public class PetModel {
         this.name= name;
     }
 
+    public PetModel (Context ctx){
+        DatabaseHelper db = new DatabaseHelper(ctx);
+        PetModel pm = db.getCurrentStat();
+        this.hungriness = pm.getHungriness();
+        this.mood = pm.getMood();
+        this.exp = pm.getExp();
+        this.level = pm.getLv();
+        this.name = pm.getName();
+    }
+
     /*public ShopModel(int currency, int food, int toy) {
         this.currency = currency;
         this.food = food;
@@ -49,7 +59,7 @@ public class PetModel {
     public void lvUp(Context context){
         DatabaseHelper db = new DatabaseHelper(context);
         int expForLevelUp = db.getExpForLevelUp(level);
-        if (exp> expForLevelUp ){
+        while (exp> expForLevelUp ){
             exp = exp - expForLevelUp;
             level += 1;
         }
