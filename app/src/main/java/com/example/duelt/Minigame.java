@@ -1,7 +1,5 @@
 package com.example.duelt;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.duelt.db.DatabaseHelper;
 import com.example.duelt.db.PetModel;
@@ -129,57 +129,39 @@ public class Minigame extends AppCompatActivity {
 
 
     private void toyPet(){
-        PetModel oldPetmodel = petDatabaseHelper.getCurrentStat();
-        int currentMood = oldPetmodel.getMood();
-        currentMood = toy(currentMood);
-
-        //check your pet's current mood
-        if(currentMood <= 40){
-            Toast.makeText(this, "your pet is sad!", Toast.LENGTH_LONG).show();
-        } else if (currentMood >= 40 && currentMood<=60){
-            Toast.makeText(this, "your pet is happy!", Toast.LENGTH_LONG).show();
-        } else if (currentMood >= 80) {
-            Toast.makeText(this, "your pet is excited!", Toast.LENGTH_LONG).show();
+        int toyAmount= petDatabaseHelper.getToy();
+        if (toyAmount>0) {
+            PetModel petmodel = new PetModel(this);
+            petmodel.play();
+            //update pet sqlite
+            petDatabaseHelper.updateData(petmodel);
+            String petmodelText = "add 5 hungriness to the pet";
+            Toast.makeText(this, petmodelText, Toast.LENGTH_SHORT).show();
+            petDatabaseHelper.updateToy(toyAmount-1);
         }
-        oldPetmodel.setMood(currentMood);
-        petDatabaseHelper.updateData(oldPetmodel);
-        String petmodelText = "add 5 mood to the pet";
-        Toast.makeText(this, petmodelText, Toast.LENGTH_SHORT).show();
-
-    }
-    //play with pet, mood will increase by 5
-    private int toy(int mood) {
-        mood += 5;
-        if(mood > 100){
-            mood = 100;
+        else {
+            Toast.makeText(this, "you have no toy for your pet!", Toast.LENGTH_SHORT).show();
         }
 
-        return mood;
     }
 
 
     private void feedPet(){
-        PetModel oldPetmodel = petDatabaseHelper.getCurrentStat();
-        //get old pet's hungriness
-        int currentHungry = oldPetmodel.getHungriness();
-        //feed pet function
-        currentHungry = feed(currentHungry);
-        oldPetmodel.setHungriness(currentHungry);
-        //update pet sqlite
-        petDatabaseHelper.updateData(oldPetmodel);
-        String petmodelText = "add 5 hungriness to the pet";
-        Toast.makeText(this, petmodelText, Toast.LENGTH_SHORT).show();
-
-    }
-
-    //feed the pet, hungriness will increase by 5
-    public int feed(int hungriness){
-        hungriness += 5;
-        if (hungriness > 100){
-            hungriness = 100;
+        int foodAmount= petDatabaseHelper.getFood();
+        if (foodAmount>0) {
+            PetModel petmodel = new PetModel(this);
+            petmodel.feed();
+            //update pet sqlite
+            petDatabaseHelper.updateData(petmodel);
+            String petmodelText = "add 5 hungriness to the pet";
+            Toast.makeText(this, petmodelText, Toast.LENGTH_SHORT).show();
+            petDatabaseHelper.updateFood(foodAmount-1);
         }
-        return hungriness;
+        else {
+            Toast.makeText(this, "you have no food to feed!", Toast.LENGTH_SHORT).show();
+        }
     }
+
 
 
 
