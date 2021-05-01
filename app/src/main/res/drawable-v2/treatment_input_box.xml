@@ -4,19 +4,16 @@
     <item android:left="5dp" android:top="3dp">
         <shape>
             <solid android:color="#426C6969" />
-            <corners android:radius="30dp" />
+            <corners android:radius="5dp" />
         </shape>
     </item>
+
 
     <item android:bottom="5dp" android:right="3dp">
-
         <shape>
-            <gradient
-                android:startColor="#E4038809"
-                android:endColor="#E4038809" />
-            <corners android:radius="30dp" />
+            <solid android:color="#420B0B0B" />
+            <corners android:radius="5dp" />
         </shape>
     </item>
-
 
 </layer-list>
