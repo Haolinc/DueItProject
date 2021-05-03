@@ -18,7 +18,6 @@ import com.example.duelt.db.EventDateModel;
 import com.example.duelt.db.PetModel;
 import com.example.duelt.fragments.TabActivity;
 import com.example.duelt.fragments.TreatmentFragment;
-import com.example.duelt.treatmentpage;
 
 import java.util.HashMap;
 
@@ -71,8 +70,14 @@ public class PopWindow extends AppCompatActivity {
         mGreat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(v.getContext(), TabActivity.class);
-                startActivity(i);
+                if (table.equals("Treatment")) {
+                    Intent i = new Intent(v.getContext(), TabActivity.class);
+                    startActivity(i);
+                }
+                else {
+                    finish();
+                }
+
             }
         });
     }
