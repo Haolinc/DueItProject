@@ -15,15 +15,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/back"
-        android:layout_width="109dp"
-        android:layout_height="51dp"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_back"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:background="@drawable/btn_back_circle_list"
         android:onClick="back"
-        android:text="back"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintHorizontal_bias="0.019"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="13dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

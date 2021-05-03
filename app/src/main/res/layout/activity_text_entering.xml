@@ -16,15 +16,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_back"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
+            android:background="@drawable/btn_back_circle_list"
             android:onClick="back"
-            android:text="Back"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.019"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="13dp" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -59,7 +62,7 @@
             android:id="@+id/eventDetail"
             android:layout_width="312dp"
             android:layout_height="337dp"
-            android:layout_marginBottom="74dp"
+            android:layout_marginBottom="47dp"
             android:background="@drawable/scrollview_stroke"
             android:ems="10"
             android:gravity="start|top"
@@ -80,16 +83,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
-        <Button
+
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/saveButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="142dp"
+            android:layout_height="59dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/treatment_start_button_list"
+            android:text="SAVE"
             android:onClick="saveEvent"
-            android:text="Save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.615" />
+        app:layout_constraintVertical_bias="0.282" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
