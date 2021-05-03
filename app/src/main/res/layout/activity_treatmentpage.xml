@@ -36,11 +36,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="538dp"
+        android:layout_height="344dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="80dp"
-        android:layout_marginBottom="113dp"
+        android:layout_marginBottom="307dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent">
@@ -55,6 +55,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="321dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-6dp"
+        android:background="@drawable/treatment_page_broad">
+
+
         <TextView
             android:id="@+id/countdown_text"
             android:layout_width="wrap_content"
@@ -63,25 +73,13 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
+            android:layout_marginBottom="152dp"
             android:text="00:00"
             android:textSize="60sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gifImageView" />
-
-        <TextView
-            android:id="@+id/countDown_distext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Keep on working, you still have"
-            android:textSize="25sp"
-            app:layout_constraintBottom_toTopOf="@+id/countdown_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gifImageView" />
+            app:layout_constraintHorizontal_bias="0.75"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_pause_start"
@@ -91,25 +89,48 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/custom_button_selector"
+            android:background="@drawable/treatment_start_button_list"
             android:text="start"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/img_workout2"
+            app:layout_constraintStart_toEndOf="@+id/img_workout3"
             app:layout_constraintTop_toBottomOf="@+id/countdown_text"
-            app:layout_constraintVertical_bias="0.646" />
+            app:layout_constraintVertical_bias="0.282" />
+
+        <ImageView
+            android:id="@+id/img_workout2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/workout_set2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.948"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.927" />
+
+        <ImageView
+            android:id="@+id/img_workout3"
+            android:layout_width="100dp"
+            android:layout_height="300dp"
+            android:layout_marginEnd="308dp"
+            android:layout_marginBottom="44dp"
+            android:background="@drawable/workout_set3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
-            android:id="@+id/text_bug"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="TextView"
-            app:layout_constraintBottom_toTopOf="@+id/button_pause_start"
+            android:id="@+id/countDown_distext"
+            android:layout_width="293dp"
+            android:layout_height="61dp"
+            android:layout_marginTop="48dp"
+            android:text="Keep on working, you still have"
+            android:textSize="25sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.94"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
