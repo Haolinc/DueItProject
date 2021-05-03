@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item>
+    <item android:left="5dp" android:top="3dp">
         <shape android:shape="oval">
-            <solid
-                android:color="#E4C34141"/>
+
+            <solid android:color="#426C6969" />
+
             <size
                 android:width="50dp"
                 android:height="50dp"/>
-
         </shape>
     </item>
 
-    <item android:drawable="@drawable/ic_baseline_arrow_back_24"/>
+        <item android:bottom="5dp" android:right="3dp">
+            <shape android:shape="oval">
+                <solid
+                    android:color="#E4038809"/>
+                <size
+                    android:width="50dp"
+                    android:height="50dp"/>
+
+            </shape>
+        </item>
+
+        <item android:bottom="4dp" android:drawable="@drawable/ic_baseline_arrow_back_24"/>
+
 
 </layer-list>
