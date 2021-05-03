@@ -95,7 +95,6 @@ public class MiniFragment extends Fragment {
     private void updateState() {
         petDatabaseHelper = new DatabaseHelper(getContext());
         petmodel = petDatabaseHelper.getCurrentStat();
-        Toast.makeText(getContext(),"hahaha", Toast.LENGTH_SHORT).show();
         //update hungriness state
         int currentHungry = petmodel.getHungriness();
         hungrinessState.setCurrentCount(currentHungry);

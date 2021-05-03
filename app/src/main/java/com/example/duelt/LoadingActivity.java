@@ -1,0 +1,28 @@
+package com.example.duelt;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+
+import com.example.duelt.fragments.TabActivity;
+
+
+public class LoadingActivity extends AppCompatActivity {
+
+    final int delayMillis = 2500;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.loading_page);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(LoadingActivity.this, TabActivity.class);
+                startActivity(intent);
+            }
+        }, delayMillis);
+    }
+}
