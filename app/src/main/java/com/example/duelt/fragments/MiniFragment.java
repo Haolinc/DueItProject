@@ -26,8 +26,11 @@ public class MiniFragment extends Fragment {
     private StatesView moodState;
     private StatesView expState;
     private TextView petLvNum;
+    private TextView petName;
+    private TextView currency;
     private Button states_pup_up_cancel_btn;
-    DatabaseHelper petDatabaseHelper;
+    private DatabaseHelper petDatabaseHelper;
+    private PetModel petmodel;
 
     public MiniFragment(){
         //Required empty public constructor
@@ -37,9 +40,12 @@ public class MiniFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View rootView = inflater.inflate(R.layout.activity_mini,container,false);
 
+        petDatabaseHelper = new DatabaseHelper(rootView.getContext());
+        petmodel = petDatabaseHelper.getCurrentStat();
+
+        initState(rootView);
         //Buttons in Fragments should be written here
         // ↓↓↓↓↓↓↓↓
-        petDatabaseHelper = new DatabaseHelper(rootView.getContext());
 
         //dataTesting button function
         Button btn_dataTesting = (Button) rootView.findViewById(R.id.data_testing);
@@ -72,54 +78,76 @@ public class MiniFragment extends Fragment {
         return rootView;
     }
 
-    private void createStateDialog(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-        final View states_pop_up_view = getLayoutInflater().inflate(R.layout.states_pup_up, null);
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateState();
+    }
 
-        DatabaseHelper petDatabaseHelper = new DatabaseHelper(view.getContext());
-        PetModel petmodel = petDatabaseHelper.getCurrentStat();
+    private void updateState() {
+        petDatabaseHelper = new DatabaseHelper(getContext());
+        petmodel = petDatabaseHelper.getCurrentStat();
+
+        //update hungriness state
+        int currentHungry = petmodel.getHungriness();
+        hungrinessState.setCurrentCount(currentHungry);
+
+        //update mood state
+        int currentMood = petmodel.getMood();
+        moodState.setCurrentCount(currentMood);
+
+        //update level text
+        int level_text = petmodel.getLv();
+        petLvNum.setText("LEVEL:  "+level_text);
+        //update exp state
+        int currentExp = petmodel.getExp();
+        expState.setMaxCount(petDatabaseHelper.getExpForLevelUp(level_text));
+        expState.setCurrentCount(currentExp);
+        //update name
+        petName.setText(petmodel.getName());
+        //update currency
+        currency.setText("Currency: " + petDatabaseHelper.getCurrency());
+    }
+
+    private void initState(View view) {
+
+        petDatabaseHelper = new DatabaseHelper(view.getContext());
+        petmodel = petDatabaseHelper.getCurrentStat();
 
         //init  HungrinessState bar
-        hungrinessState = states_pop_up_view.findViewById(R.id.hungrinessState);
+        hungrinessState = view.findViewById(R.id.hungrinessState);
         hungrinessState.setMaxCount(100);
         hungrinessState.setColor(Color.RED);
         int currentHungry = petmodel.getHungriness();
         hungrinessState.setCurrentCount(currentHungry);
 
         //init MoodState bar
-        moodState = states_pop_up_view.findViewById(R.id.moodState);
+        moodState = view.findViewById(R.id.moodState);
         moodState.setMaxCount(100);
         moodState.setColor(Color.BLUE);
         int currentMood = petmodel.getMood();
         moodState.setCurrentCount(currentMood);
 
-        petLvNum = states_pop_up_view.findViewById(R.id.pet_lv_number);
+        petLvNum = view.findViewById(R.id.mini_level_text);
         int level_text = petmodel.getLv();
-        petLvNum.setText(level_text + "  ");
+        petLvNum.setText("LEVEL:  "+level_text);
 
         //init MoodState bar
-        expState = states_pop_up_view.findViewById(R.id.expState);
+        expState = view.findViewById(R.id.expState);
         expState.setMaxCount(petDatabaseHelper.getExpForLevelUp(level_text));
         expState.setColor(Color.GREEN);
         int currentExp = petmodel.getExp();
         expState.setCurrentCount(currentExp);
 
+        petName = view.findViewById(R.id.mini_petname);
+        petName.setText(petmodel.getName());
 
-        states_pup_up_cancel_btn = states_pop_up_view.findViewById(R.id.close_button);
-
-        builder.setView(states_pop_up_view);
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-
-        states_pup_up_cancel_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
-            }
-        });
-
+        currency = view.findViewById(R.id.mini_level_currency);
+        currency.setText("Currency: " + petDatabaseHelper.getCurrency());
     }
 
+
+    //create shop pup up and define their functions
     private void createShopDialog(Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         final View shop_pop_up_view = getLayoutInflater().inflate(R.layout.shop_pup_up, null);
@@ -151,6 +179,7 @@ public class MiniFragment extends Fragment {
             public void onClick(View v) {
                 int newCurrency = buyFood(foodPrice, shop_pop_up_view);
                 text_currency.setText(newCurrency + "");
+                currency.setText("Currency: " + newCurrency);
                 int newNumFood = petDatabaseHelper.getFood();
                 text_foodNum.setText(newNumFood + "");
             }
