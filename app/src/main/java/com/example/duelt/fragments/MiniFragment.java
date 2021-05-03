@@ -28,9 +28,10 @@ public class MiniFragment extends Fragment {
     private TextView petLvNum;
     private TextView petName;
     private TextView currency;
-    private Button states_pup_up_cancel_btn;
     private DatabaseHelper petDatabaseHelper;
     private PetModel petmodel;
+
+
 
     public MiniFragment(){
         //Required empty public constructor
@@ -66,14 +67,21 @@ public class MiniFragment extends Fragment {
         });
 
 
-        //state_button function
-//        Button btn_state_button = (Button) rootView.findViewById(R.id.states_button);
-//        btn_state_button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                createStateDialog(rootView);
-//            }
-//        });
+        Button btn_feed = rootView.findViewById(R.id.btn_mini_feed);
+        btn_feed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                feed();
+            }
+        });
+
+        Button btn_play = rootView.findViewById(R.id.btn_mini_play);
+        btn_play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                play();
+            }
+        });
 
         return rootView;
     }
@@ -146,6 +154,39 @@ public class MiniFragment extends Fragment {
         currency.setText("Currency: " + petDatabaseHelper.getCurrency());
     }
 
+    private void play(){
+        int toyAmount= petDatabaseHelper.getToy();
+        if (toyAmount>0) {
+            petmodel = petDatabaseHelper.getCurrentStat() ;
+            petmodel.play();
+            moodState.setCurrentCount(petmodel.getMood());
+            //update pet sqlite
+            petDatabaseHelper.updateData(petmodel);
+            toyAmount--;
+            petDatabaseHelper.updateToy(toyAmount);
+
+        }
+        else {
+            Toast.makeText(getContext(), "You have no more toy for your pet!", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void feed(){
+        int foodAmount= petDatabaseHelper.getFood();
+        if (foodAmount>0) {
+            PetModel petmodel = new PetModel(getContext());
+            petmodel.feed();
+            hungrinessState.setCurrentCount(petmodel.getHungriness());
+            //update pet sqlite
+            petDatabaseHelper.updateData(petmodel);
+            foodAmount--;
+            petDatabaseHelper.updateFood(foodAmount);
+        }
+        else {
+            Toast.makeText(getContext(), "You have no more food to feed!", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     //create shop pup up and define their functions
     private void createShopDialog(Context context) {
