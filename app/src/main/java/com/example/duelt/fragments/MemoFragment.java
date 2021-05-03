@@ -41,24 +41,12 @@ public class MemoFragment extends Fragment {
         // ↓↓↓↓↓↓↓↓
 
         //jumpToCalendar button function
-        Button btn_jumpToCalendar = (Button) rootView.findViewById(R.id.buttonToCalendar);
+        Button btn_jumpToCalendar = (Button) rootView.findViewById(R.id.btn_memo_addEvent);
         btn_jumpToCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), CalendarActivity.class);
                 startActivity(i);
-            }
-        });
-
-
-        //getDate button function
-        Button btn_getDate = (Button) rootView.findViewById(R.id.button3);  //Consider changing id naming
-        btn_getDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Calendar calendar = Calendar.getInstance();
-                EventDateModel edm = new EventDateModel(calendar);
-                Toast.makeText(getActivity(), edm.toStringTimeOnly(), Toast.LENGTH_SHORT).show();
             }
         });
 
