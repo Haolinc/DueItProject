@@ -28,8 +28,8 @@ public class treatmentpage extends AppCompatActivity {
     private TextView mCountDownDisplay;
     private Button mButtonStartPause;
     //bug test****************************************************************************************
-    private TextView mbug;
-    private Button mTestButton;
+//    private TextView mbug;
+//    private Button mTestButton;
     //bug test****************************************************************************************
     //MediaPlayer alarmSoundMP = MediaPlayer.create(this, R.raw.alarmclock);
     private CountDownTimer mCountDownTimer;
@@ -44,17 +44,17 @@ public class treatmentpage extends AppCompatActivity {
         setContentView(R.layout.activity_treatmentpage);
         final MediaPlayer alarmSoundMP = MediaPlayer.create(this, R.raw.alarmclock);
         //bug test****************************************************************************************
-        mbug = findViewById(R.id.text_bug);
-        mTestButton = findViewById(R.id.test_button);
-
-        mTestButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(v.getContext(), PopWindow.class);
-                i.putExtra("Table", "Treatment");
-                startActivity(i);
-            }
-        });
+//        mbug = findViewById(R.id.text_bug);
+//        mTestButton = findViewById(R.id.test_button);
+//
+//        mTestButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(v.getContext(), PopWindow.class);
+//                i.putExtra("Table", "Treatment");
+//                startActivity(i);
+//            }
+//        });
         //bug test****************************************************************************************
         mCountDown = findViewById(R.id.countdown_text);
         mCountDownDisplay = findViewById(R.id.countDown_distext);
@@ -91,6 +91,12 @@ public class treatmentpage extends AppCompatActivity {
                         alarmSoundMP.start();
                     //Toast.makeText(treatmentpage.this, "work" + tCount, Toast.LENGTH_SHORT).show();
                         tCount++;
+                }
+
+                if (mTimeLeftInMillis < 1000 && mTimeLeftInMillis > 0){
+                    Intent i = new Intent(treatmentpage.this, PopWindow.class);
+                    i.putExtra("Table", "Treatment");
+                    startActivity(i);
                 }
                 //bug test**************************************************************************************************************************
                 //long mtime = START_TIME_IN_MILLIS-(breakTime*tCount);
