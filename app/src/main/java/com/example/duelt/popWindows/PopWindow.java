@@ -39,15 +39,36 @@ public class PopWindow extends AppCompatActivity {
                 id= getIntent().getIntExtra("EDMID", -1);
                 dueDatePopWindow(id, textView);
                 break;
-            case "Daily":
+            case "DailyReminder":
                 id= getIntent().getIntExtra("EDMID", -1);
-                dailyPopWindow(id, textView);
+                dailyReminderPopWindow(id, textView);
+                break;
+            case "DailyReward":
+                dailyRewardPopWindow(textView);
+                break;
+            case "DailyPenalty":
+                id= getIntent().getIntExtra("EDMID", -1);
+                dailyPenalty(id, textView);
                 break;
             case "Treatment":
                 treatmentPopWindow(textView);
+                break;
 
-            default: System.out.println("error");
+            default:
+                System.out.println("error");
+                break;
         }
+    }
+
+    private void dailyPenalty(int id, TextView textView) {
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        EventDateModel edm = databaseHelper.getOneFromDaily(id);
+        int penalty = edm.getWaked();
+        databaseHelper.updateWakedStatusInDaily(id, 0);
+        String textViewText = "You have skipped " + edm.getEventTitle() + " " + penalty +
+                " times,  therefore you have lose " + penalty*10 + " currency.";
+        textView.setText(textViewText);
+        databaseHelper.updateCurrency(databaseHelper.getCurrency() - penalty*10);
     }
 
     private void treatmentPopWindow(TextView textView){
@@ -85,9 +106,10 @@ public class PopWindow extends AppCompatActivity {
             databaseHelper.updateData(pm);
             databaseHelper.updateCurrency(databaseHelper.getCurrency()+penalty.get("currency"));
         }
+
         else if (penalty.get("exp")<0){
             textViewText = "Your duedate of " + eventDateModel.getEventTitle() + " has passed or you have passed above 90% of the time towards duedate! " +
-                    "You have loss " + penalty.get("exp") + " exp and " + penalty.get("currency") + " currency!";
+                    "You have loss " + penalty.get("currency") + " currency!";
             databaseHelper.updateCurrency(databaseHelper.getCurrency()-penalty.get("currency"));
         }
         else {
@@ -98,7 +120,16 @@ public class PopWindow extends AppCompatActivity {
         databaseHelper.deleteOneFromDueDate(id);
     }
 
-    private void dailyPopWindow(int id, TextView textView){
+    private void dailyRewardPopWindow (TextView textView) {
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        PetModel petModel = databaseHelper.getCurrentStat();
+        petModel.setExp(petModel.getExp()+10);
+        databaseHelper.updateCurrency(databaseHelper.getCurrency()+10);
+        String textViewText = "You have gain 10 exp and 10 currency!";
+        textView.setText(textViewText);
+    }
+
+    private void dailyReminderPopWindow(int id, TextView textView){
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         String textViewText = "Your activity of " + databaseHelper.getOneFromDaily(id).getEventTitle() + " is coming up";
         textView.setText(textViewText);

@@ -25,10 +25,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
-import com.example.duelt.alarm.AlarmReceiver;
-import com.example.duelt.db.EventDateModel;
 import com.example.duelt.R;
+import com.example.duelt.alarm.AlarmReceiver;
 import com.example.duelt.db.DatabaseHelper;
+import com.example.duelt.db.EventDateModel;
+import com.example.duelt.popWindows.PopWindow;
 
 import java.util.Calendar;
 import java.util.List;
@@ -92,7 +93,7 @@ public class DailyFragment extends Fragment {
 
                 Intent i = new Intent(getActivity(), AlarmReceiver.class);
                 i.putExtra("EDMID", edm.getID());
-                i.putExtra("Table", "Daily");
+                i.putExtra("Table", "DailyReminder");
                 PendingIntent pi = PendingIntent.getBroadcast(getActivity(), edm.getID(), i, 0);
                 am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi);
 
@@ -111,9 +112,7 @@ public class DailyFragment extends Fragment {
     }
 
     private void addCheckBox(EventDateModel edm) {
-
         CheckBox cb = new CheckBox(getActivity());
-        DatabaseHelper dh = new DatabaseHelper(getActivity());
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-2, -2);  //wrap_content
 
         if (edm.getWaked() == 1){
@@ -122,21 +121,37 @@ public class DailyFragment extends Fragment {
         cb.setText(edm.getDailyRoutineString());
         cb.setLayoutParams(lp);
         cb.setGravity(Gravity.CENTER_VERTICAL);
-        cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){      //when checked
+        if (edm.getWaked() > 0)
+            dailyPenalty(cb, edm.getID());
+        else
+            dailyReward(cb, edm);
+
+        layoutView.addView(cb);
+    }
+
+    private void dailyPenalty (CheckBox cb, int id) {
+        Intent i = new Intent(getActivity(), PopWindow.class);
+        i.putExtra("Table", "DailyPenalty");
+        i.putExtra("EDMID", id);
+        startActivity(i);
+    }
+
+    private void dailyReward (CheckBox cb, EventDateModel edm) {
+        cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {      //when checked
             @Override
             public void onCheckedChanged(CompoundButton button, boolean isChecked) {
                 if (isChecked) {
                     AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
                     alertDialog.setTitle("alert");
-                    alertDialog.setMessage("Are you sure you want to delete this?");
+                    alertDialog.setMessage("Are you ready to start the task?");
                     alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Yes",
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    layoutView.removeView(cb);   //click to remove checkbox view
-                                    dh.deleteOneFromDaily(edm.getID());
-                                    cancelAlarm(edm.getID());
-                                    updateView();
+                                    Intent i = new Intent(getActivity(), PopWindow.class);
+                                    i.putExtra("Table", "DailyReward");
+                                    i.putExtra("EDMID", edm.getID());
+                                    startActivity(i);
                                 }
                             });
                     alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "No",
@@ -144,6 +159,13 @@ public class DailyFragment extends Fragment {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     cb.setChecked(false);
+                                }
+                            });
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Remove",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    deleteCheckBox(cb, edm);
                                 }
                             });
                     alertDialog.setCanceledOnTouchOutside(true);
@@ -159,8 +181,31 @@ public class DailyFragment extends Fragment {
                 }
             }
         });
+    }
 
-        layoutView.addView(cb);
+    public void deleteCheckBox(CheckBox cb, EventDateModel edm){
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+        alertDialog.setTitle("Remove");
+        alertDialog.setMessage("Are you sure to remove?");
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Yes",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        layoutView.removeView(cb);   //click to remove checkbox view
+                        databaseHelper.deleteOneFromDaily(edm.getID());
+                        cancelAlarm(edm.getID());
+                        updateView();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "No",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        cb.setChecked(false);
+                    }
+                });
+        alertDialog.setCanceledOnTouchOutside(true);
+        alertDialog.show();
     }
 
     public void cancelAlarm(int requestedCode) {
@@ -172,7 +217,7 @@ public class DailyFragment extends Fragment {
 
     public void hideSoftKeyboard(View v) {
         InputMethodManager inputMethodManager = (InputMethodManager)  getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+        inputMethodManager.hideSoftInputFromWindow(getActivity().getWindow().getDecorView().getRootView().getWindowToken(), 0);
     }
 
     private void deleteView() {
