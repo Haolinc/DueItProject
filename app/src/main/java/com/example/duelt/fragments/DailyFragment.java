@@ -129,6 +129,8 @@ public class DailyFragment extends Fragment {
         layoutView.addView(cb);
     }
 
+
+
     private void dailyPenalty (CheckBox cb, int id) {
         Intent i = new Intent(getActivity(), PopWindow.class);
         i.putExtra("Table", "DailyPenalty");

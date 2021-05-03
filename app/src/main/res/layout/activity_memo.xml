@@ -37,8 +37,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dayLeft_scrollview" />
 
-    <ScrollView
-        android:id="@+id/dayLeft_scrollview"
+    <ListView
+        android:id="@+id/dayLeft_listview"
         android:layout_width="309dp"
         android:layout_height="380dp"
         android:layout_centerHorizontal="true"
@@ -53,15 +53,15 @@
         app:layout_constraintWidth_percent="0.25">
 
 
-        <LinearLayout
-            android:id="@+id/dayLeft_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintHeight_percent="0.25"
-            app:layout_constraintWidth_percent="0.25">
+<!--        <LinearLayout-->
+<!--            android:id="@+id/dayLeft_layout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            app:layout_constraintHeight_percent="0.25"-->
+<!--            app:layout_constraintWidth_percent="0.25">-->
 
-        </LinearLayout>
-    </ScrollView>
+<!--        </LinearLayout>-->
+    </ListView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
