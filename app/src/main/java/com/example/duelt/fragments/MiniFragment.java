@@ -95,7 +95,7 @@ public class MiniFragment extends Fragment {
     private void updateState() {
         petDatabaseHelper = new DatabaseHelper(getContext());
         petmodel = petDatabaseHelper.getCurrentStat();
-
+        Toast.makeText(getContext(),"hahaha", Toast.LENGTH_SHORT).show();
         //update hungriness state
         int currentHungry = petmodel.getHungriness();
         hungrinessState.setCurrentCount(currentHungry);
@@ -230,6 +230,7 @@ public class MiniFragment extends Fragment {
             public void onClick(View v) {
                 int newCurrency = buyToy(toyPrice, shop_pop_up_view);
                 text_currency.setText(newCurrency + "");
+                currency.setText("Currency: " + newCurrency);
                 int newNumToy = petDatabaseHelper.getToy();
                 text_toyNum.setText(newNumToy + "");
             }
