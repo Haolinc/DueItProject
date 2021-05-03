@@ -1,8 +1,11 @@
 package com.example.duelt.popWindows;
 
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,12 +16,16 @@ import com.example.duelt.RewardCalculation;
 import com.example.duelt.db.DatabaseHelper;
 import com.example.duelt.db.EventDateModel;
 import com.example.duelt.db.PetModel;
+import com.example.duelt.fragments.TabActivity;
 import com.example.duelt.fragments.TreatmentFragment;
+import com.example.duelt.treatmentpage;
 
 import java.util.HashMap;
 
 public class PopWindow extends AppCompatActivity {
     AnimationDrawable mWinnerCup;
+    Button mGreat;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +39,8 @@ public class PopWindow extends AppCompatActivity {
 
 
         TextView textView = findViewById(R.id.textView2);
+        mGreat = findViewById(R.id.btn_great);
+
         int id;
         String table = getIntent().getStringExtra("Table");
         switch(table) {
@@ -58,6 +67,14 @@ public class PopWindow extends AppCompatActivity {
                 System.out.println("error");
                 break;
         }
+
+        mGreat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), TabActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     private void dailyPenalty(int id, TextView textView) {
