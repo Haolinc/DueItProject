@@ -6,6 +6,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -33,6 +34,8 @@ public class MemoFragment extends Fragment {
 
     public ArrayList<String> dayLeft_list= new ArrayList<String>();
     ListView mListView;
+
+    int[] edmID = new int[100];
     public MemoFragment(){
 
     }
@@ -84,8 +87,19 @@ public class MemoFragment extends Fragment {
         dayLeft_list.add(edm.getEventTitle() + " ONLY " + days + " DAY LEFT !!");
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(),android.R.layout.simple_list_item_1, dayLeft_list);
-
+        mListView.setId(edm.getID());
         mListView.setAdapter(arrayAdapter);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int eid = (int)id;
+                //Intent i = new Intent(getActivity(), CalendarActivity.class);
+//                i.putExtra("emd ID", edm.getID());
+//                startActivity(i);
+                Toast.makeText(getActivity(),"id passed in "+ edmID[eid], Toast.LENGTH_SHORT).show();
+            }
+        });
         //mListView.setAdapter(ad);
 
     }
@@ -104,8 +118,11 @@ public class MemoFragment extends Fragment {
     private void createTextsViewInDayLeft(){
         DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
         List<EventDateModel> list = databaseHelper.getDueDateReminder();
+
         for (int i=0; i<list.size(); i++){
+            edmID[i] = list.get(i).getID();
             createOneTextViewInDayLeft(list.get(i));
+            //Toast.makeText(getActivity(),"id passed in "+list.get(i).getID() , Toast.LENGTH_SHORT).show();
         }
     }
 
