@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Duelt">
+        <activity android:name=".popWindows.Memo_pop_window"></activity>
         <activity android:name=".LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,9 +27,7 @@
             android:name=".popWindows.ScheduleEventAddWindow"
             android:theme="@style/AppTheme.CustomTheme" />
         <activity android:name=".WeeklyScheduleActivity" /> <!-- This Activity is set to default display -->
-        <activity android:name=".fragments.TabActivity">
-
-        </activity>
+        <activity android:name=".fragments.TabActivity"></activity>
         <activity android:name=".ShopPage" />
         <activity android:name=".treatmentpage" />
         <activity android:name=".TreatmentActivity" />

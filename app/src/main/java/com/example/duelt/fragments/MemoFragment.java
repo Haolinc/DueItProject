@@ -20,6 +20,7 @@ import com.example.duelt.CalendarActivity;
 import com.example.duelt.R;
 import com.example.duelt.db.DatabaseHelper;
 import com.example.duelt.db.EventDateModel;
+import com.example.duelt.popWindows.Memo_pop_window;
 import com.example.duelt.setting_list_items;
 
 import java.util.ArrayList;
@@ -93,11 +94,11 @@ public class MemoFragment extends Fragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int eid = (int)id;
-                //Intent i = new Intent(getActivity(), CalendarActivity.class);
-//                i.putExtra("emd ID", edm.getID());
-//                startActivity(i);
-                Toast.makeText(getActivity(),"id passed in "+ edmID[eid], Toast.LENGTH_SHORT).show();
+//                int eid = (int)id;
+                Intent i = new Intent(getActivity(), Memo_pop_window.class);
+                i.putExtra("emd ID", edmID[(int)id]);
+                startActivity(i);
+                Toast.makeText(getActivity(),"id passed in "+ edmID[(int)id], Toast.LENGTH_SHORT).show();
             }
         });
         //mListView.setAdapter(ad);

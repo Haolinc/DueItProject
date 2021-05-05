@@ -10,58 +10,38 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="32dp"
         android:text="Memo"
         android:textSize="40sp"
-        app:layout_constraintBottom_toTopOf="@+id/dayLeft_scrollview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.608" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_memo_addEvent"
-        style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="+"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:cornerRadius="28dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:id="@+id/dayLeft_listview"
-        android:layout_width="410dp"
-        android:layout_height="569dp"
+        android:layout_width="match_parent"
+        android:layout_height="498dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/scrollview_stroke"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btn_memo_addEvent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.25"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.746"
-        app:layout_constraintWidth_percent="0.25">
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintWidth_percent="0.25"></ListView>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_memo_addEvent"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
+        android:text="+"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <!--        <LinearLayout-->
-        <!--            android:id="@+id/dayLeft_layout"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:orientation="vertical"-->
-        <!--            app:layout_constraintHeight_percent="0.25"-->
-        <!--            app:layout_constraintWidth_percent="0.25">-->
-
-        <!--        </LinearLayout>-->
-    </ListView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
