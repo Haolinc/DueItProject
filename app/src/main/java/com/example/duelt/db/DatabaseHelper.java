@@ -519,8 +519,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(EVENT_TITLE_COLUMN, eventDateModel.getEventTitle());
         cv.put(ID_COLUMN, eventDateModel.getID());
         cv.put(WAKED_COLUMN, eventDateModel.getWaked());
-        int wakedTime = Calendar.getInstance().get(Calendar.DAY_OF_YEAR) + Calendar.getInstance().get(Calendar.YEAR) * 1000;
-        cv.put(WAKED_TIME_COLUMN, wakedTime);
+        cv.put(WAKED_TIME_COLUMN, 0);
 
         db.insert(DAILY_TABLE_NAME, null, cv);
         db.close();

@@ -95,7 +95,7 @@ public class DailyFragment extends Fragment {
                 i.putExtra("EDMID", edm.getID());
                 i.putExtra("Table", "DailyReminder");
                 PendingIntent pi = PendingIntent.getBroadcast(getActivity(), edm.getID(), i, 0);
-                am.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 24*60*60*1000, pi);
+                am.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis()-1000*60*5, 24*60*60*1000, pi);
 
                 addCheckBox(edm);
             }
@@ -126,8 +126,14 @@ public class DailyFragment extends Fragment {
             cb.setChecked(true);
         }
 
-        if (edm.getWaked() > 0)
+        if (edm.getWaked() > 0 && edm.getTimeForOrder() < Calendar.getInstance().get(Calendar.HOUR_OF_DAY)*100+Calendar.getInstance().get(Calendar.MINUTE))
             dailyPenalty(cb, edm.getID());
+        else if (edm.getWaked() > 1 && edm.getTimeForOrder() > Calendar.getInstance().get(Calendar.HOUR_OF_DAY)*100+Calendar.getInstance().get(Calendar.MINUTE)){
+            databaseHelper.updateWakedStatusInDaily(edm.getID(), edm.getWaked()-1);
+            dailyPenalty(cb, edm.getID());
+        }
+        else if (edm.getWaked() > 1 && edm.getTimeForOrder() < Calendar.getInstance().get(Calendar.HOUR_OF_DAY)*100+Calendar.getInstance().get(Calendar.MINUTE))
+            dailyPenalty(cb,edm.getID());
         else
             dailyReward(cb, edm);
 
@@ -172,8 +178,7 @@ public class DailyFragment extends Fragment {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                if (checkIfDoneToday(edm))
-                                    cb.setChecked(true);
+                                cb.setChecked(checkIfDoneToday(edm));
                             }
                         });
                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Remove",
@@ -200,7 +205,7 @@ public class DailyFragment extends Fragment {
     public void deleteCheckBox(CheckBox cb, EventDateModel edm){
         AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
         alertDialog.setTitle("Remove");
-        alertDialog.setMessage("Are you sure to remove?");
+        alertDialog.setMessage("Are you sure to remove this event?");
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Yes",
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -246,8 +251,7 @@ public class DailyFragment extends Fragment {
 
     private boolean checkIfDoneToday(EventDateModel edm){
         Calendar currentTime = Calendar.getInstance();
-        return currentTime.get(Calendar.YEAR) * 1000 + currentTime.get(Calendar.DAY_OF_YEAR) ==
-                edm.getWakedTime();
+        return currentTime.get(Calendar.YEAR) * 1000 + currentTime.get(Calendar.DAY_OF_YEAR) == edm.getWakedTime();
     }
 
 
