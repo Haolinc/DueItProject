@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -95,7 +96,7 @@ public class DailyFragment extends Fragment {
                 i.putExtra("EDMID", edm.getID());
                 i.putExtra("Table", "DailyReminder");
                 PendingIntent pi = PendingIntent.getBroadcast(getActivity(), edm.getID(), i, 0);
-                am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi);
+                am.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 24*60*60*1000, pi);
 
                 addCheckBox(edm);
             }
@@ -113,6 +114,9 @@ public class DailyFragment extends Fragment {
 
     private void addCheckBox(EventDateModel edm) {
         CheckBox cb = new CheckBox(getActivity());
+        Calendar currentTime = Calendar.getInstance();
+        TextView date = getActivity().findViewById(R.id.date_view);
+
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-2, -2);  //wrap_content
 
         if (edm.getWaked() == 1){
@@ -123,8 +127,14 @@ public class DailyFragment extends Fragment {
         cb.setGravity(Gravity.CENTER_VERTICAL);
         if (edm.getWaked() > 0)
             dailyPenalty(cb, edm.getID());
-        else
-            dailyReward(cb, edm);
+        else {
+            if (currentTime.get(Calendar.DAY_OF_YEAR)*1000 + currentTime.get(Calendar.DAY_OF_YEAR) ==
+                    edm.getWakedTime()) {
+                Toast.makeText(getActivity(), "You have already done this today!", Toast.LENGTH_SHORT).show();
+            }
+            else
+                dailyReward(cb, edm);
+        }
 
         layoutView.addView(cb);
     }
@@ -230,9 +240,7 @@ public class DailyFragment extends Fragment {
     public void updateView(){
         deleteView();
         createCheckBox();
-        int currency = databaseHelper.getCurrency();
-        TextView date = getActivity().findViewById(R.id.date_view);
-        date.setText(""+currency);
+
     }
 
 

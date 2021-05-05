@@ -19,6 +19,7 @@ import com.example.duelt.db.PetModel;
 import com.example.duelt.fragments.TabActivity;
 import com.example.duelt.fragments.TreatmentFragment;
 
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class PopWindow extends AppCompatActivity {
@@ -42,29 +43,33 @@ public class PopWindow extends AppCompatActivity {
 
         int id;
         String table = getIntent().getStringExtra("Table");
-        switch(table) {
-            case "Duedate":
-                id= getIntent().getIntExtra("EDMID", -1);
-                dueDatePopWindow(id, textView);
-                break;
-            case "DailyReminder":
-                id= getIntent().getIntExtra("EDMID", -1);
-                dailyReminderPopWindow(id, textView);
-                break;
-            case "DailyReward":
-                dailyRewardPopWindow(textView);
-                break;
-            case "DailyPenalty":
-                id= getIntent().getIntExtra("EDMID", -1);
-                dailyPenalty(id, textView);
-                break;
-            case "Treatment":
-                treatmentPopWindow(textView);
-                break;
+        if (table!=null) {
+            switch(table) {
+                case "Duedate":
+                    id= getIntent().getIntExtra("EDMID", -1);
+                    dueDatePopWindow(id, textView);
+                    break;
+                case "DailyReminder":
+                    id= getIntent().getIntExtra("EDMID", -1);
+                    dailyReminderPopWindow(id, textView);
+                    break;
+                case "DailyReward":
+                    id= getIntent().getIntExtra("EDMID", -1);
+                    dailyRewardPopWindow(id, textView);
+                    break;
+                case "DailyPenalty":
+                    id= getIntent().getIntExtra("EDMID", -1);
+                    dailyPenalty(id, textView);
+                    break;
+                case "Treatment":
+                    treatmentPopWindow(textView);
+                    break;
 
-            default:
-                System.out.println("error");
-                break;
+                default:
+                    System.out.println("error");
+                    break;
+        }
+
         }
 
         mGreat.setOnClickListener(new View.OnClickListener() {
@@ -142,11 +147,15 @@ public class PopWindow extends AppCompatActivity {
         databaseHelper.deleteOneFromDueDate(id);
     }
 
-    private void dailyRewardPopWindow (TextView textView) {
+    private void dailyRewardPopWindow (int id, TextView textView) {
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         PetModel petModel = databaseHelper.getCurrentStat();
+        EventDateModel edm = databaseHelper.getOneFromDaily(id);
         petModel.setExp(petModel.getExp()+10);
         databaseHelper.updateCurrency(databaseHelper.getCurrency()+10);
+        edm.setWaked(0);
+        edm.setWakedTime(Calendar.getInstance().get(Calendar.DAY_OF_YEAR) + Calendar.getInstance().get(Calendar.YEAR)*1000);
+        databaseHelper.updateDaily(edm);
         String textViewText = "You have gain 10 exp and 10 currency!";
         textView.setText(textViewText);
     }

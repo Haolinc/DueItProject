@@ -27,6 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TIME_FOR_ORDER_COLUMN = "TIME_FOR_ORDER";
     private static final String HOUR_COLUMN = "HOUR";
     private static final String MINUTE_COLUMN = "MINUTE";
+    private static final String WAKED_TIME_COLUMN = "WAKED_TIME";
 
     //Pet table
     private static final String PET_TABLE_NAME = "PET_STAT_TABLE";
@@ -95,7 +96,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         final String createDailyTableStatement = "CREATE TABLE IF NOT EXISTS " + DAILY_TABLE_NAME + " ( " + TIME_FOR_ORDER_COLUMN
                 + " BIGINT, " + HOUR_COLUMN + " INT, " + MINUTE_COLUMN + " INT, " + EVENT_TITLE_COLUMN +
-                " TEXT, " + ID_COLUMN  + " INT UNIQUE, " + WAKED_COLUMN + " INT);";
+                " TEXT, " + ID_COLUMN  + " INT UNIQUE, " + WAKED_TIME_COLUMN + " INT, " + WAKED_COLUMN + " INT);";
         db.execSQL(createDailyTableStatement);
 
         final String createPetTableStatement = "CREATE TABLE IF NOT EXISTS " + PET_TABLE_NAME + " ( "
@@ -518,8 +519,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(EVENT_TITLE_COLUMN, eventDateModel.getEventTitle());
         cv.put(ID_COLUMN, eventDateModel.getID());
         cv.put(WAKED_COLUMN, eventDateModel.getWaked());
+        int wakedTime = Calendar.getInstance().get(Calendar.DAY_OF_YEAR) + Calendar.getInstance().get(Calendar.YEAR) * 1000;
+        cv.put(WAKED_TIME_COLUMN, wakedTime);
 
         db.insert(DAILY_TABLE_NAME, null, cv);
+        db.close();
+    }
+
+    public void updateDaily(EventDateModel eventDateModel){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE " + DAILY_TABLE_NAME + " SET "
+                + WAKED_COLUMN + " = " + eventDateModel.getWaked() + ", "
+                + EVENT_TITLE_COLUMN + " = '" + eventDateModel.getEventTitle() + "', "
+                + HOUR_COLUMN + " = " + eventDateModel.getHour() + ", "
+                + MINUTE_COLUMN + " = " + eventDateModel.getMinute() + ", "
+                + WAKED_TIME_COLUMN + " = " + eventDateModel.getWakedTime() + ", "
+                + TIME_FOR_ORDER_COLUMN + " = " + eventDateModel.getTimeForOrder()
+                + " WHERE " + ID_COLUMN + " = " + eventDateModel.getID() + ";");
         db.close();
     }
 
@@ -558,9 +574,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String eventTitle = cursor.getString(cursor.getColumnIndex(EVENT_TITLE_COLUMN));
                 int id = cursor.getInt(cursor.getColumnIndex(ID_COLUMN));
                 int waked = cursor.getInt(cursor.getColumnIndex(WAKED_COLUMN));
+                int wakedTime = cursor.getInt(cursor.getColumnIndex(WAKED_TIME_COLUMN));
 
 
-                EventDateModel eventDateModel = new EventDateModel(eventTitle,hour,minute,id, waked);
+                EventDateModel eventDateModel = new EventDateModel(eventTitle,hour,minute,id, waked, wakedTime);
                 eventDateModelsList.add(eventDateModel);
 
             }while (cursor.moveToNext());
@@ -581,7 +598,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int minute = cursor.getInt(cursor.getColumnIndex(MINUTE_COLUMN)) ;
         String eventTitle = cursor.getString(cursor.getColumnIndex(EVENT_TITLE_COLUMN));
         int waked = cursor.getInt(cursor.getColumnIndex(WAKED_COLUMN));
-        eventDateModel = new EventDateModel(eventTitle,hour,minute,id,waked);
+        int wakedTime = cursor.getInt(cursor.getColumnIndex(WAKED_TIME_COLUMN));
+        eventDateModel = new EventDateModel(eventTitle,hour,minute,id,waked,wakedTime);
         cursor.close();
         db.close();
         return eventDateModel;

@@ -14,7 +14,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         Toast.makeText(context, "Alarm waked", Toast.LENGTH_LONG).show();
         DatabaseHelper databaseHelper = new DatabaseHelper(context);
         int id = i.getIntExtra("EDMID", 0);
-        databaseHelper.updateWakedStatusInDueDate(id, 1);
+        databaseHelper.updateWakedStatusInDueDate(id, databaseHelper.getOneFromDaily(id).getWaked()+1);
         String table = i.getStringExtra("Table");
         Intent i2= new Intent(context, PopWindow.class);
         i2.putExtra("EDMID", id);

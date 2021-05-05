@@ -12,22 +12,11 @@ public class EventDateModel {
     private String eventDetail;
     private Calendar setDate, dueDate;
     private long setDateMillis, dueDateMillis;
+    private int wakedTime;
     private int year, month, day, hour, minute;
     private int timeForOrder, ID, waked;
     private int ID2, ID3, ID4;
     Calendar cal = Calendar.getInstance();
-    public EventDateModel() {
-        this.eventTitle = "ERROR";
-        this.eventDetail = "ERROR";
-        this.year = -1;
-        this.month = -1;
-        this.day = -1;
-        this.hour = -1;
-        this.minute = -1;
-        timeForOrder = -1;
-        this.ID = -1;
-        waked = -1;
-    }
 
     //use in activity
     public EventDateModel(String eventTitle, String eventDetail, int year, int month, int day, int hour, int minute, Context ctx) {
@@ -61,8 +50,8 @@ public class EventDateModel {
          this.waked = waked;
     }
 
-    //use for daily constructor in dailyroutine
-    public EventDateModel(String eventTitle, int hour, int minute, int id, int waked) {
+    //use for get daily constructor in database
+    public EventDateModel(String eventTitle, int hour, int minute, int id, int waked, int wakedTime) {
         this.eventTitle = eventTitle;
         this.eventDetail = "";
         this.hour = hour;
@@ -70,6 +59,7 @@ public class EventDateModel {
         timeForOrder = hour*100 + minute;
         this.ID = id;
         this.waked = waked;
+        this.wakedTime = wakedTime;
     }
 
     //get system date
@@ -86,24 +76,15 @@ public class EventDateModel {
         waked = 0;
     }
 
-    //get system date for daily
-    public EventDateModel(int hour, int minute) {
-        this.year = 0;
-        this.month = 0;
-        this.day = 0;
-        this.hour = hour;
-        this.minute = minute;
-        this.eventTitle = "";
-        this.eventDetail = "";
-        this.timeForOrder = hour*100 + minute;
-        this.ID = -1;
-        waked = 0;
-    }
-
     //constructor for daily routine
     public EventDateModel(String eventTitle, int hour, int minute, Context ctx) {
         this.eventDetail = "";
-        this.eventTitle = eventTitle;
+        if (eventTitle.equals("")) {
+            this.eventTitle = "[No Title]";
+        }
+        else {
+            this.eventTitle = eventTitle;
+        }
         this.hour= hour;
         this.minute=minute;
         this.timeForOrder = hour*100 + minute;
@@ -165,6 +146,8 @@ public class EventDateModel {
 
     public int getWaked() { return waked;}
 
+    public int getWakedTime() {return wakedTime;}
+
     public Calendar getDate() { return Calendar.getInstance();}
 
     public void setEventTitle(String eventTitle) {
@@ -196,6 +179,8 @@ public class EventDateModel {
     }
 
     public void setWaked(int waked) {this.waked = waked; }
+
+    public void setWakedTime(int wakedTime) {this.wakedTime = wakedTime;}
 
     public int getID2() {
         return ID2;
