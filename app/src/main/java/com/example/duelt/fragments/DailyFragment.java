@@ -18,7 +18,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -114,9 +113,6 @@ public class DailyFragment extends Fragment {
 
     private void addCheckBox(EventDateModel edm) {
         CheckBox cb = new CheckBox(getActivity());
-        Calendar currentTime = Calendar.getInstance();
-        TextView date = getActivity().findViewById(R.id.date_view);
-
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-2, -2);  //wrap_content
 
         if (edm.getWaked() == 1){
@@ -125,16 +121,15 @@ public class DailyFragment extends Fragment {
         cb.setText(edm.getDailyRoutineString());
         cb.setLayoutParams(lp);
         cb.setGravity(Gravity.CENTER_VERTICAL);
+
+        if (checkIfDoneToday(edm)) {
+            cb.setChecked(true);
+        }
+
         if (edm.getWaked() > 0)
             dailyPenalty(cb, edm.getID());
-        else {
-            if (currentTime.get(Calendar.DAY_OF_YEAR)*1000 + currentTime.get(Calendar.DAY_OF_YEAR) ==
-                    edm.getWakedTime()) {
-                Toast.makeText(getActivity(), "You have already done this today!", Toast.LENGTH_SHORT).show();
-            }
-            else
-                dailyReward(cb, edm);
-        }
+        else
+            dailyReward(cb, edm);
 
         layoutView.addView(cb);
     }
@@ -152,45 +147,52 @@ public class DailyFragment extends Fragment {
         cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {      //when checked
             @Override
             public void onCheckedChanged(CompoundButton button, boolean isChecked) {
-                if (isChecked) {
-                    AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-                    alertDialog.setTitle("alert");
-                    alertDialog.setMessage("Are you ready to start the task?");
-                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Yes",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                if (checkIfDoneToday(edm)) {
+                    cb.setChecked(true);
+                }
+
+                AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+                alertDialog.setTitle("alert");
+                alertDialog.setMessage("Are you ready to start the task?");
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Yes",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (checkIfDoneToday(edm)) {
+                                    Toast.makeText(getActivity(), "You have already done this today!", Toast.LENGTH_SHORT).show();
+                                } else {
                                     Intent i = new Intent(getActivity(), PopWindow.class);
                                     i.putExtra("Table", "DailyReward");
                                     i.putExtra("EDMID", edm.getID());
                                     startActivity(i);
                                 }
-                            });
-                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "No",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    cb.setChecked(false);
-                                }
-                            });
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Remove",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    deleteCheckBox(cb, edm);
-                                }
-                            });
-                    alertDialog.setCanceledOnTouchOutside(true);
-                    alertDialog.setOnCancelListener(
-                            new DialogInterface.OnCancelListener() {
-                                @Override
-                                public void onCancel(DialogInterface dialog) {
-                                    cb.setChecked(false);
-                                }
                             }
-                    );
-                    alertDialog.show();
-                }
+                        });
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "No",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (checkIfDoneToday(edm))
+                                    cb.setChecked(true);
+                            }
+                        });
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Remove",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                deleteCheckBox(cb, edm);
+                            }
+                        });
+                alertDialog.setCanceledOnTouchOutside(true);
+                alertDialog.setOnCancelListener(
+                        new DialogInterface.OnCancelListener() {
+                            @Override
+                            public void onCancel(DialogInterface dialog) {
+                                cb.setChecked(false);
+                            }
+                        }
+                );
+                alertDialog.show();
             }
         });
     }
@@ -240,7 +242,12 @@ public class DailyFragment extends Fragment {
     public void updateView(){
         deleteView();
         createCheckBox();
+    }
 
+    private boolean checkIfDoneToday(EventDateModel edm){
+        Calendar currentTime = Calendar.getInstance();
+        return currentTime.get(Calendar.YEAR) * 1000 + currentTime.get(Calendar.DAY_OF_YEAR) ==
+                edm.getWakedTime();
     }
 
 
