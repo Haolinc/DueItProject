@@ -126,14 +126,12 @@ public class DailyFragment extends Fragment {
             cb.setChecked(true);
         }
 
-        if (edm.getWaked() > 0 && edm.getTimeForOrder() < Calendar.getInstance().get(Calendar.HOUR_OF_DAY)*100+Calendar.getInstance().get(Calendar.MINUTE))
-            dailyPenalty(cb, edm.getID());
-        else if (edm.getWaked() > 1 && edm.getTimeForOrder() > Calendar.getInstance().get(Calendar.HOUR_OF_DAY)*100+Calendar.getInstance().get(Calendar.MINUTE)){
+        if (edm.getWaked() > 1 && !checkIfPassTime(edm)){
             databaseHelper.updateWakedStatusInDaily(edm.getID(), edm.getWaked()-1);
             dailyPenalty(cb, edm.getID());
         }
-        else if (edm.getWaked() > 1 && edm.getTimeForOrder() < Calendar.getInstance().get(Calendar.HOUR_OF_DAY)*100+Calendar.getInstance().get(Calendar.MINUTE))
-            dailyPenalty(cb,edm.getID());
+        else if (edm.getWaked() > 0 && checkIfPassTime(edm))
+            dailyPenalty(cb, edm.getID());
         else
             dailyReward(cb, edm);
 
@@ -166,7 +164,11 @@ public class DailyFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 if (checkIfDoneToday(edm)) {
                                     Toast.makeText(getActivity(), "You have already done this today!", Toast.LENGTH_SHORT).show();
-                                } else {
+                                }
+                                else if (checkIfPassTime(edm)) {
+                                    Toast.makeText(getActivity(), "You have passed the time to do it for today!", Toast.LENGTH_SHORT).show();
+                                }
+                                else {
                                     Intent i = new Intent(getActivity(), PopWindow.class);
                                     i.putExtra("Table", "DailyReward");
                                     i.putExtra("EDMID", edm.getID());
@@ -247,6 +249,10 @@ public class DailyFragment extends Fragment {
     public void updateView(){
         deleteView();
         createCheckBox();
+    }
+
+    private boolean checkIfPassTime (EventDateModel edm) {
+        return edm.getTimeForOrder() < Calendar.getInstance().get(Calendar.HOUR_OF_DAY)*100+Calendar.getInstance().get(Calendar.MINUTE);
     }
 
     private boolean checkIfDoneToday(EventDateModel edm){
