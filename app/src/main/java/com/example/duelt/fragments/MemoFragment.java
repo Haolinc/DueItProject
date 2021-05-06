@@ -31,7 +31,6 @@ import java.util.List;
 //In a Fragment, whenever need to use 'this' or 'getContext()' as in an activity class, it should be replaced with 'getActivity().
 public class MemoFragment extends Fragment {
     //test code
-    //LinearLayout layoutView;
 
     public ArrayList<String> dayLeft_list= new ArrayList<String>();
     ListView mListView;
@@ -46,8 +45,7 @@ public class MemoFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.activity_memo,container,false);
         //layoutView = rootView.findViewById(R.id.dayLeft_layout);
 
-        mListView = rootView.findViewById(R.id.dayLeft_listview);
-        ArrayList<String> dayLeft_list= new ArrayList<String>();
+        mListView = rootView.findViewById(R.id.dayLeft_list);
         //Buttons in Fragments should be written here
         // ↓↓↓↓↓↓↓↓
 
