@@ -31,6 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //Pet table
     private static final String PET_TABLE_NAME = "PET_STAT_TABLE";
+    private static final String UPDATED_TIME_COLUMN = "UPDATED_TIME";
     private static final String NAME_COLUMN = "NAME";
     private static final String HUNGRINESS_COLUMN = "HUNGRINESS";
     private static final String MOOD_COLUMN = "MOOD";
@@ -55,7 +56,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String BACKGROUND_COLOR_COLUMN = "COLOR";
 
     //expForLevel table
-    private static final String EXP_FOR_LEVEL_TABLE = "EXP_FOR_LEVEL_TABLE"  ;
+    private static final String EXP_FOR_LEVEL_TABLE = "EXP_FOR_LEVEL_TABLE";
     private static final String EXP_FOR_EACH_LEVEL_COLUMN = "EXP_FOR_EACH_LEVEL";
     private static final String E_LEVEL_COLUMN = "E_LEVEL";
 
@@ -101,13 +102,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         final String createPetTableStatement = "CREATE TABLE IF NOT EXISTS " + PET_TABLE_NAME + " ( "
                 + NAME_COLUMN + " TEXT UNIQUE, "
+                + UPDATED_TIME_COLUMN + " BIGINT, "
                 + HUNGRINESS_COLUMN + " INT, "
                 + MOOD_COLUMN + " INT, "
                 + EXP_COLUMN + " INT, "
                 + LEVEL_COLUMN + " INT);";
         db.execSQL(createPetTableStatement);
 
-        PetModel petmodel = new PetModel(0, 0, 0, 1, "Boo");
+        PetModel petmodel = new PetModel(100, 100, 0, 1, "Boo");
         initPet(petmodel, db);
 
         final String createItemTableStatement = "CREATE TABLE IF NOT EXISTS " + ITEM_TABLE_NAME + " ( "
@@ -159,7 +161,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(createExpForLevelStatement);
 
         int currentExp = expForLevel1;
-        for(int level = 0; level<100; level ++ ){
+        for(int level = 0; level<1000; level ++ ){
 
             cv.put(E_LEVEL_COLUMN, level);
             //exp calculation formula 
@@ -171,7 +173,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public int getExpForLevelUp(int level){
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + EXP_FOR_LEVEL_TABLE + " WHERE " + E_LEVEL_COLUMN + " = " + level + ";", null);
         cursor.moveToFirst();
         int exp = cursor.getInt(cursor.getColumnIndex(EXP_FOR_EACH_LEVEL_COLUMN));
@@ -332,6 +334,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private void initPet(PetModel pet, SQLiteDatabase db){
         ContentValues cv = new ContentValues();
 
+        cv.put(UPDATED_TIME_COLUMN, Calendar.getInstance().getTimeInMillis());
         cv.put(NAME_COLUMN, pet.getName());
         cv.put(HUNGRINESS_COLUMN, pet.getHungriness());
         cv.put(MOOD_COLUMN, pet.getMood());
