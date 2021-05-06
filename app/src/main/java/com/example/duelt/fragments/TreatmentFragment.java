@@ -62,6 +62,10 @@ public class TreatmentFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String input = mEditTimeInput.getText().toString();
+                if(!input.matches("-?\\d+")) {
+                    mEditTimeInput.setError("Please enter an integer");
+                    return;
+                }
                 //test animation *********************************************************************************************************************************
                 final Animation treatmentButton = AnimationUtils.loadAnimation(getActivity(),R.anim.treatment_button_bounce);
                 mButtonSet.startAnimation(treatmentButton);
