@@ -27,12 +27,15 @@ import androidx.fragment.app.Fragment;
 
 import com.example.duelt.R;
 import com.example.duelt.alarm.AlarmReceiver;
+import com.example.duelt.alarm.MemoAlarmReceiver;
 import com.example.duelt.db.DatabaseHelper;
 import com.example.duelt.db.EventDateModel;
 import com.example.duelt.popWindows.PopWindow;
 
 import java.util.Calendar;
 import java.util.List;
+
+import static com.example.duelt.fragments.MainFragment.CHANNEL_1_ID;
 
 public class DailyFragment extends Fragment {
     DatabaseHelper databaseHelper;
@@ -91,6 +94,13 @@ public class DailyFragment extends Fragment {
                 DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
                 databaseHelper.addOneToDaily(edm);
 
+                //set notification
+                setNotificationAlarmIntent(edm.getID(),
+                        et.getText().toString() + " DUE NOW!! ",
+                        calendar.getTimeInMillis(),
+                        CHANNEL_1_ID,
+                        true);
+
                 Intent i = new Intent(getActivity(), AlarmReceiver.class);
                 i.putExtra("EDMID", edm.getID());
                 i.putExtra("Table", "DailyReminder");
@@ -102,6 +112,19 @@ public class DailyFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    private void setNotificationAlarmIntent(int id, String title, long time, String channelID, boolean isFinalDate){
+        AlarmManager am = (AlarmManager)requireActivity().getSystemService(Context.ALARM_SERVICE);
+        Intent i = new Intent(getActivity(), MemoAlarmReceiver.class);
+        i.putExtra("EDMID", id );
+        i.putExtra("TITLE", title);
+        i.putExtra("DETAIL", "");
+        i.putExtra("ChannelID", channelID);
+        i.putExtra("IsFinalDate", isFinalDate);
+
+        PendingIntent pi = PendingIntent.getBroadcast(getActivity(), id , i, 0);
+        am.setExact(AlarmManager.RTC_WAKEUP,time, pi);
     }
 
     private void createCheckBox(){
