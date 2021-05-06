@@ -133,7 +133,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-        createExpForLevelTable(100, 100, 0.25, db);
+        createExpForLevelTable(1000, 100, 0.25, db);
     }
 
 
@@ -161,7 +161,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(createExpForLevelStatement);
 
         int currentExp = expForLevel1;
-        for(int level = 0; level<1000; level ++ ){
+        for(int level = 0; level<maxLevel; level ++ ){
 
             cv.put(E_LEVEL_COLUMN, level);
             //exp calculation formula 
