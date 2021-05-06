@@ -1,8 +1,10 @@
 package com.example.duelt.fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +19,13 @@ import android.widget.Toast;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
+import com.example.duelt.HintHelper;
 import com.example.duelt.R;
 import com.example.duelt.treatmentpage;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class TreatmentFragment extends Fragment {
     AnimationDrawable go321Animation;
@@ -27,6 +34,10 @@ public class TreatmentFragment extends Fragment {
 
     private EditText mEditTimeInput;
     private Button mButtonSet;
+
+    private ImageButton btn_hint;
+    private ImageButton btn_hint2;
+    final private String FIRST_TIME_KEY = "TRAETMENT_FIRST_TIME_KEY5";
 
     public TreatmentFragment(){
         //Required empty public constructor
@@ -42,6 +53,8 @@ public class TreatmentFragment extends Fragment {
         imageButton.setBackgroundResource(R.drawable.btn_go_321_list);
         informat = (TextView) rootView.findViewById(R.id.startText);
         go321Animation = (AnimationDrawable) imageButton.getBackground();
+
+        checkFirstTime(rootView);
 
         mButtonSet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +103,33 @@ public class TreatmentFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    private void checkFirstTime(View v) {
+        SharedPreferences sp =   PreferenceManager.getDefaultSharedPreferences(getContext());
+        boolean isFirstTime = sp.getBoolean(FIRST_TIME_KEY, true);
+        btn_hint =   (ImageButton) v.findViewById(R.id.btn_treament_hint);
+        btn_hint2 = (ImageButton) v.findViewById(R.id.btn_treament_hint2);
+        if(!isFirstTime){
+            btn_hint.setVisibility(View.INVISIBLE);
+            btn_hint2.setVisibility(View.INVISIBLE);
+        }else {
+            btn_hint.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    btn_hint.setVisibility(View.INVISIBLE);
+                }
+            });
+            btn_hint2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    btn_hint2.setVisibility(View.INVISIBLE);
+                }
+            });
+            SharedPreferences.Editor edit = sp.edit();
+            edit.putBoolean(FIRST_TIME_KEY, false);
+            edit.apply();
+        }
     }
 
     private void setTime(long milliseconds) {

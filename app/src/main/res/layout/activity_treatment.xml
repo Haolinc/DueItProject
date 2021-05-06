@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#8FFBFBFB"
+    android:background="#00FBFBFB"
     android:orientation="vertical"
     tools:context=".TreatmentActivity">
 
@@ -79,7 +79,7 @@
             android:layout_height="250dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:srcCompat="@drawable/treatment_broad"
-            tools:layout_editor_absoluteX="16dp"/>
+            tools:layout_editor_absoluteX="16dp" />
 
         <EditText
             android:id="@+id/edit_time_input"
@@ -109,9 +109,32 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
+        <ImageButton
+            android:id="@+id/btn_treament_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:background="#00FFFFFF"
+            app:layout_constraintBottom_toTopOf="@+id/edit_time_input"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.371"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/hint" />
+
+        <ImageButton
+            android:id="@+id/btn_treament_hint2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="304dp"
+            android:background="#00FFFFFF"
+            app:layout_constraintBottom_toTopOf="@+id/edit_time_input"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.823"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/hint2" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
