@@ -21,15 +21,13 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import com.example.duelt.db.EventDateModel;
-import com.example.duelt.alarm.MemoAlarmReceiver;
-import com.example.duelt.popWindows.PopWindow;
 import com.example.duelt.R;
-import com.example.duelt.RewardCalculation;
 import com.example.duelt.WeeklyScheduleActivity;
+import com.example.duelt.alarm.MemoAlarmReceiver;
 import com.example.duelt.db.DatabaseHelper;
+import com.example.duelt.db.EventDateModel;
+import com.example.duelt.popWindows.PopWindow;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class MainFragment extends Fragment {
@@ -173,9 +171,6 @@ public class MainFragment extends Fragment {
                                     cancelAlarm(edm.getID2());
                                     cancelAlarm(edm.getID3());
                                     cancelAlarm(edm.getID4());
-                                    HashMap<String, Integer> reward = RewardCalculation.calculateReward(edm.getSetDateMillis(), edm.getDueDateMillis());
-                                    if (reward.get("currency")!=null)
-                                        dh.updateCurrency(dh.getCurrency()+reward.get("currency"));
                                     Intent i = new Intent(getActivity(), PopWindow.class);
                                     i.putExtra("Table", "Duedate");
                                     i.putExtra("EDMID", edm.getID());

@@ -360,11 +360,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
 
             do{
-                String name = cursor.getString(0);
-                int hunger = cursor.getInt(1);
-                int mood = cursor.getInt(2) ;
-                int exp = cursor.getInt(3);
-                int level = cursor.getInt(4);
+                String name = cursor.getString(cursor.getColumnIndex(NAME_COLUMN));
+                int hunger = cursor.getInt(cursor.getColumnIndex(HUNGRINESS_COLUMN));
+                int mood = cursor.getInt(cursor.getColumnIndex(MOOD_COLUMN)) ;
+                int exp = cursor.getInt(cursor.getColumnIndex(EXP_COLUMN));
+                int level = cursor.getInt(cursor.getColumnIndex(LEVEL_COLUMN));
 
 
                 petStat = new PetModel(hunger, mood, exp, level, name);
