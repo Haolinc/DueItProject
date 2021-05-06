@@ -62,6 +62,7 @@ public class PetModel {
         while (exp> expForLevelUp ){
             exp = exp - expForLevelUp;
             level += 1;
+            expForLevelUp = db.getExpForLevelUp(level);
         }
     }
 
