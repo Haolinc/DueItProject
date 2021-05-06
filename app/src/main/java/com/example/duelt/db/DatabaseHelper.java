@@ -316,6 +316,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void updateUpdatedTime(long updatedTime) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE " + PET_TABLE_NAME + " SET "
+                + UPDATED_TIME_COLUMN + " = "+ updatedTime + ";");
+        db.close();
+    }
+
     public void addOne(PetModel pet){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -518,7 +525,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + EVENT_DETAIL_COLUMN + " = '" + eventDateModel.getEventDetail() + "', "
                 + SET_DATE_COLUMN + " = " + eventDateModel.getSetDateMillis() + ", "
                 + DUEDATE_TABLE_NAME + " = " + eventDateModel.getDueDateMillis() + ", "
-                + WAKED_TIME_COLUMN + " = " + eventDateModel.getWakedTime() + ", "
+                + WAKED_TIME_COLUMN + " = " + eventDateModel.getWakedTime()
                 + " WHERE " + ID_COLUMN + " = " + eventDateModel.getID() + ";");
         db.close();
     }
