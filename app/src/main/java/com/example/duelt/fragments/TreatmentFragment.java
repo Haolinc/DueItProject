@@ -19,13 +19,9 @@ import android.widget.Toast;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
-import com.example.duelt.HintHelper;
 import com.example.duelt.R;
 import com.example.duelt.treatmentpage;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class TreatmentFragment extends Fragment {
     AnimationDrawable go321Animation;
@@ -144,7 +140,6 @@ public class TreatmentFragment extends Fragment {
         super.onWindowFocusChanged(hasFocus);
         go321Animation.start();
     }*/
-
 
 
 }
