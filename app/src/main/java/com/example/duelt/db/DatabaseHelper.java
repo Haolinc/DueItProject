@@ -507,6 +507,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return eventDateModel;
     }
 
+    public void updateDuedate(EventDateModel eventDateModel){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE " + DUEDATE_TABLE_NAME + " SET "
+                + WAKED_COLUMN + " = " + eventDateModel.getWaked() + ", "
+                + EVENT_TITLE_COLUMN + " = '" + eventDateModel.getEventTitle() + "', "
+                + EVENT_DETAIL_COLUMN + " = '" + eventDateModel.getEventDetail() + "', "
+                + SET_DATE_COLUMN + " = " + eventDateModel.getSetDateMillis() + ", "
+                + DUEDATE_TABLE_NAME + " = " + eventDateModel.getDueDateMillis() + ", "
+                + WAKED_TIME_COLUMN + " = " + eventDateModel.getWakedTime() + ", "
+                + " WHERE " + ID_COLUMN + " = " + eventDateModel.getID() + ";");
+        db.close();
+    }
+
 
     //Daily table ------------------------------------------------------------------------------------------------------
     public void addOneToDaily(EventDateModel eventDateModel){
