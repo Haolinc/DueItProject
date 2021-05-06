@@ -524,8 +524,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + EVENT_TITLE_COLUMN + " = '" + eventDateModel.getEventTitle() + "', "
                 + EVENT_DETAIL_COLUMN + " = '" + eventDateModel.getEventDetail() + "', "
                 + SET_DATE_COLUMN + " = " + eventDateModel.getSetDateMillis() + ", "
-                + DUEDATE_TABLE_NAME + " = " + eventDateModel.getDueDateMillis() + ", "
-                + WAKED_TIME_COLUMN + " = " + eventDateModel.getWakedTime()
+                + DUE_DATE_COLUMN + " = " + eventDateModel.getDueDateMillis()
                 + " WHERE " + ID_COLUMN + " = " + eventDateModel.getID() + ";");
         db.close();
     }
