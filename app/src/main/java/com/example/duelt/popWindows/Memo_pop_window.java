@@ -49,7 +49,7 @@ public class Memo_pop_window extends AppCompatActivity {
         mEditTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String title = mEditTitle.getText().toString();
+                String title = mEditViewTitle.getText().toString();
                 String detail = mEditViewDetail.getText().toString();
 
                 edm.setEventTitle(title);
