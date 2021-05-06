@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TimePicker;
@@ -138,15 +137,16 @@ public class DailyFragment extends Fragment {
         CheckBox cb = new CheckBox(getActivity());
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-2, -2);  //wrap_content
 
-        if (edm.getWaked() == 1){
-            cb.setTextColor(Color.RED);
-        }
+
         cb.setText(edm.getDailyRoutineString());
         cb.setLayoutParams(lp);
         cb.setGravity(Gravity.CENTER_VERTICAL);
 
         if (checkIfDoneToday(edm)) {
             cb.setChecked(true);
+        }
+        if (checkIfPassTime(edm) && !cb.isChecked()){
+            cb.setTextColor(Color.RED);
         }
 
         if (edm.getWaked() > 1 && !checkIfPassTime(edm)){
@@ -171,13 +171,12 @@ public class DailyFragment extends Fragment {
     }
 
     private void dailyReward (CheckBox cb, EventDateModel edm) {
-        cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {      //when checked
+        cb.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton button, boolean isChecked) {
+            public void onClick(View v) {
                 if (checkIfDoneToday(edm)) {
                     cb.setChecked(true);
                 }
-
                 AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
                 alertDialog.setTitle("alert");
                 alertDialog.setMessage("Are you ready to start the task?");
@@ -187,11 +186,10 @@ public class DailyFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 if (checkIfDoneToday(edm)) {
                                     Toast.makeText(getActivity(), "You have already done this today!", Toast.LENGTH_SHORT).show();
-                                }
-                                else if (checkIfPassTime(edm)) {
+                                } else if (checkIfPassTime(edm)) {
                                     Toast.makeText(getActivity(), "You have passed the time to do it for today!", Toast.LENGTH_SHORT).show();
-                                }
-                                else {
+                                    cb.setChecked(false);
+                                } else {
                                     Intent i = new Intent(getActivity(), PopWindow.class);
                                     i.putExtra("Table", "DailyReward");
                                     i.putExtra("EDMID", edm.getID());
