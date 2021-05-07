@@ -316,6 +316,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public long getUpdatedTime() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * From  "+ PET_TABLE_NAME, null);
+        cursor.moveToFirst();
+        long updatedTime = cursor.getLong(cursor.getColumnIndex(UPDATED_TIME_COLUMN));
+        cursor.close();
+        db.close();
+        return updatedTime;
+    }
+
     public void updateUpdatedTime(long updatedTime) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("UPDATE " + PET_TABLE_NAME + " SET "

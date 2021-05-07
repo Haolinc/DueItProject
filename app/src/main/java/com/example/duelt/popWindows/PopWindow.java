@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.duelt.Calculation;
 import com.example.duelt.R;
-import com.example.duelt.RewardCalculation;
 import com.example.duelt.db.DatabaseHelper;
 import com.example.duelt.db.EventDateModel;
 import com.example.duelt.db.PetModel;
@@ -121,7 +121,7 @@ public class PopWindow extends AppCompatActivity {
     private void dueDatePopWindow(int id, TextView textView){
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         EventDateModel eventDateModel = databaseHelper.getOneFromDueDate(id);
-        HashMap<String, Integer> penalty= RewardCalculation.calculateReward(eventDateModel.getSetDateMillis(), eventDateModel.getDueDateMillis());
+        HashMap<String, Integer> penalty= Calculation.calculateReward(eventDateModel.getSetDateMillis(), eventDateModel.getDueDateMillis());
         cupAnimation();
         String textViewText = "";
 

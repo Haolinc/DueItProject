@@ -95,7 +95,7 @@ public class DailyFragment extends Fragment {
 
                 //set notification
                 setNotificationAlarmIntent(edm.getID(),
-                        et.getText().toString() + " DUE NOW!! ",
+                        et.getText().toString() + " is coming up soon! ",
                         calendar.getTimeInMillis(),
                         CHANNEL_1_ID,
                         true);

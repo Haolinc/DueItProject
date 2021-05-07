@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +16,12 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.duelt.Calculation;
 import com.example.duelt.Minigame;
-import com.example.duelt.ShopPage;
-import com.example.duelt.db.PetModel;
 import com.example.duelt.R;
 import com.example.duelt.StatesView;
 import com.example.duelt.db.DatabaseHelper;
+import com.example.duelt.db.PetModel;
 
 public class MiniFragment extends Fragment {
     private StatesView hungrinessState;
@@ -38,10 +40,22 @@ public class MiniFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        petDatabaseHelper = new DatabaseHelper(getActivity());
+
+        final Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Calculation.calculateHungerAndMood(getActivity());
+            }
+        }, 60000);   //in case if user stay in fragment.
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View rootView = inflater.inflate(R.layout.activity_mini,container,false);
-
-        petDatabaseHelper = new DatabaseHelper(rootView.getContext());
         petmodel = petDatabaseHelper.getCurrentStat();
 
         initState(rootView);
@@ -93,8 +107,11 @@ public class MiniFragment extends Fragment {
     }
 
     private void updateState() {
-        petDatabaseHelper = new DatabaseHelper(getContext());
+
+
+        Calculation.calculateHungerAndMood(getActivity());
         petmodel = petDatabaseHelper.getCurrentStat();
+
         //update hungriness state
         int currentHungry = petmodel.getHungriness();
         hungrinessState.setCurrentCount(currentHungry);
