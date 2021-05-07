@@ -1,14 +1,12 @@
 package com.example.duelt.popWindows;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.duelt.R;
 import com.example.duelt.db.DatabaseHelper;
@@ -20,18 +18,17 @@ public class Memo_pop_window extends AppCompatActivity {
     EditText mEditViewDetail;
     Button mEditTitle;
     Button mBack;
+    DatabaseHelper databaseHelper;
 
-    int intValue = getIntent().getIntExtra("emdID", 0);
-
-    DatabaseHelper databaseHelper = new DatabaseHelper(this);
-    EventDateModel edm = databaseHelper.getOneFromDueDate(intValue);
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        databaseHelper = new DatabaseHelper(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo_pop_window);
-
+        int intValue = getIntent().getIntExtra("EDMID", 0);
+        EventDateModel edm = databaseHelper.getOneFromDueDate(intValue);
         String mDetail = edm.getEventDetail();
         String mTitle = edm.getEventTitle();
 

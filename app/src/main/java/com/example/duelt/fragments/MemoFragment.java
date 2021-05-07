@@ -2,16 +2,13 @@ package com.example.duelt.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -21,10 +18,8 @@ import com.example.duelt.R;
 import com.example.duelt.db.DatabaseHelper;
 import com.example.duelt.db.EventDateModel;
 import com.example.duelt.popWindows.Memo_pop_window;
-import com.example.duelt.setting_list_items;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 
@@ -83,7 +78,7 @@ public class MemoFragment extends Fragment {
         int days = edm.minusInDay(edm);
 
 
-        dayLeft_list.add(edm.getEventTitle() + " ONLY " + days + " DAY LEFT !!");
+        dayLeft_list.add(edm.getEventTitle() + " still have " + days + " days left.");
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(),android.R.layout.simple_list_item_1, dayLeft_list);
         mListView.setId(edm.getID());
@@ -94,7 +89,7 @@ public class MemoFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int eid = edmID[(int)id];
                 Intent i = new Intent(getActivity().getApplication(), Memo_pop_window.class);
-                i.putExtra("emd ID", 5);
+                i.putExtra("EDMID", eid);
                 startActivity(i);
                 Toast.makeText(getActivity(),"id passed in "+ edmID[(int)id], Toast.LENGTH_SHORT).show();
             }

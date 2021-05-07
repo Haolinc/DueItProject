@@ -29,7 +29,9 @@ public class Calculation {
         PetModel petmodel = databaseHelper.getCurrentStat();
 
         petmodel.setHungriness(petmodel.getHungriness() - timeElapse);
-        petmodel.setMood(petmodel.getMood() - timeElapse);
+        int mood = petmodel.getMood() - timeElapse;
+        petmodel.setMood(Math.max(mood, 0));
+
         databaseHelper.updateUpdatedTime(currentTime-timeElapseRemainder);
         databaseHelper.updateData(petmodel);
     }

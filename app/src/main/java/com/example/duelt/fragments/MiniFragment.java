@@ -32,8 +32,7 @@ public class MiniFragment extends Fragment {
     private TextView currency;
     private DatabaseHelper petDatabaseHelper;
     private PetModel petmodel;
-
-
+    final Handler handler = new Handler(Looper.getMainLooper());
 
     public MiniFragment(){
         //Required empty public constructor
@@ -43,20 +42,22 @@ public class MiniFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         petDatabaseHelper = new DatabaseHelper(getActivity());
+        petmodel = petDatabaseHelper.getCurrentStat();
 
-        final Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(new Runnable() {
+        Runnable runnableCode = new Runnable(){
             @Override
-            public void run() {
-                Calculation.calculateHungerAndMood(getActivity());
+            public void run(){
+                updateState();
+                handler.postDelayed(this, 10000);
+
             }
-        }, 60000);   //in case if user stay in fragment.
+        };
+        handler.postDelayed(runnableCode, 10000);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View rootView = inflater.inflate(R.layout.activity_mini,container,false);
-        petmodel = petDatabaseHelper.getCurrentStat();
 
         initState(rootView);
         //Buttons in Fragments should be written here
@@ -107,8 +108,6 @@ public class MiniFragment extends Fragment {
     }
 
     private void updateState() {
-
-
         Calculation.calculateHungerAndMood(getActivity());
         petmodel = petDatabaseHelper.getCurrentStat();
 
