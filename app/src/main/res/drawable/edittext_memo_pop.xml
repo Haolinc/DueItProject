@@ -1,15 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <stroke
-        android:width="2dp"
-        android:color="@color/black" />
-    <solid
-        android:color="#00FFFFFF"
-        android:paddingLeft="6dp"
-        android:paddingTop="6dp" />
-    <padding
-        android:bottom="6dp"
-        android:left="6dp"
-        android:right="6dp"
-        android:top="6dp" />
-</shape>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:left="10dp" android:top="6dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#426C6969" />
+
+            <size
+                android:width="50dp"
+                android:height="50dp"/>
+        </shape>
+    </item>
+
+    <item android:bottom="5dp" android:right="3dp">
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="2dp"
+                android:color="#1233B3" />
+            <solid
+                android:color="#D6DAED"
+                android:paddingLeft="6dp"
+                android:paddingTop="6dp" />
+            <padding
+                android:bottom="6dp"
+                android:left="6dp"
+                android:right="6dp"
+                android:top="6dp" />
+        </shape>
+    </item>
+</layer-list>

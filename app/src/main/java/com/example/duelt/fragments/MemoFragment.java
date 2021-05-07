@@ -35,7 +35,7 @@ public class MemoFragment extends Fragment {
     public ArrayList<String> dayLeft_list= new ArrayList<String>();
     ListView mListView;
 
-    int[] edmID = new int[100];
+    static int[] edmID = new int[100];
     public MemoFragment(){
 
     }
@@ -92,9 +92,9 @@ public class MemoFragment extends Fragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                int eid = (int)id;
-                Intent i = new Intent(getActivity(), Memo_pop_window.class);
-                i.putExtra("emd ID", edmID[(int)id]);
+                int eid = edmID[(int)id];
+                Intent i = new Intent(getActivity().getApplication(), Memo_pop_window.class);
+                i.putExtra("emd ID", 5);
                 startActivity(i);
                 Toast.makeText(getActivity(),"id passed in "+ edmID[(int)id], Toast.LENGTH_SHORT).show();
             }
