@@ -28,9 +28,11 @@ public class TreatmentFragment extends Fragment {
     AnimationDrawable go321Animation;
     TextView informat;
     public static long mStartTimeInMillis;
+    ImageButton imageButton;
+    AppCompatButton btn_start;
 
     private EditText mEditTimeInput;
-    private Button mButtonSet;
+//    private Button mButtonSet;
 
     final private String FIRST_TIME_KEY = "TRAETMENT_FIRST_TIME_KEY10";
 
@@ -43,9 +45,10 @@ public class TreatmentFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.activity_treatment,container,false);
 
         mEditTimeInput = rootView.findViewById(R.id.edit_time_input);
-        mButtonSet = rootView.findViewById(R.id.btn_setTime);
-        ImageButton imageButton = (ImageButton) rootView.findViewById(R.id.go321button);
+//        mButtonSet = rootView.findViewById(R.id.btn_setTime);
+        imageButton = (ImageButton) rootView.findViewById(R.id.go321button);
         imageButton.setBackgroundResource(R.drawable.btn_go_321_list);
+        imageButton.setEnabled(false);
         informat = (TextView) rootView.findViewById(R.id.startText);
         go321Animation = (AnimationDrawable) imageButton.getBackground();
 
@@ -58,17 +61,63 @@ public class TreatmentFragment extends Fragment {
         hh2.checkFirstTime(rootView,FIRST_TIME_KEY,btn_hint2);
 
 
-        mButtonSet.setOnClickListener(new View.OnClickListener() {
+//        mButtonSet.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String input = mEditTimeInput.getText().toString();
+//                if(!input.matches("-?\\d+")) {
+//                    mEditTimeInput.setError("Please enter an integer");
+//                    return;
+//                }
+//                //test animation *********************************************************************************************************************************
+//                final Animation treatmentButton = AnimationUtils.loadAnimation(getActivity(),R.anim.treatment_button_bounce);
+//                mButtonSet.startAnimation(treatmentButton);
+//
+//                if(input.length() == 0) {
+//                    Toast.makeText(getActivity(), "Field can't be empty",Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//
+//                long millisInput = Long.parseLong(input);
+//                if (millisInput == 0) {
+//                    Toast.makeText(getActivity(), "please enter a positive number",Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//
+//                setTime(millisInput);
+//                //mEditTimeInput.setText("");
+//                Toast.makeText(getActivity(), "time set to " +mStartTimeInMillis + " minutes",Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
+
+        //onClick(ImageButton- go321) button function, consider better naming
+        imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), treatmentpage.class);
+                startActivity(i);
+            }
+        });
+
+        //startAnimation button function
+        btn_start = (AppCompatButton) rootView.findViewById(R.id.btnStart);
+        btn_start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.setVisibility(View.GONE);
+                go321Animation.start();
+                informat.setVisibility(View.VISIBLE);
+                imageButton.setEnabled(true);
+
                 String input = mEditTimeInput.getText().toString();
                 if(!input.matches("-?\\d+")) {
                     mEditTimeInput.setError("Please enter an integer");
                     return;
                 }
                 //test animation *********************************************************************************************************************************
-                final Animation treatmentButton = AnimationUtils.loadAnimation(getActivity(),R.anim.treatment_button_bounce);
-                mButtonSet.startAnimation(treatmentButton);
+//                final Animation treatmentButton = AnimationUtils.loadAnimation(getActivity(),R.anim.treatment_button_bounce);
+//                mButtonSet.startAnimation(treatmentButton);
 
                 if(input.length() == 0) {
                     Toast.makeText(getActivity(), "Field can't be empty",Toast.LENGTH_SHORT).show();
@@ -84,27 +133,8 @@ public class TreatmentFragment extends Fragment {
                 setTime(millisInput);
                 //mEditTimeInput.setText("");
                 Toast.makeText(getActivity(), "time set to " +mStartTimeInMillis + " minutes",Toast.LENGTH_SHORT).show();
-            }
-        });
 
 
-        //onClick(ImageButton- go321) button function, consider better naming
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(), treatmentpage.class);
-                startActivity(i);
-            }
-        });
-
-        //startAnimation button function
-        AppCompatButton btn_start = (AppCompatButton) rootView.findViewById(R.id.btnStart);
-        btn_start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                view.setVisibility(View.GONE);
-                go321Animation.start();
-                informat.setVisibility(View.VISIBLE);
             }
         });
 
@@ -124,6 +154,15 @@ public class TreatmentFragment extends Fragment {
         super.onWindowFocusChanged(hasFocus);
         go321Animation.start();
     }*/
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((AnimationDrawable)(imageButton.getBackground())).stop();
+        imageButton.setBackgroundDrawable(null);
+        imageButton.setBackgroundResource(R.drawable.btn_go_321_list);
+        btn_start.setVisibility(View.VISIBLE);
+    }
 
 
 }

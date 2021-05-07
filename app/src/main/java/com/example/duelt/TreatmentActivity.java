@@ -26,7 +26,7 @@ public class TreatmentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_treatment);
         mEditTimeInput = findViewById(R.id.edit_time_input);
-        mButtonSet = findViewById(R.id.btn_setTime);
+//        mButtonSet = findViewById(R.id.btn_setTime);
         ImageButton imageButton = (ImageButton) findViewById(R.id.go321button);
         imageButton.setBackgroundResource(R.drawable.btn_go_321_list);
         informat = (TextView) findViewById(R.id.startText);
@@ -84,6 +84,7 @@ public class TreatmentActivity extends AppCompatActivity {
         Intent i = new Intent(this, treatmentpage.class);
         startActivity(i);
     }
-    
+
+
 }
 

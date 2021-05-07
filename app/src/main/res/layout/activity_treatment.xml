@@ -81,13 +81,24 @@
             app:srcCompat="@drawable/treatment_broad"
             tools:layout_editor_absoluteX="16dp" />
 
+        <!--        <androidx.appcompat.widget.AppCompatButton-->
+<!--            android:id="@+id/btn_setTime"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="56dp"-->
+<!--            android:layout_marginEnd="88dp"-->
+<!--            android:background="@drawable/treatment_start_button_list"-->
+<!--            android:text="Set"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/imageView3" />-->
+
         <EditText
             android:id="@+id/edit_time_input"
             android:layout_width="127dp"
             android:layout_height="38dp"
             android:layout_centerVertical="true"
             android:layout_marginStart="88dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="68dp"
             android:background="@drawable/treatment_input_box"
             android:elevation="4dp"
             android:ems="5"
@@ -95,29 +106,20 @@
             android:inputType="time"
             android:maxLength="4"
             android:textColor="#D80A0A"
-            app:layout_constraintStart_toStartOf="@+id/imageView3"
-            app:layout_constraintTop_toTopOf="@+id/imageView3" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_setTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
-            android:layout_marginEnd="88dp"
-            android:background="@drawable/treatment_start_button_list"
-            android:text="Set"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.275"
+            app:layout_constraintStart_toStartOf="@+id/imageView3"
             app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
         <ImageButton
             android:id="@+id/btn_treament_hint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="4dp"
             android:background="#00FFFFFF"
             app:layout_constraintBottom_toTopOf="@+id/edit_time_input"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.371"
+            app:layout_constraintHorizontal_bias="0.881"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/hint" />
 
@@ -125,11 +127,11 @@
             android:id="@+id/btn_treament_hint2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="164dp"
+            android:layout_marginBottom="196dp"
             android:background="#00FFFFFF"
             app:layout_constraintBottom_toBottomOf="@+id/go321button"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.805"
+            app:layout_constraintHorizontal_bias="0.935"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/hint2" />
 
