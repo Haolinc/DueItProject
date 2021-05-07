@@ -101,7 +101,6 @@ public class MiniFragment extends Fragment {
             public void run(){
                 updateState();
                 handler.postDelayed(this, 10000);
-                Toast.makeText(getActivity(), "Runnable running", Toast.LENGTH_SHORT).show();
             }
         };
         handler.postDelayed(runnable, 0);

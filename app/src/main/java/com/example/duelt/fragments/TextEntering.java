@@ -60,7 +60,7 @@ public class TextEntering extends AppCompatActivity {
 
     public void hideSoftKeyboard(View v) {
         InputMethodManager inputMethodManager = (InputMethodManager)  this.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
+        inputMethodManager.hideSoftInputFromWindow(this.getWindow().getDecorView().getRootView().getWindowToken(), 0);
     }
 
     public void saveEvent(View v){
