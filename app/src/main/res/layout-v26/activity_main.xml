@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/QuickNoteLayout"
@@ -93,68 +92,7 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Button
-            android:id="@+id/buttonToTestMain"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
-            android:onClick="jumpToTestMain"
-            android:text="test"
-            app:layout_constraintHeight_percent="0.25"
-            app:layout_constraintWidth_percent="0.25" />
-
-        <Button
-            android:id="@+id/buttonToMemo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
-            android:layout_toEndOf="@id/buttonToTestMain"
-            android:onClick="jumpToMemo"
-            android:text="Memo"
-            app:layout_constraintHeight_percent="0.25"
-            app:layout_constraintWidth_percent="0.25" />
-
-
-        <Button
-            android:id="@+id/buttonToDailyRoutine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
-            android:layout_toEndOf="@id/buttonToMemo"
-            android:text="Drawer"
-            android:textSize="8sp"
-            app:layout_constraintHeight_percent="0.25"
-            app:layout_constraintWidth_percent="0.25" />
-
-        <Button
-            android:id="@+id/buttonToSchedule"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
-            android:layout_toEndOf="@id/buttonToDailyRoutine"
-            android:autoSizeMaxTextSize="100sp"
-            android:autoSizeMinTextSize="8sp"
-            android:autoSizeStepGranularity="2sp"
-            android:autoSizeTextType="uniform"
-            android:onClick="jumpToTP"
-            android:text="Schedule Test"
-            android:textSize="8sp"
-
-            app:layout_constraintHeight_percent="0.25"
-            app:layout_constraintWidth_percent="0.25" />
-
-    </RelativeLayout>
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
         android:id="@+id/resetButtonInMain"

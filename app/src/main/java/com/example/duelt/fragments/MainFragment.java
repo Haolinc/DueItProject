@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -26,6 +27,7 @@ import com.example.duelt.WeeklyScheduleActivity;
 import com.example.duelt.alarm.MemoAlarmReceiver;
 import com.example.duelt.db.DatabaseHelper;
 import com.example.duelt.db.EventDateModel;
+import com.example.duelt.db.PetModel;
 import com.example.duelt.popWindows.PopWindow;
 
 import java.util.List;
@@ -44,6 +46,7 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View rootView = inflater.inflate(R.layout.activity_main,container,false);
         Button resetBtn= rootView.findViewById(R.id.resetButtonInMain);
+
         resetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,13 +55,6 @@ public class MainFragment extends Fragment {
             }
         });
 
-        Button btn_toSchedule = (Button) rootView.findViewById(R.id.buttonToSchedule);
-        btn_toSchedule.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), WeeklyScheduleActivity.class));
-            }
-        });
 
         createNoticficationChannels();
 
@@ -69,6 +65,8 @@ public class MainFragment extends Fragment {
     public void onResume() {
         super.onResume();
         updateCheckBox();
+        updateRemider();
+
     }
 
     private void createNoticficationChannels() {
@@ -114,7 +112,6 @@ public class MainFragment extends Fragment {
         }
     }
 
-
     private void updateCheckBox() {
         removeAllViews();
         createCheckBox();
@@ -138,6 +135,30 @@ public class MainFragment extends Fragment {
         }
 
     }
+
+    private void updateRemider(){
+        DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
+        PetModel petModel = databaseHelper.getCurrentStat();
+        int hungry = petModel.getHungriness();
+        if(hungry<30) createTextViewInReminder("Your pet is hungry");
+
+        int mood = petModel.getMood();
+        if(mood<30) createTextViewInReminder("Your pet is sad");
+    }
+
+    private void createTextViewInReminder(String text) {
+        TextView textView = new CheckBox(getActivity());
+        textView.setText(text);
+        LinearLayout reminder = (LinearLayout) getView().findViewById(R.id.reminder_layout);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-2, -2);  //wrap_content
+
+        textView.setLayoutParams(lp);
+        textView.setGravity(Gravity.CENTER_VERTICAL);
+
+        reminder.addView(textView);
+
+    }
+
     private void removeAllViews() {
         LinearLayout dueDate = getView().findViewById(R.id.dueDate_layout);
         dueDate.removeAllViews();
