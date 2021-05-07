@@ -33,6 +33,7 @@ public class MiniFragment extends Fragment {
     private DatabaseHelper petDatabaseHelper;
     private PetModel petmodel;
     final Handler handler = new Handler(Looper.getMainLooper());
+    Runnable runnable;
 
     public MiniFragment(){
         //Required empty public constructor
@@ -44,15 +45,6 @@ public class MiniFragment extends Fragment {
         petDatabaseHelper = new DatabaseHelper(getActivity());
         petmodel = petDatabaseHelper.getCurrentStat();
 
-        Runnable runnableCode = new Runnable(){
-            @Override
-            public void run(){
-                updateState();
-                handler.postDelayed(this, 10000);
-
-            }
-        };
-        handler.postDelayed(runnableCode, 10000);
     }
 
     @Override
@@ -104,7 +96,21 @@ public class MiniFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        updateState();
+        runnable = new Runnable(){
+            @Override
+            public void run(){
+                updateState();
+                handler.postDelayed(this, 10000);
+                Toast.makeText(getActivity(), "Runnable running", Toast.LENGTH_SHORT).show();
+            }
+        };
+        handler.postDelayed(runnable, 0);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.removeCallbacks(runnable);
     }
 
     private void updateState() {
