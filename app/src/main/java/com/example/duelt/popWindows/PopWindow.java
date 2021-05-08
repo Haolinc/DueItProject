@@ -2,6 +2,7 @@ package com.example.duelt.popWindows;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -26,50 +27,46 @@ public class PopWindow extends AppCompatActivity {
     AnimationDrawable mWinnerCup;
     Button mGreat;
     ImageView vWinnerCup;
+    DatabaseHelper databaseHelper;
+    int id;
+    TextView textView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pop_window);
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getRealMetrics(dm);
+        databaseHelper = new DatabaseHelper(this);
 
         int width = dm.widthPixels;
         int height = dm.heightPixels;
         getWindow().setLayout((int)(width*.8), (int)(height*.5));
 
 
-        TextView textView = findViewById(R.id.textView2);
+        textView = findViewById(R.id.textView2);
         mGreat = findViewById(R.id.btn_great);
         vWinnerCup = findViewById(R.id.cupAnimation);
 
-        int id;
+        id = getIntent().getIntExtra("EDMID", 0);
         String table = getIntent().getStringExtra("Table");
-        if (table!=null) {
-            switch(table) {
-                case "Duedate":
-                    id= getIntent().getIntExtra("EDMID", -1);
-                    dueDatePopWindow(id, textView);
-                    break;
-                case "DailyReminder":
-                    id= getIntent().getIntExtra("EDMID", -1);
-                    dailyReminderPopWindow(id, textView);
-                    break;
-                case "DailyReward":
-                    id= getIntent().getIntExtra("EDMID", -1);
-                    dailyRewardPopWindow(id, textView);
-                    break;
-                case "DailyPenalty":
-                    id= getIntent().getIntExtra("EDMID", -1);
-                    dailyPenalty(id, textView);
-                    break;
-                case "Treatment":
-                    treatmentPopWindow(textView);
-                    break;
 
-                default:
-                    System.out.println("error");
-                    break;
-            }
+        Preload p = new Preload();
+        p.execute(table);
+
+        switch(table) {
+            case "Duedate":
+                break;
+            case "DailyReminder":
+                break;
+            case "DailyReward":
+                break;
+            case "DailyPenalty":
+                break;
+            case "Treatment":
+                break;
+            default:
+                break;
         }
 
         mGreat.setOnClickListener(new View.OnClickListener() {
@@ -86,42 +83,38 @@ public class PopWindow extends AppCompatActivity {
         });
     }
 
-    private void dailyPenalty(int id, TextView textView) {
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+    private String dailyPenalty(int id) {
         EventDateModel edm = databaseHelper.getOneFromDaily(id);
         int penalty = edm.getWaked();
         databaseHelper.updateWakedStatusInDaily(id, 0);
         String textViewText = "You have skipped " + edm.getEventTitle() + " " + penalty +
                 " times,  therefore you have lose " + penalty*10 + " currency.";
-        textView.setText(textViewText);
         databaseHelper.updateCurrency(databaseHelper.getCurrency() - penalty*10);
+        return textViewText;
     }
 
-    private void treatmentPopWindow(TextView textView){
-        DatabaseHelper DatabaseHelper = new DatabaseHelper(this);
-        PetModel petmodel = DatabaseHelper.getCurrentStat();
+    private String treatmentPopWindow(){
+        PetModel petmodel = databaseHelper.getCurrentStat();
         long mTimer = TreatmentFragment.getmStartTimeInMillis();
 
-        cupAnimation();
+//        cupAnimation();
 
         int currency = ((int)mTimer/6);
         int exp = ((int)mTimer/6);
-        DatabaseHelper.updateCurrency(DatabaseHelper.getCurrency()+currency);
-        petmodel.expPlus(this, DatabaseHelper.getCurrency()+exp);
-        DatabaseHelper.updateData(petmodel);
+        databaseHelper.updateCurrency(databaseHelper.getCurrency()+currency);
+        petmodel.expPlus(this, databaseHelper.getCurrency()+exp);
+        databaseHelper.updateData(petmodel);
 
         String textViewText = "You have earned " + currency + " currency and " + exp + " exp.";
-        textView.setText(textViewText);
+        return textViewText;
     }
 
-    private void dueDatePopWindow(int id, TextView textView){
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+    private String dueDatePopWindow(int id){
         EventDateModel eventDateModel = databaseHelper.getOneFromDueDate(id);
         HashMap<String, Integer> penalty= Calculation.calculateReward(eventDateModel.getSetDateMillis(), eventDateModel.getDueDateMillis());
         String textViewText = "";
 
         if (penalty.get("exp")>0){
-            cupAnimation();
             textViewText = "You have completed " + eventDateModel.getEventTitle() + "! You have gain " + penalty.get("exp") + " exp and " +
                     penalty.get("currency") + " currency!";
             PetModel pm = new PetModel(this);
@@ -138,15 +131,12 @@ public class PopWindow extends AppCompatActivity {
         else {
             textViewText = "You have reached 90% of the time towards duedate! You did not gain anything or lose anything.";
         }
-
-        textView.setText(textViewText);
         databaseHelper.deleteOneFromDueDate(id);
+        return textViewText;
     }
 
-    private void dailyRewardPopWindow (int id, TextView textView) {
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+    private String dailyRewardPopWindow (int id) {
         PetModel petModel = databaseHelper.getCurrentStat();
-        cupAnimation();
         EventDateModel edm = databaseHelper.getOneFromDaily(id);
         petModel.setExp(petModel.getExp()+10);
         databaseHelper.updateCurrency(databaseHelper.getCurrency()+10);
@@ -154,18 +144,51 @@ public class PopWindow extends AppCompatActivity {
         edm.setWakedTime(Calendar.getInstance().get(Calendar.DAY_OF_YEAR) + Calendar.getInstance().get(Calendar.YEAR)*1000);
         databaseHelper.updateDaily(edm);
         String textViewText = "You have gain 10 exp and 10 currency!";
-        textView.setText(textViewText);
+        return textViewText;
     }
 
-    private void dailyReminderPopWindow(int id, TextView textView){
+    private String dailyReminderPopWindow(int id){
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         String textViewText = "Your activity of " + databaseHelper.getOneFromDaily(id).getEventTitle() + " is coming up";
-        textView.setText(textViewText);
         databaseHelper.updateWakedStatusInDaily(id, 1);
+        return textViewText;
     }
+
     private void cupAnimation(){
         vWinnerCup.setBackgroundResource(R.drawable.winner_cup_list);
         mWinnerCup = (AnimationDrawable) vWinnerCup.getBackground();
         mWinnerCup.start();
     }
+
+    private class Preload extends AsyncTask<String, String, String> {
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+        }
+        @Override
+        protected String doInBackground(String ... strings){
+            switch(strings[0]) {
+                case "Duedate":
+                    return dueDatePopWindow(id);
+                case "DailyReminder":
+                    return dailyReminderPopWindow(id);
+                case "DailyReward":
+                    return dailyRewardPopWindow(id);
+                case "DailyPenalty":
+                    return dailyPenalty(id);
+                case "Treatment":
+                    return treatmentPopWindow();
+                default:
+                    return null;
+            }
+        }
+        @Override
+        protected void onPostExecute(String string){
+            super.onPostExecute(string);
+            textView.setText(string);
+            cupAnimation();
+        }
+
+    }
 }
+
