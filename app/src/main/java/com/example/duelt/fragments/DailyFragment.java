@@ -16,6 +16,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import com.example.duelt.HintHelper;
 import com.example.duelt.R;
 import com.example.duelt.alarm.AlarmReceiver;
 import com.example.duelt.alarm.MemoAlarmReceiver;
@@ -39,6 +41,7 @@ import static com.example.duelt.fragments.MainFragment.CHANNEL_1_ID;
 public class DailyFragment extends Fragment {
     DatabaseHelper databaseHelper;
     LinearLayout layoutView;
+    final private String FIRST_TIME_KEY = "DAILY_FIRST_TIME_KEY";
 
     public DailyFragment(){
         //Required empty public constructor
@@ -75,6 +78,14 @@ public class DailyFragment extends Fragment {
                 databaseHelper.upgrade();
             }
         });
+
+        //Check for hint btn
+        ImageButton btn_hint = (ImageButton) rootView.findViewById(R.id.btn_daily_hint1);
+        ImageButton btn_hint2 = (ImageButton) rootView.findViewById(R.id.btn_daily_hint2);
+        HintHelper hh = new HintHelper();
+        hh.checkFirstTime(rootView.getContext(),FIRST_TIME_KEY,btn_hint);
+        HintHelper hh2 = new HintHelper();
+        hh2.checkFirstTime(rootView.getContext(),FIRST_TIME_KEY,btn_hint2);
 
         //setAlarm button function
         Button btn_setAlarm = (Button)rootView.findViewById(R.id.setTimeButton);
