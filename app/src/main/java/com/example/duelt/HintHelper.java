@@ -1,5 +1,6 @@
 package com.example.duelt;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -11,8 +12,8 @@ public class HintHelper {
     ImageButton btn_hint;
 
     //
-    public void checkFirstTime(View v,String key, ImageButton btn_hint) {
-        SharedPreferences sp =   PreferenceManager.getDefaultSharedPreferences(v.getContext());
+    public void checkFirstTime(Context context, String key, ImageButton btn_hint) {
+        SharedPreferences sp =   PreferenceManager.getDefaultSharedPreferences(context);
 
         boolean isFirstTime = sp.getBoolean(key, true);
         this.btn_hint = btn_hint;

@@ -34,7 +34,7 @@ public class TreatmentFragment extends Fragment {
     private EditText mEditTimeInput;
 //    private Button mButtonSet;
 
-    final private String FIRST_TIME_KEY = "TRAETMENT_FIRST_TIME_KEY10";
+    final private String FIRST_TIME_KEY = "TRAETMENT_FIRST_TIME_KEY12310";
 
     public TreatmentFragment(){
         //Required empty public constructor
@@ -56,9 +56,9 @@ public class TreatmentFragment extends Fragment {
         ImageButton btn_hint = (ImageButton) rootView.findViewById(R.id.btn_treament_hint);
         ImageButton btn_hint2 = (ImageButton) rootView.findViewById(R.id.btn_treament_hint2);
         HintHelper hh = new HintHelper();
-        hh.checkFirstTime(rootView,FIRST_TIME_KEY,btn_hint);
+        hh.checkFirstTime(rootView.getContext(),FIRST_TIME_KEY,btn_hint);
         HintHelper hh2 = new HintHelper();
-        hh2.checkFirstTime(rootView,FIRST_TIME_KEY,btn_hint2);
+        hh2.checkFirstTime(rootView.getContext(),FIRST_TIME_KEY,btn_hint2);
 
 
 //        mButtonSet.setOnClickListener(new View.OnClickListener() {

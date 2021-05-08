@@ -46,6 +46,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageButton
+            android:id="@+id/btn_treamentpage_hint3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="256dp"
+            android:layout_marginBottom="96dp"
+            android:background="#00FFFFFF"
+            android:tint="#00F4EFEF"
+            app:layout_constraintBottom_toBottomOf="@+id/gifImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/hint_back" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -55,6 +67,19 @@
         android:layout_marginBottom="-6dp"
         android:background="@drawable/treatment_page_broad">
 
+
+        <ImageButton
+            android:id="@+id/btn_treamentpage_hint1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:background="#00FFFFFF"
+            android:tint="#EF0606"
+            app:layout_constraintBottom_toTopOf="@+id/button_pause_start"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.904"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/treament_runing_hint" />
 
         <TextView
             android:id="@+id/countdown_text"
@@ -115,9 +140,11 @@
             android:layout_width="293dp"
             android:layout_height="61dp"
             android:layout_marginTop="52dp"
+            android:layout_marginBottom="86dp"
             android:text="Keep on working, you still have"
             android:textSize="25sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/button_pause_start"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.974"
             app:layout_constraintStart_toStartOf="parent"

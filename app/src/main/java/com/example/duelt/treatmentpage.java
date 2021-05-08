@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +24,8 @@ public class treatmentpage extends AppCompatActivity {
     long breakTime = 25*60000;
     long workTime = 30*60000;
     long tCount = 1;
+
+    final private String FIRST_TIME_KEY = "TRAETMENTPAGE_FIRST_TIME_KEY10";
 
     private TextView mCountDown;
     private TextView mCountDownDisplay;
@@ -60,6 +63,15 @@ public class treatmentpage extends AppCompatActivity {
         mCountDownDisplay = findViewById(R.id.countDown_distext);
 
         mButtonStartPause = findViewById(R.id.button_pause_start);
+
+        //Check for hint btn
+        ImageButton btn_hint = (ImageButton) findViewById(R.id.btn_treamentpage_hint1);
+        HintHelper hh = new HintHelper();
+        hh.checkFirstTime(this,FIRST_TIME_KEY,btn_hint);
+        ImageButton btn_hint2 = (ImageButton) findViewById(R.id.btn_treamentpage_hint3);
+        HintHelper hh2 = new HintHelper();
+        hh.checkFirstTime(this,FIRST_TIME_KEY,btn_hint2);
+
 
         mButtonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
