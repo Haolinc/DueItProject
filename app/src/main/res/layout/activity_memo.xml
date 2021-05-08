@@ -69,4 +69,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout6" />
 
+    <ImageButton
+        android:id="@+id/btn_memo_hint2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
+        android:background="#00FFFFFF"
+        android:tint="#00F4EFEF"
+        app:layout_constraintBottom_toTopOf="@+id/btn_memo_addEvent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/memo_hint3" />
+
+    <ImageButton
+        android:id="@+id/btn_memo_hint1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="88dp"
+        android:background="#00FFFFFF"
+
+        android:tint="#00F4EFEF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout6"
+        app:srcCompat="@drawable/memo_hint" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

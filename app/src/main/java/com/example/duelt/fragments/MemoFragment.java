@@ -8,12 +8,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.duelt.CalendarActivity;
+import com.example.duelt.HintHelper;
 import com.example.duelt.R;
 import com.example.duelt.db.DatabaseHelper;
 import com.example.duelt.db.EventDateModel;
@@ -26,6 +28,8 @@ import java.util.List;
 //In a Fragment, whenever need to use 'this' or 'getContext()' as in an activity class, it should be replaced with 'getActivity().
 public class MemoFragment extends Fragment {
     //test code
+
+    final private String FIRST_TIME_KEY = "MEMO_FIRST_TIME_KEY";
 
     public ArrayList<String> dayLeft_list= new ArrayList<String>();
     ListView mListView;
@@ -54,6 +58,13 @@ public class MemoFragment extends Fragment {
             }
         });
 
+        //Check for hint btn
+        ImageButton btn_hint = (ImageButton) rootView.findViewById(R.id.btn_memo_hint1);
+        ImageButton btn_hint2 = (ImageButton) rootView.findViewById(R.id.btn_memo_hint2);
+        HintHelper hh = new HintHelper();
+        hh.checkFirstTime(rootView.getContext(),FIRST_TIME_KEY,btn_hint);
+        HintHelper hh2 = new HintHelper();
+        hh2.checkFirstTime(rootView.getContext(),FIRST_TIME_KEY,btn_hint2);
 
         //createTextsViewInDayLeft();
 
