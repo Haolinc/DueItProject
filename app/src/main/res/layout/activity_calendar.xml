@@ -27,4 +27,30 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="13dp" />
 
+    <ImageButton
+        android:id="@+id/btn_calendar_hint2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="136dp"
+        android:background="#00FFFFFF"
+        android:tint="#00F4EFEF"
+        app:layout_constraintBottom_toTopOf="@+id/btn_memo_addEvent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/hint_back" />
+
+    <ImageButton
+        android:id="@+id/btn_calendar_hint1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="132dp"
+
+        android:background="#00FFFFFF"
+        android:tint="#00F4EFEF"
+        app:layout_constraintBottom_toBottomOf="@+id/calendarView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/calendar_hint" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -76,6 +76,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout11"
         android:layout_width="413dp"
         android:layout_height="85dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -93,8 +94,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:background="@drawable/treatment_start_button_list"
-            android:text="SAVE"
             android:onClick="saveEvent"
+            android:text="SAVE"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -105,5 +106,31 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <ImageButton
+        android:id="@+id/btn_textentering_hint2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="136dp"
+        android:background="#00FFFFFF"
+        android:tint="#00F4EFEF"
+        app:layout_constraintBottom_toTopOf="@+id/btn_memo_addEvent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/hint_back" />
+
+    <ImageButton
+        android:id="@+id/btn_textentering_hint1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginBottom="4dp"
+        android:background="#00FFFFFF"
+        android:tint="#00F4EFEF"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout11"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.283"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/textentering_hint" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
