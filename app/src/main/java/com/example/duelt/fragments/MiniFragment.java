@@ -38,8 +38,16 @@ public class MiniFragment extends Fragment {
     final Handler handler = new Handler(Looper.getMainLooper());
     Runnable runnable;
 
+    final Handler handler2 = new Handler(Looper.getMainLooper());
+
     AnimationDrawable catAnimation;
     Animation catAnimation2;
+
+
+    ImageButton imageButton;
+    static boolean needtochangAnimation = false;
+    static boolean ChangedAnimation = false;
+    static boolean isHappy = true;
     public MiniFragment(){
         //Required empty public constructor
     }
@@ -57,7 +65,7 @@ public class MiniFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View rootView = inflater.inflate(R.layout.activity_mini,container,false);
 
-        ImageButton imageButton = rootView.findViewById(R.id.ani_cat);
+        imageButton = rootView.findViewById(R.id.ani_cat);
         imageButton.setBackgroundResource(R.drawable.cat_animation_1);
         catAnimation = (AnimationDrawable) imageButton.getBackground();
         catAnimation.start();
@@ -66,12 +74,28 @@ public class MiniFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ((AnimationDrawable)(imageButton.getBackground())).stop();
+                imageButton.setEnabled(false);
                 imageButton.setBackgroundDrawable(null);
                 imageButton.setBackgroundResource(R.drawable.cat_animation_2);
                 catAnimation = (AnimationDrawable) imageButton.getBackground();
                 catAnimation.start();
+
+
+                handler2.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((AnimationDrawable)(imageButton.getBackground())).stop();
+                        imageButton.setBackgroundDrawable(null);
+                        imageButton.setBackgroundResource(R.drawable.cat_animation_1);
+                        catAnimation = (AnimationDrawable) imageButton.getBackground();
+                        catAnimation.start();
+                        imageButton.setEnabled(true);
+                    }
+                },3300);
             }
         });
+
+
         initState(rootView);
         //Buttons in Fragments should be written here
         // ↓↓↓↓↓↓↓↓
@@ -99,7 +123,27 @@ public class MiniFragment extends Fragment {
         btn_feed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                feed();
+                if (feed()) {
+                    ((AnimationDrawable) (imageButton.getBackground())).stop();
+                    imageButton.setEnabled(false);
+                    imageButton.setBackgroundDrawable(null);
+                    imageButton.setBackgroundResource(R.drawable.cat_animation_3);
+                    catAnimation = (AnimationDrawable) imageButton.getBackground();
+                    catAnimation.start();
+
+
+                    handler2.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ((AnimationDrawable) (imageButton.getBackground())).stop();
+                            imageButton.setBackgroundDrawable(null);
+                            imageButton.setBackgroundResource(R.drawable.cat_animation_1);
+                            catAnimation = (AnimationDrawable) imageButton.getBackground();
+                            catAnimation.start();
+                            imageButton.setEnabled(true);
+                        }
+                    }, 4300);
+                }
             }
         });
 
@@ -107,9 +151,35 @@ public class MiniFragment extends Fragment {
         btn_play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                play();
+                if(play()){
+                ((AnimationDrawable) (imageButton.getBackground())).stop();
+                imageButton.setEnabled(false);
+                imageButton.setBackgroundDrawable(null);
+                imageButton.setBackgroundResource(R.drawable.cat_animation_4);
+                catAnimation = (AnimationDrawable) imageButton.getBackground();
+                catAnimation.start();
+
+
+                handler2.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((AnimationDrawable) (imageButton.getBackground())).stop();
+                        imageButton.setBackgroundDrawable(null);
+                        imageButton.setBackgroundResource(R.drawable.cat_animation_1);
+                        catAnimation = (AnimationDrawable) imageButton.getBackground();
+                        catAnimation.start();
+                        imageButton.setEnabled(true);
+                    }
+                }, 4100);
             }
-        });
+        }
+    });
+
+
+
+
+
+
 
         return rootView;
     }
@@ -120,7 +190,23 @@ public class MiniFragment extends Fragment {
         runnable = new Runnable(){
             @Override
             public void run(){
-                updateState();
+                if(isHappy && updateState()) {
+                    isHappy = false;
+                    ((AnimationDrawable) (imageButton.getBackground())).stop();
+                    imageButton.setEnabled(false);
+                    imageButton.setBackgroundDrawable(null);
+                    imageButton.setBackgroundResource(R.drawable.cat_animation_5);
+                    catAnimation = (AnimationDrawable) imageButton.getBackground();
+                    catAnimation.start();
+                } else if (!isHappy && !updateState()) {
+                    isHappy = true;
+                    ((AnimationDrawable) (imageButton.getBackground())).stop();
+                    imageButton.setEnabled(false);
+                    imageButton.setBackgroundDrawable(null);
+                    imageButton.setBackgroundResource(R.drawable.cat_animation_1);
+                    catAnimation = (AnimationDrawable) imageButton.getBackground();
+                    catAnimation.start();
+                }
                 handler.postDelayed(this, 10000);
             }
         };
@@ -133,7 +219,7 @@ public class MiniFragment extends Fragment {
         handler.removeCallbacks(runnable);
     }
 
-    private void updateState() {
+    private boolean updateState() {
         Calculation.calculateHungerAndMood(getActivity());
         petmodel = petDatabaseHelper.getCurrentStat();
 
@@ -156,7 +242,11 @@ public class MiniFragment extends Fragment {
         petName.setText(petmodel.getName());
         //update currency
         currency.setText("Currency: " + petDatabaseHelper.getCurrency());
-    }
+
+        if(currentMood < 30){ return true; }
+            else {return false;}
+        }
+
 
     private void initState(View view) {
 
@@ -195,7 +285,7 @@ public class MiniFragment extends Fragment {
         currency.setText("Currency: " + petDatabaseHelper.getCurrency());
     }
 
-    private void play(){
+    private boolean play(){
         int toyAmount= petDatabaseHelper.getToy();
         if (toyAmount>0) {
             petmodel = petDatabaseHelper.getCurrentStat() ;
@@ -205,15 +295,16 @@ public class MiniFragment extends Fragment {
             petDatabaseHelper.updateData(petmodel);
             toyAmount--;
             petDatabaseHelper.updateToy(toyAmount);
-
+            return true;
         }
         else {
             Toast.makeText(getContext(), "You have no more toy for your pet!", Toast.LENGTH_SHORT).show();
+            return false;
         }
 
     }
 
-    private void feed(){
+    private boolean feed(){
         int foodAmount= petDatabaseHelper.getFood();
         if (foodAmount>0) {
             PetModel petmodel = new PetModel(getContext());
@@ -223,10 +314,15 @@ public class MiniFragment extends Fragment {
             petDatabaseHelper.updateData(petmodel);
             foodAmount--;
             petDatabaseHelper.updateFood(foodAmount);
+
+            return true;
         }
         else {
             Toast.makeText(getContext(), "You have no more food to feed!", Toast.LENGTH_SHORT).show();
+
+            return false;
         }
+
     }
 
     //create shop pup up and define their functions
