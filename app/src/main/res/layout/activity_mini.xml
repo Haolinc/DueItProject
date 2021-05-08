@@ -99,7 +99,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/imageView"
+            android:id="@+id/ani_cat"
             android:layout_width="252dp"
             android:layout_height="206dp"
             app:layout_constraintBottom_toBottomOf="parent"

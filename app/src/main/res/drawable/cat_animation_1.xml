@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/cat01"
+        android:duration="7000"/>
+
+    <item android:drawable="@drawable/cat2"
+        android:duration="150"/>
+
+    <item android:drawable="@drawable/cat3"
+        android:duration="150"/>
+
+    <item android:drawable="@drawable/cat4"
+        android:duration="150"/>
+
+</animation-list>

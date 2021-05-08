@@ -4,13 +4,16 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +38,8 @@ public class MiniFragment extends Fragment {
     final Handler handler = new Handler(Looper.getMainLooper());
     Runnable runnable;
 
+    AnimationDrawable catAnimation;
+    Animation catAnimation2;
     public MiniFragment(){
         //Required empty public constructor
     }
@@ -45,12 +50,28 @@ public class MiniFragment extends Fragment {
         petDatabaseHelper = new DatabaseHelper(getActivity());
         petmodel = petDatabaseHelper.getCurrentStat();
 
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View rootView = inflater.inflate(R.layout.activity_mini,container,false);
 
+        ImageButton imageButton = rootView.findViewById(R.id.ani_cat);
+        imageButton.setBackgroundResource(R.drawable.cat_animation_1);
+        catAnimation = (AnimationDrawable) imageButton.getBackground();
+        catAnimation.start();
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((AnimationDrawable)(imageButton.getBackground())).stop();
+                imageButton.setBackgroundDrawable(null);
+                imageButton.setBackgroundResource(R.drawable.cat_animation_2);
+                catAnimation = (AnimationDrawable) imageButton.getBackground();
+                catAnimation.start();
+            }
+        });
         initState(rootView);
         //Buttons in Fragments should be written here
         // ↓↓↓↓↓↓↓↓

@@ -94,7 +94,7 @@ public class DailyFragment extends Fragment {
                 databaseHelper.addOneToDaily(edm);
 
                 //set notification
-                setNotificationAlarmIntent(edm.getID(),
+                setNotificationAlarmIntent(edm.getID()+1,
                         et.getText().toString() + " is coming up soon! ",
                         calendar.getTimeInMillis(),
                         CHANNEL_1_ID,
@@ -115,7 +115,7 @@ public class DailyFragment extends Fragment {
     private void setNotificationAlarmIntent(int id, String title, long time, String channelID, boolean isFinalDate){
         AlarmManager am = (AlarmManager)requireActivity().getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(getActivity(), MemoAlarmReceiver.class);
-        i.putExtra("EDMID", id );
+        i.putExtra("EDMID", id);
         i.putExtra("TITLE", title);
         i.putExtra("DETAIL", "");
         i.putExtra("ChannelID", channelID);
@@ -152,8 +152,11 @@ public class DailyFragment extends Fragment {
             databaseHelper.updateWakedStatusInDaily(edm.getID(), edm.getWaked()-1);
         }
 
-        if (edm.getWaked() > 0 && checkIfPassTime(edm))
+        if (edm.getWaked() > 0 && checkIfPassTime(edm)){
+            edm.setWaked(0);
             dailyPenalty(edm.getID());
+        }
+
         else
             dailyReward(cb, edm);
 
@@ -164,6 +167,7 @@ public class DailyFragment extends Fragment {
 
     private void dailyPenalty (int id) {
         Intent i = new Intent(getActivity(), PopWindow.class);
+        i.putExtra("From", "DF167");
         i.putExtra("Table", "DailyPenalty");
         i.putExtra("EDMID", id);
         startActivity(i);
@@ -208,6 +212,7 @@ public class DailyFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 deleteCheckBox(cb, edm);
+                                cancelAlarm(edm.getID());
                             }
                         });
                 alertDialog.setCanceledOnTouchOutside(true);
@@ -252,8 +257,11 @@ public class DailyFragment extends Fragment {
     public void cancelAlarm(int requestedCode) {
         AlarmManager am = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(getActivity(), AlarmReceiver.class);
+        Intent i2= new Intent(getActivity(), MemoAlarmReceiver.class);
         PendingIntent pi = PendingIntent.getBroadcast(getActivity(), requestedCode, i, 0);
+        PendingIntent pi2= PendingIntent.getBroadcast(getActivity(), requestedCode+1, i2, 0);
         am.cancel(pi);
+        am.cancel(pi2);
     }
 
     public void hideSoftKeyboard(View v) {
