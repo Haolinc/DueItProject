@@ -104,9 +104,8 @@ public class DailyFragment extends Fragment {
                 i.putExtra("EDMID", edm.getID());
                 i.putExtra("Table", "DailyReminder");
                 PendingIntent pi = PendingIntent.getBroadcast(getActivity(), edm.getID(), i, 0);
-                am.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis()-1000*60*5, 24*60*60*1000, pi);
-
-                addCheckBox(edm);
+                am.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000*60*60*24, pi);
+                updateView();
             }
         });
 
@@ -123,7 +122,7 @@ public class DailyFragment extends Fragment {
         i.putExtra("IsFinalDate", isFinalDate);
 
         PendingIntent pi = PendingIntent.getBroadcast(getActivity(), id , i, 0);
-        am.setExact(AlarmManager.RTC_WAKEUP,time, pi);
+        am.setInexactRepeating(AlarmManager.RTC_WAKEUP,time - 1000*60*5, 1000*60*60*24, pi);
     }
 
     private void createCheckBox(){
@@ -151,10 +150,10 @@ public class DailyFragment extends Fragment {
 
         if (edm.getWaked() > 1 && !checkIfPassTime(edm)){
             databaseHelper.updateWakedStatusInDaily(edm.getID(), edm.getWaked()-1);
-            dailyPenalty(cb, edm.getID());
         }
-        else if (edm.getWaked() > 0 && checkIfPassTime(edm))
-            dailyPenalty(cb, edm.getID());
+
+        if (edm.getWaked() > 0 && checkIfPassTime(edm))
+            dailyPenalty(edm.getID());
         else
             dailyReward(cb, edm);
 
@@ -163,7 +162,7 @@ public class DailyFragment extends Fragment {
 
 
 
-    private void dailyPenalty (CheckBox cb, int id) {
+    private void dailyPenalty (int id) {
         Intent i = new Intent(getActivity(), PopWindow.class);
         i.putExtra("Table", "DailyPenalty");
         i.putExtra("EDMID", id);
