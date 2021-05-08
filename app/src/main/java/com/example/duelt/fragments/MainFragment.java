@@ -16,12 +16,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import com.example.duelt.HintHelper;
 import com.example.duelt.R;
 import com.example.duelt.WeeklyScheduleActivity;
 import com.example.duelt.alarm.MemoAlarmReceiver;
@@ -38,6 +40,7 @@ public class MainFragment extends Fragment {
     protected static final String CHANNEL_3_ID = "channel3";
     protected static final String CHANNEL_4_ID = "channel4";
 
+    final private String FIRST_TIME_KEY = "MAIN_FIRST_TIME_KEY";
 
     public MainFragment(){
         //Empty public constructor required
@@ -55,6 +58,13 @@ public class MainFragment extends Fragment {
             }
         });
 
+        //Check for hint btn
+        ImageButton btn_hint = (ImageButton) rootView.findViewById(R.id.btn_main_hint1);
+        ImageButton btn_hint2 = (ImageButton) rootView.findViewById(R.id.btn_main_hint2);
+        HintHelper hh = new HintHelper();
+        hh.checkFirstTime(rootView.getContext(),FIRST_TIME_KEY,btn_hint);
+        HintHelper hh2 = new HintHelper();
+        hh2.checkFirstTime(rootView.getContext(),FIRST_TIME_KEY,btn_hint2);
 
         createNoticficationChannels();
 

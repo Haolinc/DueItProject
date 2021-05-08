@@ -11,10 +11,12 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.duelt.HintHelper;
 import com.example.duelt.alarm.AlarmReceiver;
 import com.example.duelt.CalendarActivity;
 import com.example.duelt.db.EventDateModel;
@@ -37,6 +39,9 @@ public class TextEntering extends AppCompatActivity {
     private int year, month, day, hour, minute;
     EventDateModel eventDateModel;
 
+    final private String FIRST_TIME_KEY = "TEXTENTERING_FIRST_TIME_KEY";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +56,14 @@ public class TextEntering extends AppCompatActivity {
         day = intent.getIntExtra(CalendarActivity.EXTRA_Day, 0);
         hour= intent.getIntExtra(CalendarActivity.EXTRA_Hour, 0);
         minute = intent.getIntExtra(CalendarActivity.EXTRA_Minute, 0);
+
+        //Check for hint btn
+        ImageButton btn_hint = (ImageButton) findViewById(R.id.btn_textentering_hint1);
+        ImageButton btn_hint2 = (ImageButton) findViewById(R.id.btn_textentering_hint2);
+        HintHelper hh = new HintHelper();
+        hh.checkFirstTime(this,FIRST_TIME_KEY,btn_hint);
+        HintHelper hh2 = new HintHelper();
+        hh2.checkFirstTime(this,FIRST_TIME_KEY,btn_hint2);
 
     }
 

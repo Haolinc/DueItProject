@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CalendarView;
+import android.widget.ImageButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -30,12 +31,23 @@ public class CalendarActivity extends AppCompatActivity {
     private static final String errDateInfo = "Please enter a furture date";
     Context context= this;
 
+    final private String FIRST_TIME_KEY = "CALENDAR_FIRST_TIME_KEY";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
         mCalendarView = (CalendarView) findViewById(R.id.calendarView);
+
+        //Check for hint btn
+        ImageButton btn_hint = (ImageButton) findViewById(R.id.btn_calendar_hint1);
+        ImageButton btn_hint2 = (ImageButton) findViewById(R.id.btn_calendar_hint2);
+        HintHelper hh = new HintHelper();
+        hh.checkFirstTime(this,FIRST_TIME_KEY,btn_hint);
+        HintHelper hh2 = new HintHelper();
+        hh2.checkFirstTime(this,FIRST_TIME_KEY,btn_hint2);
 
         //get user select date in CalenderView and store them
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
