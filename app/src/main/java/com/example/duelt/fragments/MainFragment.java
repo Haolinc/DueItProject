@@ -147,14 +147,13 @@ public class MainFragment extends Fragment {
     }
 
     private void createTextViewInReminder(String text) {
-        TextView textView = new CheckBox(getActivity());
+        TextView textView = new TextView(getActivity());
         textView.setText(text);
         LinearLayout reminder = (LinearLayout) getView().findViewById(R.id.reminder_layout);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-2, -2);  //wrap_content
 
         textView.setLayoutParams(lp);
         textView.setGravity(Gravity.CENTER_VERTICAL);
-
         reminder.addView(textView);
 
     }
