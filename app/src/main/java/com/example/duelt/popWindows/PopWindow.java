@@ -25,7 +25,7 @@ import java.util.HashMap;
 public class PopWindow extends AppCompatActivity {
     AnimationDrawable mWinnerCup;
     Button mGreat;
-
+    ImageView vWinnerCup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +40,7 @@ public class PopWindow extends AppCompatActivity {
 
         TextView textView = findViewById(R.id.textView2);
         mGreat = findViewById(R.id.btn_great);
+        vWinnerCup = findViewById(R.id.cupAnimation);
 
         int id;
         String table = getIntent().getStringExtra("Table");
@@ -68,8 +69,7 @@ public class PopWindow extends AppCompatActivity {
                 default:
                     System.out.println("error");
                     break;
-        }
-
+            }
         }
 
         mGreat.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +82,6 @@ public class PopWindow extends AppCompatActivity {
                 else {
                     finish();
                 }
-
             }
         });
     }
@@ -103,10 +102,7 @@ public class PopWindow extends AppCompatActivity {
         PetModel petmodel = DatabaseHelper.getCurrentStat();
         long mTimer = TreatmentFragment.getmStartTimeInMillis();
 
-        ImageView vWinnerCup = findViewById(R.id.cupAnimation);
-        vWinnerCup.setBackgroundResource(R.drawable.winner_cup_list);
-        mWinnerCup = (AnimationDrawable) vWinnerCup.getBackground();
-        mWinnerCup.start();
+        cupAnimation();
 
         int currency = ((int)mTimer/6);
         int exp = ((int)mTimer/6);
@@ -122,10 +118,10 @@ public class PopWindow extends AppCompatActivity {
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         EventDateModel eventDateModel = databaseHelper.getOneFromDueDate(id);
         HashMap<String, Integer> penalty= Calculation.calculateReward(eventDateModel.getSetDateMillis(), eventDateModel.getDueDateMillis());
-        cupAnimation();
         String textViewText = "";
 
         if (penalty.get("exp")>0){
+            cupAnimation();
             textViewText = "You have completed " + eventDateModel.getEventTitle() + "! You have gain " + penalty.get("exp") + " exp and " +
                     penalty.get("currency") + " currency!";
             PetModel pm = new PetModel(this);
@@ -150,6 +146,7 @@ public class PopWindow extends AppCompatActivity {
     private void dailyRewardPopWindow (int id, TextView textView) {
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         PetModel petModel = databaseHelper.getCurrentStat();
+        cupAnimation();
         EventDateModel edm = databaseHelper.getOneFromDaily(id);
         petModel.setExp(petModel.getExp()+10);
         databaseHelper.updateCurrency(databaseHelper.getCurrency()+10);
@@ -167,7 +164,6 @@ public class PopWindow extends AppCompatActivity {
         databaseHelper.updateWakedStatusInDaily(id, 1);
     }
     private void cupAnimation(){
-        ImageView vWinnerCup = findViewById(R.id.cupAnimation);
         vWinnerCup.setBackgroundResource(R.drawable.winner_cup_list);
         mWinnerCup = (AnimationDrawable) vWinnerCup.getBackground();
         mWinnerCup.start();

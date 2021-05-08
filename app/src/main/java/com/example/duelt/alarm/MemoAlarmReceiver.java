@@ -9,9 +9,9 @@ import android.content.Intent;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.example.duelt.LoadingActivity;
 import com.example.duelt.R;
 import com.example.duelt.db.DatabaseHelper;
-import com.example.duelt.fragments.MainFragment;
 
 public class MemoAlarmReceiver  extends BroadcastReceiver {
     private NotificationManagerCompat notificationManagerCompat;
@@ -20,7 +20,7 @@ public class MemoAlarmReceiver  extends BroadcastReceiver {
         DatabaseHelper databaseHelper = new DatabaseHelper(context);
         notificationManagerCompat = NotificationManagerCompat.from(context);
 
-        Intent activityIntent = new Intent(context, MainFragment.class);
+        Intent activityIntent = new Intent(context, LoadingActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, activityIntent,0);
 
         Notification notification = new NotificationCompat.Builder(context, i.getStringExtra("ChannelID"))
