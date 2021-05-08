@@ -7,11 +7,14 @@
     android:padding="10dp"
     android:orientation="vertical">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -29,14 +32,16 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:id="@+id/constraintLayout8"
+        android:layout_width="317dp"
+        android:layout_height="440dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.414"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout6">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout6"
+        app:layout_constraintVertical_bias="0.16">
 
 
         <ListView
@@ -44,12 +49,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/scrollview_stroke"
+            android:background="@drawable/edittext_memo_pop"
             android:orientation="vertical"
             app:layout_constraintHeight_percent="0.25"
             app:layout_constraintWidth_percent="0.25"
             tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="-57dp" />
+            tools:layout_editor_absoluteY="-54dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -58,10 +63,10 @@
         android:id="@+id/btn_memo_addEvent"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="396dp"
+        android:layout_marginEnd="4dp"
         android:text="+"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
