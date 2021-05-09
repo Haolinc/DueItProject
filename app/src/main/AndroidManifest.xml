@@ -33,7 +33,8 @@
         <activity android:name=".fragments.TextEntering" />
         <activity android:name=".CalendarActivity" />
         <activity android:name=".Minigame" />
-        <activity android:name=".popWindows.ShopPopWindow" />
+        <activity android:name=".popWindows.ShopPopWindow"
+            android:theme="@style/AppTheme.CustomTheme" />
         <receiver android:name=".alarm.AlarmReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
