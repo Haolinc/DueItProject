@@ -71,13 +71,13 @@ public class DailyFragment extends Fragment {
 
         //**Back button might not be needed anymore
 
-        Button btn_resetDatabase = (Button)rootView.findViewById(R.id.resetDatabaseBtn);
-        btn_resetDatabase.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                databaseHelper.upgrade();
-            }
-        });
+        //Button btn_resetDatabase = (Button)rootView.findViewById(R.id.resetDatabaseBtn);
+//        btn_resetDatabase.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                databaseHelper.upgrade();
+//            }
+//        });
 
         //Check for hint btn
         ImageButton btn_hint = (ImageButton) rootView.findViewById(R.id.btn_daily_hint1);
