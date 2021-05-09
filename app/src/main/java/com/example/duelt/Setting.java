@@ -1,11 +1,13 @@
 package com.example.duelt;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.duelt.db.DatabaseHelper;
@@ -32,6 +34,7 @@ public class Setting extends AppCompatActivity {
                     case 0:
                         resetAll();
                         Toast.makeText(Setting.this, "Reset!", Toast.LENGTH_SHORT).show();
+                        finishAffinity();
                         break;
                     case 1:
                         Toast.makeText(Setting.this, "clicked", Toast.LENGTH_SHORT).show();
@@ -44,7 +47,25 @@ public class Setting extends AppCompatActivity {
     }
 
     private void resetAll(){
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
-        databaseHelper.upgrade();
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle("Reset Everything");
+        alertDialog.setMessage("Are you sure to reset every data?");
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Yes",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DatabaseHelper databaseHelper = new DatabaseHelper(getBaseContext());
+                        databaseHelper.upgrade();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "No",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        alertDialog.setCanceledOnTouchOutside(true);
+        alertDialog.show();
     }
 }

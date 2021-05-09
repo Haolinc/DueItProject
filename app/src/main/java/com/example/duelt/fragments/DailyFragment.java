@@ -192,7 +192,7 @@ public class DailyFragment extends Fragment {
                     cb.setChecked(true);
                 }
                 AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-                alertDialog.setTitle("alert");
+                alertDialog.setTitle("Daily Task");
                 alertDialog.setMessage("Are you ready to start the task?");
                 alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Yes",
                         new DialogInterface.OnClickListener() {

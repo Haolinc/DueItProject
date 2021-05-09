@@ -6,6 +6,7 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.duelt.db.DatabaseHelper;
 import com.example.duelt.fragments.TabActivity;
 
 
@@ -17,13 +18,21 @@ public class LoadingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loading_page);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(LoadingActivity.this, TabActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        }, delayMillis);
+        if (new DatabaseHelper(this).getCurrentStat().getName().equals("")) {
+            Intent intent = new Intent(LoadingActivity.this, PetNaming.class);
+            startActivity(intent);
+            finish();
+        }
+        else {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(LoadingActivity.this, TabActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }, delayMillis);
+        }
+
     }
 }

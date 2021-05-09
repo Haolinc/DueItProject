@@ -109,7 +109,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + LEVEL_COLUMN + " INT);";
         db.execSQL(createPetTableStatement);
 
-        PetModel petmodel = new PetModel(100, 100, 0, 1, "Boo");
+        PetModel petmodel = new PetModel(100, 100, 0, 1, "");
         initPet(petmodel, db);
 
         final String createItemTableStatement = "CREATE TABLE IF NOT EXISTS " + ITEM_TABLE_NAME + " ( "
@@ -306,13 +306,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //pet model updateData***************************************************************************************************
     public void updateData(PetModel pet){
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("UPDATE " + PET_TABLE_NAME + " SET "
                 + HUNGRINESS_COLUMN + " = "+ pet.getHungriness() + ", "
                 + MOOD_COLUMN + " = " + pet.getMood() + ", "
                 + EXP_COLUMN + " = " + pet.getExp() + ", "
-                + LEVEL_COLUMN + " = " + pet.getLv()
-                + " WHERE " + NAME_COLUMN + " = '" + pet.getName() + "';");
+                + LEVEL_COLUMN + " = " + pet.getLv() + ", "
+                + NAME_COLUMN + " = '" + pet.getName() + "';");
         db.close();
     }
 

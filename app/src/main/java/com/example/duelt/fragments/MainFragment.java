@@ -25,7 +25,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.duelt.HintHelper;
 import com.example.duelt.R;
-import com.example.duelt.WeeklyScheduleActivity;
 import com.example.duelt.alarm.MemoAlarmReceiver;
 import com.example.duelt.db.DatabaseHelper;
 import com.example.duelt.db.EventDateModel;
@@ -190,7 +189,7 @@ public class MainFragment extends Fragment {
             public void onCheckedChanged(CompoundButton button, boolean isChecked) {
                 if (isChecked) {
                     AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-                    alertDialog.setTitle("alert");
+                    alertDialog.setTitle("Due Date");
                     alertDialog.setMessage("Are you sure you have completed?");
                     alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Yes",
                             new DialogInterface.OnClickListener() {
