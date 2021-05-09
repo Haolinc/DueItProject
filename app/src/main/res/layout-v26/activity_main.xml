@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background_layout">
 
     <RelativeLayout
         android:id="@+id/QuickNoteLayout"
@@ -13,8 +14,10 @@
         app:layout_constraintBottom_toTopOf="@+id/functionLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.25"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.365"
         app:layout_constraintWidth_percent="0.25">
 
         <TextView
@@ -48,7 +51,7 @@
             android:layout_below="@+id/duedate_text"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="11dp"
-            android:background="@drawable/scrollview_stroke"
+            android:background="@drawable/edittext_memo_pop"
             android:orientation="vertical"
             app:layout_constraintHeight_percent="0.25"
             app:layout_constraintWidth_percent="0.25">
@@ -71,7 +74,7 @@
             android:layout_below="@+id/reminder_text"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="11dp"
-            android:background="@drawable/scrollview_stroke"
+            android:background="@drawable/edittext_memo_pop"
             android:orientation="vertical">
 
             <LinearLayout
@@ -101,6 +104,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="7dp"
         android:text="Reset Database"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/functionLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -32,7 +32,7 @@ public class PetNaming extends AppCompatActivity {
         editText = findViewById(R.id.pet_name_edit);
         btn = findViewById(R.id.pet_name_button);
 
-        imageView = findViewById(R.id.ani_cat);
+        imageView = findViewById(R.id.pet_animations);
         imageView.setBackgroundResource(R.drawable.cat_animation_1);
         catAnimation = (AnimationDrawable) imageView.getBackground();
         catAnimation.start();
