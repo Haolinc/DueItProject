@@ -28,7 +28,7 @@ public class PopWindow extends AppCompatActivity {
     Button mGreat;
     ImageView vWinnerCup;
     DatabaseHelper databaseHelper;
-    int id;
+    int id, penaltyHolding;
     TextView textView;
 
     @Override
@@ -54,21 +54,7 @@ public class PopWindow extends AppCompatActivity {
         Preload p = new Preload();
         p.execute(table);
 
-        switch(table) {
-            case "Duedate":
-                break;
-            case "DailyReminder":
-                break;
-            case "DailyReward":
-                break;
-            case "DailyPenalty":
-                break;
-            case "Treatment":
-                break;
-            default:
-                break;
-        }
-
+        mGreat.setText("Okay");
         mGreat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,19 +100,21 @@ public class PopWindow extends AppCompatActivity {
         HashMap<String, Integer> penalty= Calculation.calculateReward(eventDateModel.getSetDateMillis(), eventDateModel.getDueDateMillis());
         String textViewText = "";
 
-        if (penalty.get("exp")>0){
+        penaltyHolding = penalty.get("exp");
+
+        if (penaltyHolding>0){
             textViewText = "You have completed " + eventDateModel.getEventTitle() + "! You have gain " + penalty.get("exp") + " exp and " +
                     penalty.get("currency") + " currency!";
             PetModel pm = new PetModel(this);
-            pm.expPlus(this, penalty.get("exp"));
+            pm.expPlus(this, penaltyHolding);
             databaseHelper.updateData(pm);
-            databaseHelper.updateCurrency(databaseHelper.getCurrency()+penalty.get("currency"));
+            databaseHelper.updateCurrency(databaseHelper.getCurrency()+penaltyHolding);
         }
 
-        else if (penalty.get("exp")<0){
+        else if (penaltyHolding<0){
             textViewText = "Your duedate of " + eventDateModel.getEventTitle() + " has passed or you have passed above 90% of the time towards duedate! " +
                     "You have loss " + penalty.get("currency") + " currency!";
-            databaseHelper.updateCurrency(databaseHelper.getCurrency()-penalty.get("currency"));
+            databaseHelper.updateCurrency(databaseHelper.getCurrency()-penaltyHolding);
         }
         else {
             textViewText = "You have reached 90% of the time towards duedate! You did not gain anything or lose anything.";
@@ -143,8 +131,7 @@ public class PopWindow extends AppCompatActivity {
         edm.setWaked(0);
         edm.setWakedTime(Calendar.getInstance().get(Calendar.DAY_OF_YEAR) + Calendar.getInstance().get(Calendar.YEAR)*1000);
         databaseHelper.updateDaily(edm);
-        String textViewText = "You have gain 10 exp and 10 currency!";
-        return textViewText;
+        return "You have gain 10 exp and 10 currency!";
     }
 
     private String dailyReminderPopWindow(int id){
@@ -160,35 +147,67 @@ public class PopWindow extends AppCompatActivity {
         mWinnerCup.start();
     }
 
-    private class Preload extends AsyncTask<String, String, String> {
+    private void dueDateAnimation(int penalty){
+        if (penalty > 0) {
+            cupAnimation();
+        }
+        else {
+            vWinnerCup.setBackgroundResource(R.drawable.saltyfish_logo);
+        }
+
+    }
+
+    private class Preload extends AsyncTask<String, String, String[]> {
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
         }
         @Override
-        protected String doInBackground(String ... strings){
+        protected String[] doInBackground(String ... strings){
+            String[] str = new String[2];
+            str[0] = strings[0];
             switch(strings[0]) {
                 case "Duedate":
-                    return dueDatePopWindow(id);
+                    str[1]=dueDatePopWindow(id);
+                    return str;
                 case "DailyReminder":
-                    return dailyReminderPopWindow(id);
+                    str[1] = dailyReminderPopWindow(id);
+                    return str;
                 case "DailyReward":
-                    return dailyRewardPopWindow(id);
+                    str[1] = dailyRewardPopWindow(id);
+                    return str;
                 case "DailyPenalty":
-                    return dailyPenalty(id);
+                    str[1] = dailyPenalty(id);
+                    return str;
                 case "Treatment":
-                    return treatmentPopWindow();
+                    str[1] = treatmentPopWindow();
+                    return str;
                 default:
                     return null;
             }
         }
         @Override
-        protected void onPostExecute(String string){
+        protected void onPostExecute(String [] string){
             super.onPostExecute(string);
-            textView.setText(string);
-            cupAnimation();
-        }
+            textView.setText(string[1]);
+            switch(string[0]) {
+                case "Duedate":
+                    dueDateAnimation(penaltyHolding);
+                    return;
+                case "Treatment":
+                case "DailyReward":
+                    cupAnimation();
+                    return;
+                case "DailyReminder":
+                    vWinnerCup.setBackgroundResource(R.drawable.warning_sign);
 
+                    return;
+                case "DailyPenalty":
+                    vWinnerCup.setBackgroundResource(R.drawable.saltyfish_logo);
+                    return;
+                default:
+            }
+        }
     }
 }
 
