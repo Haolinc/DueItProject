@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_layout">
 
-
     <TimePicker
         android:id="@+id/datePicker1"
         android:layout_width="240dp"

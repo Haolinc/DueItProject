@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -53,6 +55,8 @@ public class MemoFragment extends Fragment {
         btn_jumpToCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final Animation addbutton = AnimationUtils.loadAnimation(getActivity(),R.anim.treatment_button_bounce);
+                btn_jumpToCalendar.startAnimation(addbutton);
                 Intent i = new Intent(getActivity(), CalendarActivity.class);
                 startActivity(i);
             }

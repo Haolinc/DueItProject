@@ -13,7 +13,8 @@
         android:layout_height="54dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/broad_layout_mini">
 
         <TextView
             android:id="@+id/mini_petname"
@@ -25,12 +26,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/mini_shop_button"
             android:layout_width="76dp"
             android:layout_height="40dp"
             android:onClick="onclik"
             android:text="SHOP"
+            android:background="@drawable/custom_button_selector"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -76,14 +78,14 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mini_topLayout"
-        app:layout_constraintVertical_bias="0.866">
+        app:layout_constraintVertical_bias="0.275">
 
         <com.example.duelt.StatesView
             android:id="@+id/hungrinessState"
             android:layout_width="163dp"
             android:layout_height="19dp"
-            android:layout_marginTop="118dp"
-            android:layout_marginEnd="308dp"
+            android:layout_marginTop="75dp"
+            android:layout_marginEnd="290dp"
             android:rotation="-90"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -92,8 +94,8 @@
             android:id="@+id/moodState"
             android:layout_width="163dp"
             android:layout_height="19dp"
-            android:layout_marginTop="118dp"
-            android:layout_marginEnd="272dp"
+            android:layout_marginTop="75dp"
+            android:layout_marginEnd="250dp"
             android:rotation="-90"
             android:rotationX="0"
             app:layout_constraintEnd_toEndOf="parent"
@@ -103,13 +105,13 @@
             android:id="@+id/ani_cat"
             android:layout_width="252dp"
             android:layout_height="206dp"
+            android:background="@drawable/cat01"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:background="@drawable/cat01"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.408"
+            app:layout_constraintVertical_bias="0.649"
             tools:src="@tools:sample/avatars" />
 
         <Button
@@ -117,6 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Test Mode"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -125,8 +128,8 @@
             android:id="@+id/imageView4"
             android:layout_width="18dp"
             android:layout_height="28dp"
-            android:layout_marginTop="72dp"
-            android:layout_marginEnd="344dp"
+            android:layout_marginTop="76dp"
+            android:layout_marginEnd="320dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/moodState"
             app:srcCompat="@drawable/heart" />
@@ -135,30 +138,31 @@
             android:id="@+id/imageView8"
             android:layout_width="38dp"
             android:layout_height="32dp"
-            android:layout_marginTop="72dp"
+            android:layout_marginTop="76dp"
             android:layout_marginEnd="12dp"
             app:layout_constraintEnd_toStartOf="@+id/imageView4"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/hungrinessState"
             app:srcCompat="@drawable/hugriness" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_mini_feed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="16dp"
-            android:text="feed"
+            android:background="@drawable/btn_feed_list"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_mini_play"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="104dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="92dp"
             android:layout_marginEnd="16dp"
-            android:text="Play"
+            android:background="@drawable/btn_play_list"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
