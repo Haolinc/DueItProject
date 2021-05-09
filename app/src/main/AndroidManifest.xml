@@ -21,7 +21,6 @@
         </activity>
         <activity android:name=".linechart" />
         <activity android:name=".Profile" />
-        <activity android:name=".setting_list_items" />
         <activity android:name=".Setting" />
         <activity
             android:name=".popWindows.ScheduleEventAddWindow"
@@ -34,7 +33,7 @@
         <activity android:name=".fragments.TextEntering" />
         <activity android:name=".CalendarActivity" />
         <activity android:name=".Minigame" />
-
+        <activity android:name=".popWindows.ShopPopWindow" />
         <receiver android:name=".alarm.AlarmReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

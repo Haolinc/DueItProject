@@ -25,6 +25,7 @@ import com.example.duelt.R;
 import com.example.duelt.StatesView;
 import com.example.duelt.db.DatabaseHelper;
 import com.example.duelt.db.PetModel;
+import com.example.duelt.popWindows.ShopPopWindow;
 
 public class MiniFragment extends Fragment {
     private StatesView hungrinessState;
@@ -114,7 +115,8 @@ public class MiniFragment extends Fragment {
         btn_shoppage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createShopDialog(rootView.getContext());
+                Intent i = new Intent(getContext(), ShopPopWindow.class);
+                startActivity(i);
             }
         });
 
@@ -325,94 +327,5 @@ public class MiniFragment extends Fragment {
 
     }
 
-    //create shop pup up and define their functions
-    private void createShopDialog(Context context) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        final View shop_pop_up_view = getLayoutInflater().inflate(R.layout.shop_pup_up, null);
 
-
-
-        Button btn_shop_pop_up_cancel = shop_pop_up_view.findViewById(R.id.btn_close_shop);
-        Button btn_buy_food = shop_pop_up_view.findViewById(R.id.btn_buy_food);
-        Button btn_buy_toy = shop_pop_up_view.findViewById(R.id.btn_buy_toy);
-
-        TextView text_currency = shop_pop_up_view.findViewById(R.id.textView_currency);
-        TextView text_toy_price = shop_pop_up_view.findViewById(R.id.textView_foodPrice);
-        TextView text_food_price = shop_pop_up_view.findViewById(R.id.textView_toyPrice);
-        TextView text_foodNum = shop_pop_up_view.findViewById(R.id.textView_food_num);
-        TextView text_toyNum = shop_pop_up_view.findViewById(R.id.textView_toy_num);
-
-
-        int totalCurrency = petDatabaseHelper.getCurrency();
-        int numOfFood = petDatabaseHelper.getFood();
-        int numOfToy  = petDatabaseHelper.getToy();
-        int foodPrice = 10;
-        int toyPrice = 10;
-        text_currency.setText(totalCurrency + "");
-        text_food_price.setText(foodPrice + "");
-        text_toy_price.setText(toyPrice + "");
-        text_foodNum.setText(numOfFood + "");
-        text_toyNum.setText(numOfToy + "");
-
-        btn_buy_food.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int newCurrency = buyFood(foodPrice, shop_pop_up_view);
-                text_currency.setText(newCurrency + "");
-                currency.setText("Currency: " + newCurrency);
-                int newNumFood = petDatabaseHelper.getFood();
-                text_foodNum.setText(newNumFood + "");
-            }
-        });
-        btn_buy_toy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int newCurrency = buyToy(toyPrice, shop_pop_up_view);
-                text_currency.setText(newCurrency + "");
-                currency.setText("Currency: " + newCurrency);
-                int newNumToy = petDatabaseHelper.getToy();
-                text_toyNum.setText(newNumToy + "");
-            }
-        });
-        builder.setView(shop_pop_up_view);
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-        
-        btn_shop_pop_up_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
-            }
-        });
-    }
-
-    //got the food price and view of shop, return the rest of currency
-    private int buyFood(int foodPrice, View view) {
-        int totalCurrency = petDatabaseHelper.getCurrency();
-        int numOfFood = petDatabaseHelper.getFood();
-        if(totalCurrency >= foodPrice){
-            totalCurrency = totalCurrency - foodPrice;
-            numOfFood ++;
-            petDatabaseHelper.updateCurrency(totalCurrency);
-            petDatabaseHelper.updateFood(numOfFood);
-        }else{
-            Toast.makeText(view.getContext(), "You do not have enough currency", Toast.LENGTH_SHORT).show();
-        }
-        return totalCurrency;
-    }
-
-    //got the food price and view of shop, return the rest of currency
-    private int buyToy(int toyPrice, View view) {
-        int totalCurrency = petDatabaseHelper.getCurrency();
-        int numOfToy = petDatabaseHelper.getToy();
-        if(totalCurrency >= toyPrice){
-            totalCurrency = totalCurrency - toyPrice;
-            numOfToy ++;
-            petDatabaseHelper.updateCurrency(totalCurrency);
-            petDatabaseHelper.updateToy(numOfToy);
-        }else{
-            Toast.makeText(view.getContext(), "You do not have enough currency", Toast.LENGTH_SHORT).show();
-        }
-        return totalCurrency;
-    }
 }
