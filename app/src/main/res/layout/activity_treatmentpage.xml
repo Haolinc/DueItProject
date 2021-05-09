@@ -50,8 +50,8 @@
             android:id="@+id/btn_treamentpage_hint3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="256dp"
-            android:layout_marginBottom="96dp"
+            android:layout_marginEnd="140dp"
+            android:layout_marginBottom="104dp"
             android:background="#00FFFFFF"
             android:tint="#00F4EFEF"
             app:layout_constraintBottom_toBottomOf="@+id/gifImageView"
@@ -66,20 +66,6 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="-6dp"
         android:background="@drawable/treatment_page_broad">
-
-
-        <ImageButton
-            android:id="@+id/btn_treamentpage_hint1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:background="#00FFFFFF"
-            android:tint="#EF0606"
-            app:layout_constraintBottom_toTopOf="@+id/button_pause_start"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.904"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/treament_runing_hint" />
 
         <TextView
             android:id="@+id/countdown_text"
@@ -96,6 +82,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.793"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btn_treamentpage_hint1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:background="#00FFFFFF"
+            android:tint="#00FDFDFD"
+            app:layout_constraintBottom_toTopOf="@+id/button_pause_start"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.904"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/treament_runing_hint" />
+
+
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_pause_start"
