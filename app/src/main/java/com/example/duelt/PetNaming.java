@@ -2,12 +2,14 @@ package com.example.duelt;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,20 +20,23 @@ import com.example.duelt.fragments.TabActivity;
 
 public class PetNaming extends AppCompatActivity {
     DatabaseHelper databaseHelper;
-    TextView textView;
     EditText editText;
     Button btn;
+    ImageView imageView;
+    AnimationDrawable catAnimation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         databaseHelper = new DatabaseHelper(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet_naming);
-        textView = findViewById(R.id.pet_name_text);
         editText = findViewById(R.id.pet_name_edit);
         btn = findViewById(R.id.pet_name_button);
 
-        String text = "Please Enter Your Pet Name!";
-        textView.setText(text);
+        imageView = findViewById(R.id.ani_cat);
+        imageView.setBackgroundResource(R.drawable.cat_animation_1);
+        catAnimation = (AnimationDrawable) imageView.getBackground();
+        catAnimation.start();
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

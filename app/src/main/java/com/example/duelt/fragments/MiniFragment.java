@@ -200,6 +200,31 @@ public class MiniFragment extends Fragment {
                     imageButton.setBackgroundResource(R.drawable.cat_animation_5);
                     catAnimation = (AnimationDrawable) imageButton.getBackground();
                     catAnimation.start();
+
+                    imageButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ((AnimationDrawable)(imageButton.getBackground())).stop();
+                            imageButton.setEnabled(false);
+                            imageButton.setBackgroundDrawable(null);
+                            imageButton.setBackgroundResource(R.drawable.cat_animation_2);
+                            catAnimation = (AnimationDrawable) imageButton.getBackground();
+                            catAnimation.start();
+
+
+                            handler2.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ((AnimationDrawable)(imageButton.getBackground())).stop();
+                                    imageButton.setBackgroundDrawable(null);
+                                    imageButton.setBackgroundResource(R.drawable.cat_animation_5);
+                                    catAnimation = (AnimationDrawable) imageButton.getBackground();
+                                    catAnimation.start();
+                                    imageButton.setEnabled(true);
+                                }
+                            },3300);
+                        }
+                    });
                 } else if (!isHappy && !updateState()) {
                     isHappy = true;
                     ((AnimationDrawable) (imageButton.getBackground())).stop();
@@ -208,6 +233,31 @@ public class MiniFragment extends Fragment {
                     imageButton.setBackgroundResource(R.drawable.cat_animation_1);
                     catAnimation = (AnimationDrawable) imageButton.getBackground();
                     catAnimation.start();
+
+                    imageButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ((AnimationDrawable)(imageButton.getBackground())).stop();
+                            imageButton.setEnabled(false);
+                            imageButton.setBackgroundDrawable(null);
+                            imageButton.setBackgroundResource(R.drawable.cat_animation_2);
+                            catAnimation = (AnimationDrawable) imageButton.getBackground();
+                            catAnimation.start();
+
+
+                            handler2.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ((AnimationDrawable)(imageButton.getBackground())).stop();
+                                    imageButton.setBackgroundDrawable(null);
+                                    imageButton.setBackgroundResource(R.drawable.cat_animation_1);
+                                    catAnimation = (AnimationDrawable) imageButton.getBackground();
+                                    catAnimation.start();
+                                    imageButton.setEnabled(true);
+                                }
+                            },3300);
+                        }
+                    });
                 }
                 handler.postDelayed(this, 10000);
             }
