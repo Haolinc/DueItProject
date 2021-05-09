@@ -33,8 +33,6 @@ public class Setting extends AppCompatActivity {
                 switch(position) {
                     case 0:
                         resetAll();
-                        Toast.makeText(Setting.this, "Reset!", Toast.LENGTH_SHORT).show();
-                        finishAffinity();
                         break;
                     case 1:
                         Toast.makeText(Setting.this, "clicked", Toast.LENGTH_SHORT).show();
@@ -56,6 +54,9 @@ public class Setting extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         DatabaseHelper databaseHelper = new DatabaseHelper(getBaseContext());
                         databaseHelper.upgrade();
+                        alertDialog.dismiss();
+                        Toast.makeText(Setting.this, "Reset!", Toast.LENGTH_SHORT).show();
+                        finishAffinity();
                     }
                 });
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "No",
