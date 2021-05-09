@@ -1,7 +1,9 @@
 package com.example.duelt.popWindows;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -67,5 +69,10 @@ public class Memo_pop_window extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void hideSoftKeyboard(View v) {
+        InputMethodManager inputMethodManager = (InputMethodManager)  this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(this.getWindow().getDecorView().getRootView().getWindowToken(), 0);
     }
 }
