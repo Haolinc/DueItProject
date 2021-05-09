@@ -34,7 +34,7 @@
         <activity android:name=".CalendarActivity" />
         <activity android:name=".Minigame" />
         <activity android:name=".popWindows.ShopPopWindow"
-            android:theme="@style/AppTheme.CustomTheme" />
+            android:theme="@style/Theme.AppCompat.Translucent" />
         <receiver android:name=".alarm.AlarmReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
