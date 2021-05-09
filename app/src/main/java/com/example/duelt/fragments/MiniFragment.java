@@ -330,6 +330,8 @@ public class MiniFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         final View shop_pop_up_view = getLayoutInflater().inflate(R.layout.shop_pup_up, null);
 
+
+
         Button btn_shop_pop_up_cancel = shop_pop_up_view.findViewById(R.id.btn_close_shop);
         Button btn_buy_food = shop_pop_up_view.findViewById(R.id.btn_buy_food);
         Button btn_buy_toy = shop_pop_up_view.findViewById(R.id.btn_buy_toy);
@@ -375,7 +377,7 @@ public class MiniFragment extends Fragment {
         builder.setView(shop_pop_up_view);
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-
+        
         btn_shop_pop_up_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
