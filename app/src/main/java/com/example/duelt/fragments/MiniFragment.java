@@ -25,6 +25,7 @@ import com.example.duelt.R;
 import com.example.duelt.StatesView;
 import com.example.duelt.db.DatabaseHelper;
 import com.example.duelt.db.PetModel;
+import com.example.duelt.popWindows.PopWindow;
 import com.example.duelt.popWindows.ShopPopWindow;
 
 public class MiniFragment extends Fragment {
@@ -195,7 +196,7 @@ public class MiniFragment extends Fragment {
                 if(isHappy && updateState()) {
                     isHappy = false;
                     ((AnimationDrawable) (imageButton.getBackground())).stop();
-                    imageButton.setEnabled(false);
+                    imageButton.setEnabled(true);
                     imageButton.setBackgroundDrawable(null);
                     imageButton.setBackgroundResource(R.drawable.cat_animation_5);
                     catAnimation = (AnimationDrawable) imageButton.getBackground();
@@ -228,7 +229,7 @@ public class MiniFragment extends Fragment {
                 } else if (!isHappy && !updateState()) {
                     isHappy = true;
                     ((AnimationDrawable) (imageButton.getBackground())).stop();
-                    imageButton.setEnabled(false);
+                    imageButton.setEnabled(true);
                     imageButton.setBackgroundDrawable(null);
                     imageButton.setBackgroundResource(R.drawable.cat_animation_1);
                     catAnimation = (AnimationDrawable) imageButton.getBackground();
@@ -259,11 +260,37 @@ public class MiniFragment extends Fragment {
                         }
                     });
                 }
+
+
+                if (isPetDead() == true){
+                    Intent intent = new Intent(getActivity(), PopWindow.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.putExtra("Table", "Mini");
+                    startActivity(intent);
+                }
+
+
+
+
                 handler.postDelayed(this, 10000);
             }
         };
         handler.postDelayed(runnable, 0);
     }
+
+
+    public boolean isPetDead(){
+        Calculation.calculateHungerAndMood(getActivity());
+        petmodel = petDatabaseHelper.getCurrentStat();
+
+        int currentHungry = petmodel.getHungriness();
+
+        if(currentHungry<= 0){
+            return true;
+        } else {return false;}
+    }
+
+
 
     @Override
     public void onPause() {

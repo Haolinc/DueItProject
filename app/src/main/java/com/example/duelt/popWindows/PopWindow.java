@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.duelt.Calculation;
+import com.example.duelt.LoadingActivity;
 import com.example.duelt.R;
 import com.example.duelt.db.DatabaseHelper;
 import com.example.duelt.db.EventDateModel;
@@ -61,6 +62,11 @@ public class PopWindow extends AppCompatActivity {
                 if (table.equals("Treatment")) {
                     Intent i = new Intent(v.getContext(), TabActivity.class);
                     startActivity(i);
+                }
+                else if(table.equals("Mini")){
+                    Intent intent = new Intent(getApplicationContext(), LoadingActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                 }
                 else {
                     finish();
@@ -182,6 +188,10 @@ public class PopWindow extends AppCompatActivity {
                 case "Treatment":
                     str[1] = treatmentPopWindow();
                     return str;
+                case "Mini":
+                   databaseHelper.upgrade();
+                   str[1] = "your pet is dead.";
+                   return str;
                 default:
                     return null;
             }
@@ -190,6 +200,7 @@ public class PopWindow extends AppCompatActivity {
         protected void onPostExecute(String [] string){
             super.onPostExecute(string);
             textView.setText(string[1]);
+
             switch(string[0]) {
                 case "Duedate":
                     dueDateAnimation(penaltyHolding);
@@ -203,6 +214,9 @@ public class PopWindow extends AppCompatActivity {
 
                     return;
                 case "DailyPenalty":
+                    vWinnerCup.setBackgroundResource(R.drawable.saltyfish_logo);
+                    return;
+                case "Mini":
                     vWinnerCup.setBackgroundResource(R.drawable.saltyfish_logo);
                     return;
                 default:

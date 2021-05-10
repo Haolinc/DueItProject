@@ -23,8 +23,8 @@ public class Calculation {
 
         long currentTime = Calendar.getInstance().getTimeInMillis();
         long updatedTime = databaseHelper.getUpdatedTime();
-        long timeElapseRemainder= (currentTime - updatedTime)%(1000*60);
-        int timeElapse = (int) ((currentTime - updatedTime)/(1000*60));
+        long timeElapseRemainder= (currentTime - updatedTime)%(1000*60*60);
+        int timeElapse = (int) ((currentTime - updatedTime)/(1000*60*60));
 
         PetModel petmodel = databaseHelper.getCurrentStat();
 
