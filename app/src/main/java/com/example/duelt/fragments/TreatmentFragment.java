@@ -155,7 +155,7 @@ public class TreatmentFragment extends Fragment {
                         imageButton.setEnabled(true);
                     }
                 },4000);
-                
+
             }
         });
 
