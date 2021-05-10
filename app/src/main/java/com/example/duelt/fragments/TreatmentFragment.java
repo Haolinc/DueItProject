@@ -1,15 +1,19 @@
 package com.example.duelt.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -17,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.duelt.HintHelper;
@@ -30,6 +35,8 @@ public class TreatmentFragment extends Fragment {
     public static long mStartTimeInMillis;
     ImageButton imageButton;
     AppCompatButton btn_start;
+
+    final Handler handler2 = new Handler(Looper.getMainLooper());
 
     private EditText mEditTimeInput;
 //    private Button mButtonSet;
@@ -60,6 +67,14 @@ public class TreatmentFragment extends Fragment {
         HintHelper hh2 = new HintHelper();
         hh2.checkFirstTime(rootView.getContext(),FIRST_TIME_KEY,btn_hint2);
 
+
+        ConstraintLayout cl = rootView.findViewById(R.id.treatment_layout);
+        cl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideSoftKeyboard(v);
+            }
+        });
 
 //        mButtonSet.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -105,10 +120,6 @@ public class TreatmentFragment extends Fragment {
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view.setVisibility(View.GONE);
-                go321Animation.start();
-                informat.setVisibility(View.VISIBLE);
-                imageButton.setEnabled(true);
 
                 String input = mEditTimeInput.getText().toString();
                 if(!input.matches("-?\\d+")) {
@@ -134,7 +145,17 @@ public class TreatmentFragment extends Fragment {
                 //mEditTimeInput.setText("");
                 Toast.makeText(getActivity(), "time set to " +mStartTimeInMillis + " minutes",Toast.LENGTH_SHORT).show();
 
+                view.setVisibility(View.GONE);
+                go321Animation.start();
+                informat.setVisibility(View.VISIBLE);
 
+                handler2.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        imageButton.setEnabled(true);
+                    }
+                },4000);
+                
             }
         });
 
@@ -161,8 +182,13 @@ public class TreatmentFragment extends Fragment {
         ((AnimationDrawable)(imageButton.getBackground())).stop();
         imageButton.setBackgroundDrawable(null);
         imageButton.setBackgroundResource(R.drawable.btn_go_321_list);
+        go321Animation = (AnimationDrawable) imageButton.getBackground();
         btn_start.setVisibility(View.VISIBLE);
     }
 
+    public void hideSoftKeyboard(View v) {
+        InputMethodManager inputMethodManager = (InputMethodManager)  getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(getActivity().getWindow().getDecorView().getRootView().getWindowToken(), 0);
+    }
 
 }
