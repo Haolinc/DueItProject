@@ -70,8 +70,8 @@ public class PopWindow extends AppCompatActivity {
     }
 
     private String dailyPenalty(int id) {
+        int penalty = getIntent().getIntExtra("WakedTimes", 0);
         EventDateModel edm = databaseHelper.getOneFromDaily(id);
-        int penalty = edm.getWaked();
         databaseHelper.updateWakedStatusInDaily(id, 0);
         String textViewText = "You have skipped " + edm.getEventTitle() + " " + penalty +
                 " times,  therefore you have lose " + penalty*10 + " currency.";

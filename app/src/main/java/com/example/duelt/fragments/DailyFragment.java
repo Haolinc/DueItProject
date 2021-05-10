@@ -163,9 +163,10 @@ public class DailyFragment extends Fragment {
             databaseHelper.updateWakedStatusInDaily(edm.getID(), edm.getWaked()-1);
         }
 
-        if (edm.getWaked() > 0 && checkIfPassTime(edm)){
-            edm.setWaked(0);
-            dailyPenalty(edm.getID());
+        if (edm.getWaked() > 0){
+            databaseHelper.updateWakedStatusInDaily(edm.getID(), 0);
+            dailyPenalty(edm.getID(), edm.getWaked());
+            return;
         }
 
         else
@@ -176,9 +177,9 @@ public class DailyFragment extends Fragment {
 
 
 
-    private void dailyPenalty (int id) {
+    private void dailyPenalty (int id, int wakedTimes) {
         Intent i = new Intent(getActivity(), PopWindow.class);
-        i.putExtra("From", "DF167");
+        i.putExtra("WakedTimes", wakedTimes);
         i.putExtra("Table", "DailyPenalty");
         i.putExtra("EDMID", id);
         startActivity(i);
