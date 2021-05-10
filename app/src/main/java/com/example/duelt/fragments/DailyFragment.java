@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -104,6 +105,15 @@ public class DailyFragment extends Fragment {
                 DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
                 databaseHelper.addOneToDaily(edm);
 
+                if (checkIfPassTime(edm)){
+                    if (calendar.get(Calendar.DAY_OF_YEAR) == 365) {
+                        calendar.set(Calendar.DAY_OF_YEAR, 1);
+                        calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR)+1);
+                    }
+                    else
+                        calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR)+1);
+                }
+
                 //set notification
                 setNotificationAlarmIntent(edm.getID()+1,
                         et.getText().toString() + " is coming up soon! ",
@@ -116,17 +126,8 @@ public class DailyFragment extends Fragment {
                 i.putExtra("Table", "DailyReminder");
                 PendingIntent pi = PendingIntent.getBroadcast(getActivity(), edm.getID(), i, 0);
 
-                if (checkIfPassTime(edm)){
-                    if (calendar.get(Calendar.DAY_OF_YEAR) == 365) {
-                        calendar.set(Calendar.DAY_OF_YEAR, 1);
-                        calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR)+1);
-                    }
-                    else
-                        calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR)+1);
-                    calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR)+1);
-                }
-
                 am.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000*60*60*24, pi);
+                Log.d("TEST", calendar.getTimeInMillis()+"");
                 updateView();
             }
         });
