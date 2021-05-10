@@ -1,12 +1,14 @@
 package com.example.duelt;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +32,8 @@ public class treatmentpage extends AppCompatActivity {
     private TextView mCountDown;
     private TextView mCountDownDisplay;
     private Button mButtonStartPause;
+    private ImageView gitImage;
+    AnimationDrawable catAnimation;
     //bug test****************************************************************************************
 //    private TextView mbug;
 //    private Button mTestButton;
@@ -61,7 +65,10 @@ public class treatmentpage extends AppCompatActivity {
         //bug test****************************************************************************************
         mCountDown = findViewById(R.id.countdown_text);
         mCountDownDisplay = findViewById(R.id.countDown_distext);
-
+        gitImage = findViewById(R.id.gifImageView);
+        gitImage.setBackgroundResource(R.drawable.cat_animation_6);
+        catAnimation = (AnimationDrawable) gitImage.getBackground();
+        catAnimation.start();
         mButtonStartPause = findViewById(R.id.button_pause_start);
 
         //Check for hint btn

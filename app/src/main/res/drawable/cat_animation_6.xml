@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/cat01"
+        android:duration="7000"/>
+
+    <item android:drawable="@drawable/cat2"
+        android:duration="150"/>
+
+    <item android:drawable="@drawable/cat3"
+        android:duration="150"/>
+
+    <item android:drawable="@drawable/cat4"
+        android:duration="150"/>
+
+    <item android:drawable="@drawable/cat01"
+        android:duration="7000"/>
+
+    <item android:drawable="@drawable/cat5"
+        android:duration="1000"/>
+
+    <item android:drawable="@drawable/cat15"
+        android:duration="1500"/>
+
+    <item android:drawable="@drawable/cat5"
+        android:duration="300"/>
+
+    <item android:drawable="@drawable/cat01"
+        android:duration="7000"/>
+
+    <item android:drawable="@drawable/cat5"
+        android:duration="200"/>
+
+    <item android:drawable="@drawable/cat6"
+        android:duration="200"/>
+
+    <item android:drawable="@drawable/cat7"
+        android:duration="200"/>
+
+    <item android:drawable="@drawable/cat8"
+        android:duration="200"/>
+
+    <item android:drawable="@drawable/cat9"
+        android:duration="200"/>
+
+    <item android:drawable="@drawable/cat10"
+        android:duration="200"/>
+
+    <item android:drawable="@drawable/cat11"
+        android:duration="200"/>
+
+    <item android:drawable="@drawable/cat12"
+        android:duration="200"/>
+
+    <item android:drawable="@drawable/cat13"
+        android:duration="200"/>
+
+    <item android:drawable="@drawable/cat14"
+        android:duration="300"/>
+
+    <item android:drawable="@drawable/cat01"
+        android:duration="7000"/>
+
+    <item android:drawable="@drawable/cat14"
+        android:duration="200"/>
+
+    <item android:drawable="@drawable/cat15"
+        android:duration="200"/>
+
+    <item android:drawable="@drawable/cat16"
+        android:duration="200"/>
+
+    <item android:drawable="@drawable/cat17"
+        android:duration="200"/>
+
+    <item android:drawable="@drawable/cat18"
+        android:duration="200"/>
+
+    <item android:drawable="@drawable/cat19"
+        android:duration="200"/>
+
+    <item android:drawable="@drawable/cat20"
+        android:duration="200"/>
+
+    <item android:drawable="@drawable/cat21"
+        android:duration="200"/>
+
+    <item android:drawable="@drawable/cat22"
+        android:duration="200"/>
+
+    <item android:drawable="@drawable/cat23"
+        android:duration="200"/>
+
+    <item android:drawable="@drawable/cat24"
+        android:duration="200"/>
+
+    <item android:drawable="@drawable/cat25"
+        android:duration="200"/>
+
+    <item android:drawable="@drawable/cat26"
+        android:duration="200"/>
+
+    <item android:drawable="@drawable/cat27"
+        android:duration="200"/>
+
+    <item android:drawable="@drawable/cat28"
+        android:duration="200"/>
+
+    <item android:drawable="@drawable/cat29"
+        android:duration="200"/>
+
+    <item android:drawable="@drawable/cat30"
+        android:duration="200"/>
+
+    <item android:drawable="@drawable/cat31"
+        android:duration="200"/>
+
+    <item android:drawable="@drawable/cat15"
+        android:duration="500"/>
+
+
+</animation-list>

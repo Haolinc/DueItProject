@@ -36,11 +36,10 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent">
 
-        <pl.droidsonroids.gif.GifImageView
+        <ImageView
             android:id="@+id/gifImageView"
             android:layout_width="250dp"
             android:layout_height="250dp"
-            android:src="@drawable/treatmentpage_character_jump"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
