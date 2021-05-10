@@ -223,6 +223,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + WEEKLY_SCHEDULE_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + EXP_FOR_LEVEL_TABLE);
         onCreate(db);
+        db.close();
     }
 
     //item model updateData****************************************************************************************************

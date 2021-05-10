@@ -1,6 +1,7 @@
 package com.example.duelt;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -56,7 +57,9 @@ public class Setting extends AppCompatActivity {
                         databaseHelper.upgrade();
                         alertDialog.dismiss();
                         Toast.makeText(Setting.this, "Reset!", Toast.LENGTH_SHORT).show();
-                        finishAffinity();
+                        Intent i = new Intent(getBaseContext(), LoadingActivity.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(i);
                     }
                 });
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "No",
