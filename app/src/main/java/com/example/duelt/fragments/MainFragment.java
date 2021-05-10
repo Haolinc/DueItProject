@@ -39,6 +39,7 @@ public class MainFragment extends Fragment {
     protected static final String CHANNEL_3_ID = "channel3";
     protected static final String CHANNEL_4_ID = "channel4";
 
+
     final private String FIRST_TIME_KEY = "MAIN_FIRST_TIME_KEY";
 
     public MainFragment(){
@@ -64,7 +65,6 @@ public class MainFragment extends Fragment {
         hh.checkFirstTime(rootView.getContext(),FIRST_TIME_KEY,btn_hint);
         HintHelper hh2 = new HintHelper();
         hh2.checkFirstTime(rootView.getContext(),FIRST_TIME_KEY,btn_hint2);
-
         createNoticficationChannels();
 
         return rootView;
@@ -74,7 +74,7 @@ public class MainFragment extends Fragment {
     public void onResume() {
         super.onResume();
         updateCheckBox();
-        updateRemider();
+        updateReminder();
 
     }
 
@@ -145,7 +145,7 @@ public class MainFragment extends Fragment {
 
     }
 
-    private void updateRemider(){
+    private void updateReminder(){
         DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
         PetModel petModel = databaseHelper.getCurrentStat();
         int hungry = petModel.getHungriness();
@@ -176,7 +176,6 @@ public class MainFragment extends Fragment {
 
     private void createCheckBoxInDueDate(EventDateModel edm) {
         CheckBox cb = new CheckBox(getActivity());
-        DatabaseHelper dh = new DatabaseHelper(getActivity());        //for deletion in onclick
         LinearLayout dueDate = getView().findViewById(R.id.dueDate_layout);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-2, -2);  //wrap_content
 
@@ -213,6 +212,13 @@ public class MainFragment extends Fragment {
                                     cb.setChecked(false);
                                 }
                             });
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Remove",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    deleteCheckBox(cb, edm);
+                                }
+                            });
                     alertDialog.setCanceledOnTouchOutside(true);
                     alertDialog.setOnCancelListener(
                             new DialogInterface.OnCancelListener() {
@@ -229,6 +235,36 @@ public class MainFragment extends Fragment {
 
         dueDate.addView(cb);
 
+    }
+
+    public void deleteCheckBox(CheckBox cb, EventDateModel edm){
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+        alertDialog.setTitle("Remove");
+        alertDialog.setMessage("Are you sure to remove this event?");
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Yes",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        new DatabaseHelper(getActivity()).deleteOneFromDueDate(edm.getID());
+                        cancelAlarm(edm.getID());
+                        updateCheckBox();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "No",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        cb.setChecked(false);
+                    }
+                });
+        alertDialog.setCanceledOnTouchOutside(true);
+        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                cb.setChecked(false);
+            }
+        });
+        alertDialog.show();
     }
 
     public void cancelAlarm(int requestedCode) {

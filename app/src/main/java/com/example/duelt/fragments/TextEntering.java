@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,16 +12,15 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.duelt.HintHelper;
-import com.example.duelt.alarm.AlarmReceiver;
 import com.example.duelt.CalendarActivity;
-import com.example.duelt.db.EventDateModel;
-import com.example.duelt.alarm.MemoAlarmReceiver;
+import com.example.duelt.HintHelper;
 import com.example.duelt.R;
+import com.example.duelt.alarm.AlarmReceiver;
+import com.example.duelt.alarm.MemoAlarmReceiver;
 import com.example.duelt.db.DatabaseHelper;
+import com.example.duelt.db.EventDateModel;
 
 import java.util.Calendar;
 
@@ -93,21 +91,7 @@ public class TextEntering extends AppCompatActivity {
         databaseHelper.addDate(eventDateModel);
 
         //make a checkbox in main activity
-
-        //testing
-        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle("alert");
-        alertDialog.setMessage(eventDateModel.getTitleAndDate());
-
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Okay",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        alertDialog.cancel();
-                        finish();
-                    }
-                });
-        alertDialog.show();
+        finish();
 
     }
 
@@ -132,7 +116,7 @@ public class TextEntering extends AppCompatActivity {
 
         //set exact due date
         setAlarmIntent(eventDateModel.getID(),
-                      eventTitleInput.getText().toString() + " DUE NOW!! ",
+                      eventTitleInput.getText().toString() + " IS DUE NOW!! ",
                       date.getTimeInMillis(),
                       CHANNEL_1_ID,
                      true);
@@ -140,7 +124,7 @@ public class TextEntering extends AppCompatActivity {
         //set half way to due date
         long halfTime = (date.getTimeInMillis()- now.getTimeInMillis())/2 + now.getTimeInMillis();
         setAlarmIntent(eventDateModel.getID2(),
-                eventTitleInput.getText().toString() + " HALF WAYS!! ",
+                eventTitleInput.getText().toString() + " IS HALF WAYS!! ",
                 halfTime,
                 CHANNEL_2_ID,
                 false);
@@ -148,7 +132,7 @@ public class TextEntering extends AppCompatActivity {
         //set one Third of way to due date
         long oneThirdTime = (date.getTimeInMillis()- now.getTimeInMillis())*2/3 + now.getTimeInMillis();
         setAlarmIntent(eventDateModel.getID3(),
-                eventTitleInput.getText().toString() + " ONLY ONE THIRD WAYS LEFT!! ",
+                eventTitleInput.getText().toString() + " IS ONLY ONE THIRD WAYS LEFT!! ",
                 oneThirdTime,
                 CHANNEL_3_ID,
                 false);
@@ -157,7 +141,7 @@ public class TextEntering extends AppCompatActivity {
         long lastday = date.getTimeInMillis() - 86400000;
         if(lastday - now.getTimeInMillis() > 0) {
             setAlarmIntent(eventDateModel.getID4(),
-                    eventTitleInput.getText().toString() + " THE LAST 24 HOURS!! ",
+                    eventTitleInput.getText().toString() + " IS DUE WITHIN 24 HOURS!! ",
                     lastday,
                     CHANNEL_4_ID,
                     false);

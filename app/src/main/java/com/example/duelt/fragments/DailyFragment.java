@@ -115,6 +115,17 @@ public class DailyFragment extends Fragment {
                 i.putExtra("EDMID", edm.getID());
                 i.putExtra("Table", "DailyReminder");
                 PendingIntent pi = PendingIntent.getBroadcast(getActivity(), edm.getID(), i, 0);
+
+                if (checkIfPassTime(edm)){
+                    if (calendar.get(Calendar.DAY_OF_YEAR) == 365) {
+                        calendar.set(Calendar.DAY_OF_YEAR, 1);
+                        calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR)+1);
+                    }
+                    else
+                        calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR)+1);
+                    calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR)+1);
+                }
+
                 am.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000*60*60*24, pi);
                 updateView();
             }
@@ -249,7 +260,6 @@ public class DailyFragment extends Fragment {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        layoutView.removeView(cb);   //click to remove checkbox view
                         databaseHelper.deleteOneFromDaily(edm.getID());
                         cancelAlarm(edm.getID());
                         updateView();
@@ -263,6 +273,12 @@ public class DailyFragment extends Fragment {
                     }
                 });
         alertDialog.setCanceledOnTouchOutside(true);
+        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                cb.setChecked(false);
+            }
+        });
         alertDialog.show();
     }
 

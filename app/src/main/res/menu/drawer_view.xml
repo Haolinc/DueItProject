@@ -4,15 +4,12 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_first_fragment"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Profile" />
+            android:title="Profile (Currently Unavailable)" />
         <item
             android:id="@+id/nav_second_fragment"
-            android:icon="@drawable/ic_menu_camera"
             android:title="Weekly Schedule" />
         <item
             android:id="@+id/nav_third_fragment"
-            android:icon="@drawable/ic_menu_camera"
             android:title="Setting" />
     </group>
 

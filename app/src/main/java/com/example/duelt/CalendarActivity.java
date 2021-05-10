@@ -28,7 +28,7 @@ public class CalendarActivity extends AppCompatActivity {
     public static final String EXTRA_Day = "com.example.duelt.EXTRA_Day";
     public static final String EXTRA_Hour = "com.example.duelt.EXTRA_Hour";
     public static final String EXTRA_Minute = "com.example.duelt.EXTRA_Minute";
-    private static final String errDateInfo = "Please enter a furture date";
+    private static final String errDateInfo = "Please select a future date";
     Context context= this;
 
     final private String FIRST_TIME_KEY = "CALENDAR_FIRST_TIME_KEY";
