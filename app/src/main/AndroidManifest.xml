@@ -29,7 +29,6 @@
         <activity android:name=".WeeklyScheduleActivity" /> <!-- This Activity is set to default display -->
         <activity android:name=".fragments.TabActivity" />
         <activity android:name=".treatmentpage" />
-        <activity android:name=".TreatmentActivity" />
         <activity android:name=".fragments.TextEntering" />
         <activity android:name=".CalendarActivity" />
         <activity
