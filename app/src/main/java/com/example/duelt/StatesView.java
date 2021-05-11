@@ -15,6 +15,11 @@ public class StatesView extends View {
     private float maxCount = 100, currentCount = 90;
     private Paint mPaint;
     private int mWidth,mHeight;
+    private boolean isLiedown = true;
+
+    public void setLiedown(boolean liedown) {
+        isLiedown = liedown;
+    }
 
     public StatesView(Context context) {
         super(context);
@@ -40,19 +45,25 @@ public class StatesView extends View {
         super.onDraw(canvas);
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
-        int round = mHeight/2;
-        mPaint.setColor(Color.BLACK);
-        RectF rectInterBg = new RectF(0,0, mWidth,mHeight);
-        canvas.drawRoundRect(rectInterBg,round,round,mPaint);
-        mPaint.setColor(Color.WHITE);
-        RectF rectOuterBg = new RectF(2,2, mWidth-2, mHeight-2);
-        canvas.drawRoundRect(rectOuterBg,round,round,mPaint);
-
         float ratio = currentCount/maxCount;
-        RectF rectProgressBg = new RectF(3, 3, (mWidth-3)*ratio, mHeight-3);
+
+            int round = mHeight/2;
+            mPaint.setColor(Color.BLACK);
+            RectF rectInterBg = new RectF(0,0, mWidth,mHeight);
+            canvas.drawRoundRect(rectInterBg,round,round,mPaint);
+            mPaint.setColor(Color.WHITE);
+            RectF rectOuterBg = new RectF(2,2, mWidth-2, mHeight-2);
+            canvas.drawRoundRect(rectOuterBg,round,round,mPaint);
+            RectF rectProgressBg;
+            if(isLiedown)
+                rectProgressBg = new RectF(3, 3, (mWidth-3)*ratio, mHeight-3);
+            else
+                rectProgressBg = new RectF(3, 3+mHeight*(1-ratio), mWidth-3, (mHeight-3));
+
         if(ratio <= 0.01f) mPaint.setColor(Color.TRANSPARENT);
-        else mPaint.setColor(color);
-        canvas.drawRoundRect(rectProgressBg, round, round, mPaint);
+            else mPaint.setColor(color);
+            canvas.drawRoundRect(rectProgressBg, round, round, mPaint);
+
 
     }
 

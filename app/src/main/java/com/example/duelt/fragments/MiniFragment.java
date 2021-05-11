@@ -352,6 +352,7 @@ public class MiniFragment extends Fragment {
         hungrinessState = view.findViewById(R.id.hungrinessState);
         hungrinessState.setMaxCount(100);
         hungrinessState.setColor(Color.RED);
+        hungrinessState.setLiedown(false);
         int currentHungry = petmodel.getHungriness();
         hungrinessState.setCurrentCount(currentHungry);
 
@@ -359,6 +360,7 @@ public class MiniFragment extends Fragment {
         moodState = view.findViewById(R.id.moodState);
         moodState.setMaxCount(100);
         moodState.setColor(Color.BLUE);
+        moodState.setLiedown(false);
         int currentMood = petmodel.getMood();
         moodState.setCurrentCount(currentMood);
 
