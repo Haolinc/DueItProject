@@ -79,7 +79,7 @@
         android:layout_height="557dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mini_topLayout"
         app:layout_constraintVertical_bias="0.275">
@@ -187,6 +187,31 @@
             android:text="-5 Mood"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mini_test_hunger" />
+
+        <ImageButton
+            android:id="@+id/btn_mini_hint1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="132dp"
+            android:background="#00FFFFFF"
+
+            android:tint="#00F4EFEF"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout6"
+            app:srcCompat="@drawable/mini_hint1" />
+
+        <ImageButton
+            android:id="@+id/btn_mini_hint2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00FFFFFF"
+
+            android:tint="#00F4EFEF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.74"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_mini_play"
+            app:srcCompat="@drawable/mini_hint2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
