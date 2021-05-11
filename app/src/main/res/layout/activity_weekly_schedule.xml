@@ -71,12 +71,6 @@
                 android:textSize="15dp"
                 android:textStyle="bold" />
 
-<!--            <View-->
-<!--                android:id="@+id/dayMarkerView"-->
-<!--                android:layout_width="fill_parent"-->
-<!--                android:layout_height="2dp"-->
-<!--                android:layout_alignParentBottom="true"-->
-<!--                android:background="@color/black" />-->
         </RelativeLayout>
 
         <RelativeLayout
@@ -574,47 +568,6 @@
 
                     <include layout="@layout/calendar_line_divider" />
 
-<!--  This part is for testing, Real cardView will be created through ScheduleActivity.java -->
-<!--                    <androidx.cardview.widget.CardView-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="117dp"-->
-<!--                        app:cardBackgroundColor="#77FDE3"-->
-<!--                        android:layout_margin="2dp">-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_gravity="center_vertical"-->
-<!--                            android:text="Physics class"-->
-<!--                            android:textColor="@color/black" />-->
-
-<!--                    </androidx.cardview.widget.CardView>-->
-
-<!--                    <androidx.cardview.widget.CardView-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="117dp"-->
-<!--                        android:layout_marginTop="120dp"-->
-<!--                        android:layout_marginBottom="2dp"-->
-<!--                        app:cardBackgroundColor="#EFFE74" />-->
-<!--                    <androidx.cardview.widget.CardView-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="117dp"-->
-<!--                        android:layout_marginTop="240dp"-->
-<!--                        android:layout_marginBottom="2dp"-->
-<!--                        app:cardBackgroundColor="#FF6FA8" />-->
-<!--                    <androidx.cardview.widget.CardView-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="117dp"-->
-<!--                        android:layout_marginTop="360dp"-->
-<!--                        android:layout_marginBottom="2dp"-->
-<!--                        app:cardBackgroundColor="#EB6FFF" />-->
-<!--                    <androidx.cardview.widget.CardView-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="117dp"-->
-<!--                        android:layout_marginTop="480dp"-->
-<!--                        android:layout_marginBottom="2dp"-->
-<!--                        app:cardBackgroundColor="#B3FE74" />-->
-
                 </RelativeLayout>
 
                 <!-- Monday -->
@@ -755,11 +708,14 @@
         style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:id="@+id/btn_addCard"
-        android:text="test"
+        android:id="@+id/btn_reset"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:cornerRadius="28dp"
+        app:icon="@drawable/replay"
+        app:iconPadding="0dp"
+        app:iconGravity="textStart"
+        app:iconTint="@color/white"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="100dp"

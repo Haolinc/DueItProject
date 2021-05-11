@@ -47,61 +47,36 @@ public class WeeklyScheduleActivity extends AppCompatActivity {
             }
         });
 
-        //Button for testing purpose
-        Button btn_add = (Button) findViewById(R.id.btn_addCard);
-        btn_add.setOnClickListener(new View.OnClickListener() {
+        //Button for reset weekly schedule
+        Button btn_reset = (Button) findViewById(R.id.btn_reset);
+        btn_reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //设置layout出现位置.......
-                RelativeLayout mondayLayout = findViewById(R.id.mondayRelativeLayout);
-                CardView card = new CardView(WeeklyScheduleActivity.this);
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dpToPx(175));
-                params.leftMargin=dpToPx(2);
-                params.topMargin=dpToPx(2);
-                params.bottomMargin=dpToPx(2);
-                params.rightMargin=dpToPx(2);
-                card.setCardBackgroundColor(Color.parseColor("#0000FF"));
-                mondayLayout.addView(card,params);
-
-                CardView card2 = new CardView(WeeklyScheduleActivity.this);
-                RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dpToPx(175));
-                params1.leftMargin=dpToPx(2);
-                params1.topMargin=dpToPx(180);
-                params1.bottomMargin=dpToPx(2);
-                params1.rightMargin=dpToPx(2);
-                mondayLayout.addView(card2,params1);
-
-                TextView eventText = new TextView(WeeklyScheduleActivity.this);
-                eventText.setText("Physics");
-                eventText.setGravity(Gravity.CENTER);
-                card.addView(eventText);
-                //card2.addView(eventText);
-                card.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        AlertDialog alertDialog = new AlertDialog.Builder(WeeklyScheduleActivity.this).create();
-                        alertDialog.setTitle("Oops!");
-                        alertDialog.setMessage("You already have an event for the time range selected");
-                        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Delete",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        mondayLayout.removeView(card);
-                                        alertDialog.cancel();
-                                    }
-                                });
-                        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        alertDialog.cancel();
-                                    }
-                                });
-                        alertDialog.show();
-
-                    }
-                });
-
+                //Print Success message
+                AlertDialog alertDialog = new AlertDialog.Builder(WeeklyScheduleActivity.this).create();
+                alertDialog.setMessage("Do you want to reset weekly schedule?");
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Reset",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                DatabaseHelper databaseHelper = new DatabaseHelper(WeeklyScheduleActivity.this);
+                                databaseHelper.deleteAllFromWeeklySchedule();
+                                for (RelativeLayout layout:layoutList
+                                ) {
+                                    //Remove all views except the first one (the line divider)
+                                    layout.removeViews(1,layout.getChildCount()-1);
+                                }
+                                alertDialog.cancel();
+                            }
+                        });
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                alertDialog.cancel();
+                            }
+                        });
+                alertDialog.show();
             }
         });
 

@@ -708,6 +708,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    //Delete all data from WeeklySchedule table
+    public void deleteAllFromWeeklySchedule() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String queryString = "DELETE FROM " + WEEKLY_SCHEDULE_TABLE_NAME + ";";
+        Cursor cursor = db.rawQuery(queryString, null);
+        cursor.moveToFirst();
+        cursor.close();
+        db.close();
+    }
+
     //Add event to WeeklyScheduleTable
     public void addOneToWeeklySchedule(WeeklyScheduleModel weeklyScheduleModel){
         SQLiteDatabase db = this.getWritableDatabase();
