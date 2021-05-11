@@ -1,5 +1,7 @@
 package com.example.duelt.popWindows;
 
+import android.app.AlarmManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
@@ -78,10 +80,14 @@ public class PopWindow extends AppCompatActivity {
     private String dailyPenalty(int id) {
         int penalty = getIntent().getIntExtra("WakedTimes", 0);
         EventDateModel edm = databaseHelper.getOneFromDaily(id);
+        PetModel pet = databaseHelper.getCurrentStat();
+        pet.setMood(pet.getMood()-10);
         databaseHelper.updateWakedStatusInDaily(id, 0);
-        String textViewText = "You have skipped " + edm.getEventTitle() + " " + penalty +
-                " times,  therefore you have lose " + penalty*10 + " currency.";
         databaseHelper.updateCurrency(databaseHelper.getCurrency() - penalty*10);
+        databaseHelper.updateData(pet);
+        String textViewText = "You have skipped " + edm.getEventTitle() + " " + penalty +
+                " times,  therefore you have lose " + penalty*10 + " currency and -10 mood of your pet.";
+
         return textViewText;
     }
 
@@ -103,7 +109,7 @@ public class PopWindow extends AppCompatActivity {
 
     private String dueDatePopWindow(int id){
         EventDateModel eventDateModel = databaseHelper.getOneFromDueDate(id);
-        HashMap<String, Integer> penalty= Calculation.calculateReward(eventDateModel.getSetDateMillis(), eventDateModel.getDueDateMillis());
+        HashMap<String, Integer> penalty= Calculation.calculateReward(eventDateModel.getSetDateMillis(), eventDateModel.getDueDateMillis(), (double)databaseHelper.getCurrentStat().getMood());
         String textViewText = "";
 
         penaltyHolding = penalty.get("exp");
@@ -126,6 +132,7 @@ public class PopWindow extends AppCompatActivity {
             textViewText = "You have reached 90% of the time towards duedate! You did not gain anything or lose anything.";
         }
         databaseHelper.deleteOneFromDueDate(id);
+        AlarmManager am = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
         return textViewText;
     }
 

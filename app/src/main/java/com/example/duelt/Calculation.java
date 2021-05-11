@@ -10,12 +10,13 @@ import java.util.HashMap;
 
 public class Calculation {
 
-    public static HashMap<String, Integer> calculateReward (long setDate, long dueDate){
+    public static HashMap<String, Integer> calculateReward (long setDate, long dueDate, double mood){
         HashMap<String, Integer> storing = new HashMap<>();      //0 as exp 1as  currency
         long currentTime = java.util.Calendar.getInstance().getTime().getTime();
         long rewardTime = setDate + (long) ((double) Math.round((dueDate - setDate)*0.9));
-        storing.put("exp", (int)((rewardTime - currentTime)/3600000));
-        storing.put("currency", (int)((rewardTime - currentTime)/3600000));
+        int penalty = (int) ((double) ((rewardTime - currentTime)/3600000)  * (mood/100));
+        storing.put("exp", penalty);
+        storing.put("currency", penalty);
         return storing;
     }
     public static void calculateHungerAndMood(Context ctx) {

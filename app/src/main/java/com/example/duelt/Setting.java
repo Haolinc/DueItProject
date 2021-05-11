@@ -16,14 +16,14 @@ import com.example.duelt.db.DatabaseHelper;
 import java.util.ArrayList;
 
 public class Setting extends AppCompatActivity {
-
+    public static boolean testMode =false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         ArrayList<String> list_items = new ArrayList<>();
         list_items.add("Reset All");
-        list_items.add("test");
+        list_items.add("Testing Mode");
         ListView listView = findViewById(R.id.setting_list);
         setting_list_items ad = new setting_list_items(this, list_items);
 
@@ -36,7 +36,14 @@ public class Setting extends AppCompatActivity {
                         resetAll();
                         break;
                     case 1:
-                        Toast.makeText(Setting.this, "clicked", Toast.LENGTH_SHORT).show();
+                        if (!testMode) {
+                            Toast.makeText(Setting.this, "Test Mode Open!", Toast.LENGTH_SHORT).show();
+                            testMode = true;
+                        }
+                        else {
+                            Toast.makeText(Setting.this, "Test Mode Close!", Toast.LENGTH_SHORT).show();
+                            testMode = false;
+                        }
                         break;
                     default: Toast.makeText(Setting.this, Integer.toString(position), Toast.LENGTH_SHORT).show();
                 }
@@ -44,6 +51,7 @@ public class Setting extends AppCompatActivity {
             }
         });
     }
+
 
     private void resetAll(){
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();

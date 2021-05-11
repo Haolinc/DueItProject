@@ -1,7 +1,5 @@
 package com.example.duelt.fragments;
 
-import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
@@ -22,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import com.example.duelt.Calculation;
 import com.example.duelt.Minigame;
 import com.example.duelt.R;
+import com.example.duelt.Setting;
 import com.example.duelt.StatesView;
 import com.example.duelt.db.DatabaseHelper;
 import com.example.duelt.db.PetModel;
@@ -177,19 +176,39 @@ public class MiniFragment extends Fragment {
             }
         }
     });
-
-
-
-
-
-
-
         return rootView;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        Button hungerTestBtn = getActivity().findViewById(R.id.mini_test_hunger);
+        Button moodTestBtn = getActivity().findViewById(R.id.mini_test_mood);
+        if (!Setting.testMode){
+            hungerTestBtn.setVisibility(View.INVISIBLE);
+            moodTestBtn.setVisibility(View.INVISIBLE);
+        }
+        else{
+            hungerTestBtn.setVisibility(View.VISIBLE);
+            moodTestBtn.setVisibility(View.VISIBLE);
+            hungerTestBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    petmodel.setHungriness(petmodel.getHungriness()-5);
+                    petDatabaseHelper.updateData(petmodel);
+                    updateState();
+                }
+            });
+            moodTestBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    petmodel.setMood(petmodel.getMood()-5);
+                    petDatabaseHelper.updateData(petmodel);
+                    updateState();
+                }
+            });
+        }
+
         runnable = new Runnable(){
             @Override
             public void run(){
@@ -312,7 +331,7 @@ public class MiniFragment extends Fragment {
 
         //update level text
         int level_text = petmodel.getLv();
-        petLvNum.setText("LEVEL:  "+level_text);
+        petLvNum.setText("Lv: "+level_text);
         //update exp state
         int currentExp = petmodel.getExp();
         expState.setMaxCount(petDatabaseHelper.getExpForLevelUp(level_text));
@@ -348,7 +367,7 @@ public class MiniFragment extends Fragment {
 
         petLvNum = view.findViewById(R.id.mini_level_text);
         int level_text = petmodel.getLv();
-        petLvNum.setText("LEVEL:  "+level_text);
+        petLvNum.setText("Lv: "+level_text);
 
         //init MoodState bar
         expState = view.findViewById(R.id.expState);
@@ -366,7 +385,12 @@ public class MiniFragment extends Fragment {
 
     private boolean play(){
         int toyAmount= petDatabaseHelper.getToy();
+        int mood = petDatabaseHelper.getCurrentStat().getMood();
         if (toyAmount>0) {
+            if (mood==100){
+                Toast.makeText(getContext(), "Your pet is happy enough!", Toast.LENGTH_SHORT).show();
+                return false;
+            }
             petmodel = petDatabaseHelper.getCurrentStat() ;
             petmodel.play();
             moodState.setCurrentCount(petmodel.getMood());
@@ -385,7 +409,12 @@ public class MiniFragment extends Fragment {
 
     private boolean feed(){
         int foodAmount= petDatabaseHelper.getFood();
+        int hunger = petDatabaseHelper.getCurrentStat().getHungriness();
         if (foodAmount>0) {
+            if (hunger==100){
+                Toast.makeText(getContext(), "Your pet is full!", Toast.LENGTH_SHORT).show();
+                return false;
+            }
             PetModel petmodel = new PetModel(getContext());
             petmodel.feed();
             hungrinessState.setCurrentCount(petmodel.getHungriness());
@@ -398,7 +427,6 @@ public class MiniFragment extends Fragment {
         }
         else {
             Toast.makeText(getContext(), "You have no more food to feed!", Toast.LENGTH_SHORT).show();
-
             return false;
         }
 
