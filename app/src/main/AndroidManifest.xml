@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Duelt">
-        <activity android:name=".PetNaming"></activity>
+        <activity android:name=".PetNaming"/>
         <activity android:name=".popWindows.Memo_pop_window" />
         <activity android:name=".LoadingActivity">
             <intent-filter>
@@ -28,12 +28,10 @@
             android:theme="@style/AppTheme.CustomTheme" />
         <activity android:name=".WeeklyScheduleActivity" /> <!-- This Activity is set to default display -->
         <activity android:name=".fragments.TabActivity" />
-        <activity android:name=".ShopPage" />
         <activity android:name=".treatmentpage" />
         <activity android:name=".TreatmentActivity" />
         <activity android:name=".fragments.TextEntering" />
         <activity android:name=".CalendarActivity" />
-        <activity android:name=".Minigame" />
         <activity
             android:name=".popWindows.ShopPopWindow"
             android:theme="@style/Theme.AppCompat.Translucent" />

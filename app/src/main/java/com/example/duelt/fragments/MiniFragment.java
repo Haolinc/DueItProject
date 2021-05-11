@@ -19,7 +19,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.duelt.Calculation;
 import com.example.duelt.HintHelper;
-import com.example.duelt.Minigame;
 import com.example.duelt.R;
 import com.example.duelt.Setting;
 import com.example.duelt.StatesView;
@@ -108,18 +107,6 @@ public class MiniFragment extends Fragment {
         hh2.checkFirstTime(rootView.getContext(),FIRST_TIME_KEY,btn_hint2);
 
         initState(rootView);
-        //Buttons in Fragments should be written here
-        // ↓↓↓↓↓↓↓↓
-
-        //dataTesting button function
-        Button btn_dataTesting = (Button) rootView.findViewById(R.id.data_testing);
-        btn_dataTesting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(), Minigame.class);
-                startActivity(i);
-            }
-        });
 
         Button btn_shoppage = rootView.findViewById(R.id.mini_shop_button);
         btn_shoppage.setOnClickListener(new View.OnClickListener() {

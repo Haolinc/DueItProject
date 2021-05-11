@@ -118,16 +118,6 @@
             app:layout_constraintVertical_bias="0.649"
             tools:src="@tools:sample/avatars" />
 
-        <Button
-            android:id="@+id/data_testing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Test Mode"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="18dp"
