@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.example.duelt.Calculation;
+import com.example.duelt.HintHelper;
 import com.example.duelt.Minigame;
 import com.example.duelt.R;
 import com.example.duelt.StatesView;
@@ -44,6 +45,8 @@ public class MiniFragment extends Fragment {
 
     AnimationDrawable catAnimation;
     Animation catAnimation2;
+
+    final private String FIRST_TIME_KEY = "MINI_FIRST_TIME_KEY";
 
 
     ImageButton imageButton;
@@ -97,6 +100,13 @@ public class MiniFragment extends Fragment {
             }
         });
 
+        //Check for hint btn
+        ImageButton btn_hint = (ImageButton) rootView.findViewById(R.id.btn_mini_hint1);
+        ImageButton btn_hint2 = (ImageButton) rootView.findViewById(R.id.btn_mini_hint2);
+        HintHelper hh = new HintHelper();
+        hh.checkFirstTime(rootView.getContext(),FIRST_TIME_KEY,btn_hint);
+        HintHelper hh2 = new HintHelper();
+        hh2.checkFirstTime(rootView.getContext(),FIRST_TIME_KEY,btn_hint2);
 
         initState(rootView);
         //Buttons in Fragments should be written here
