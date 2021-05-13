@@ -55,8 +55,8 @@ public class Setting extends AppCompatActivity {
 
     private void resetAll(){
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle("Reset Everything");
-        alertDialog.setMessage("Are you sure to reset every data?");
+        alertDialog.setTitle("Reset Database");
+        alertDialog.setMessage("Are you sure to reset all the data?");
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Yes",
                 new DialogInterface.OnClickListener() {
                     @Override

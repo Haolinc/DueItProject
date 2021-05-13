@@ -196,7 +196,7 @@ public class PopWindow extends AppCompatActivity {
                     str[1] = treatmentPopWindow();
                     return str;
                 case "Mini":
-                   databaseHelper.upgrade();
+                   databaseHelper.killPet();
                    str[1] = "your pet is dead.";
                    return str;
                 default:

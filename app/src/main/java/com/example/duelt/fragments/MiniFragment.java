@@ -278,7 +278,7 @@ public class MiniFragment extends Fragment {
                 }
 
 
-                if (isPetDead() == true){
+                if (isPetDead()){
                     Intent intent = new Intent(getActivity(), PopWindow.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent.putExtra("Table", "Mini");
