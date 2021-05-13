@@ -74,8 +74,8 @@ public class TextEntering extends AppCompatActivity {
         inputMethodManager.hideSoftInputFromWindow(this.getWindow().getDecorView().getRootView().getWindowToken(), 0);
     }
 
+    //Save button method (Used in XML file, android:OnClick)
     public void saveEvent(View v){
-
         if(TextUtils.isEmpty(eventTitleInput.getText().toString())) {
             eventTitleInput.setError("Title can't be empty");
             return;

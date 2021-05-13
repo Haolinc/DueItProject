@@ -362,6 +362,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(PET_TABLE_NAME, null, cv);
     }
 
+    //reset pet table
     public void killPet(){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + PET_TABLE_NAME + ";");
@@ -369,6 +370,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    //get pet status
     public PetModel getCurrentStat(){
         SQLiteDatabase db = this.getReadableDatabase();
         PetModel petStat = new PetModel(0, 0, 0,0, "");

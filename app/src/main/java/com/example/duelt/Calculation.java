@@ -10,15 +10,18 @@ import java.util.HashMap;
 
 public class Calculation {
 
+    //Calculation for memo duedate reward and penalty
     public static HashMap<String, Integer> calculateReward (long setDate, long dueDate, double mood){
-        HashMap<String, Integer> storing = new HashMap<>();      //0 as exp 1as  currency
+        HashMap<String, Integer> storing = new HashMap<>();      //0 as exp 1 as  currency
         long currentTime = java.util.Calendar.getInstance().getTime().getTime();
-        long rewardTime = setDate + (long) ((double) Math.round((dueDate - setDate)*0.9));
+        long rewardTime = setDate + (long) ((double) Math.round((dueDate - setDate)*0.9));   //Going over 90% will be penalty
         int penalty = (int) ((double) ((rewardTime - currentTime)/3600000)  * (mood/100));
         storing.put("exp", penalty);
         storing.put("currency", penalty);
         return storing;
     }
+
+    //Calculate Hunger and Mood decrement even if the user did not start the application
     public static void calculateHungerAndMood(Context ctx) {
         DatabaseHelper databaseHelper = new DatabaseHelper(ctx);
 

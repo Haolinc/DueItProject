@@ -1,7 +1,5 @@
 package com.example.duelt.popWindows;
 
-import android.app.AlarmManager;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
@@ -42,6 +40,7 @@ public class PopWindow extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getRealMetrics(dm);
         databaseHelper = new DatabaseHelper(this);
 
+        //Pop window size
         int width = dm.widthPixels;
         int height = dm.heightPixels;
         getWindow().setLayout((int)(width*.8), (int)(height*.5));
@@ -61,11 +60,11 @@ public class PopWindow extends AppCompatActivity {
         mGreat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (table.equals("Treatment")) {
+                if (table.equals("Treatment")) {    //If the message is from treatment page then jump back to main
                     Intent i = new Intent(v.getContext(), TabActivity.class);
                     startActivity(i);
                 }
-                else if(table.equals("Mini")){
+                else if(table.equals("Mini")){    //This message means the pet is starved to dead
                     Intent intent = new Intent(getApplicationContext(), LoadingActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
@@ -77,6 +76,7 @@ public class PopWindow extends AppCompatActivity {
         });
     }
 
+    //From daily fragment and calculate the penalty for skipping event
     private String dailyPenalty(int id) {
         int penalty = getIntent().getIntExtra("WakedTimes", 0);
         EventDateModel edm = databaseHelper.getOneFromDaily(id);
@@ -91,11 +91,10 @@ public class PopWindow extends AppCompatActivity {
         return textViewText;
     }
 
+    //From treatment activity and give user reward
     private String treatmentPopWindow(){
         PetModel petmodel = databaseHelper.getCurrentStat();
         long mTimer = TreatmentFragment.getmStartTimeInMillis();
-
-//        cupAnimation();
 
         int currency = ((int)mTimer/6);
         int exp = ((int)mTimer/6);
@@ -103,10 +102,10 @@ public class PopWindow extends AppCompatActivity {
         petmodel.expPlus(this, databaseHelper.getCurrency()+exp);
         databaseHelper.updateData(petmodel);
 
-        String textViewText = "You have earned " + currency + " currency and " + exp + " exp.";
-        return textViewText;
+        return "You have earned " + currency + " currency and " + exp + " exp.";
     }
 
+    //From memo activity and calculate whether user will get reward or penalty
     private String dueDatePopWindow(int id){
         EventDateModel eventDateModel = databaseHelper.getOneFromDueDate(id);
         HashMap<String, Integer> penalty= Calculation.calculateReward(eventDateModel.getSetDateMillis(), eventDateModel.getDueDateMillis(), (double)databaseHelper.getCurrentStat().getMood());
@@ -132,10 +131,10 @@ public class PopWindow extends AppCompatActivity {
             textViewText = "You have reached 90% of the time towards duedate! You did not gain anything or lose anything.";
         }
         databaseHelper.deleteOneFromDueDate(id);
-        AlarmManager am = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
         return textViewText;
     }
 
+    //From daily fragment and grant user reward
     private String dailyRewardPopWindow (int id) {
         PetModel petModel = databaseHelper.getCurrentStat();
         EventDateModel edm = databaseHelper.getOneFromDaily(id);
@@ -147,6 +146,7 @@ public class PopWindow extends AppCompatActivity {
         return "You have gain 10 exp and 10 currency!";
     }
 
+    //From AlarmReceiver to remind user to do their event
     private String dailyReminderPopWindow(int id){
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         String textViewText = "Your activity of " + databaseHelper.getOneFromDaily(id).getEventTitle() + " is coming up";
@@ -154,6 +154,7 @@ public class PopWindow extends AppCompatActivity {
         return textViewText;
     }
 
+    //Use for avoiding repetitive code
     private void cupAnimation(){
         vWinnerCup.setBackgroundResource(R.drawable.winner_cup_list);
         mWinnerCup = (AnimationDrawable) vWinnerCup.getBackground();
@@ -170,6 +171,7 @@ public class PopWindow extends AppCompatActivity {
 
     }
 
+    //Use to make the activity to start quicker
     private class Preload extends AsyncTask<String, String, String[]> {
         @Override
         protected void onPreExecute(){
@@ -179,6 +181,7 @@ public class PopWindow extends AppCompatActivity {
         protected String[] doInBackground(String ... strings){
             String[] str = new String[2];
             str[0] = strings[0];
+            //Base on sent from which class to perform different action
             switch(strings[0]) {
                 case "Duedate":
                     str[1]=dueDatePopWindow(id);
@@ -221,8 +224,6 @@ public class PopWindow extends AppCompatActivity {
 
                     return;
                 case "DailyPenalty":
-                    vWinnerCup.setBackgroundResource(R.drawable.saltyfish_logo);
-                    return;
                 case "Mini":
                     vWinnerCup.setBackgroundResource(R.drawable.saltyfish_logo);
                     return;

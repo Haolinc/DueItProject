@@ -10,7 +10,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -37,6 +36,7 @@ public class PetNaming extends AppCompatActivity {
         catAnimation = (AnimationDrawable) imageView.getBackground();
         catAnimation.start();
 
+        //Condition to force user to add name for their pet
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,6 +54,7 @@ public class PetNaming extends AppCompatActivity {
         inputMethodManager.hideSoftInputFromWindow(this.getWindow().getDecorView().getRootView().getWindowToken(), 0);
     }
 
+    //Go to main activity
     public void toMain(String name){
         PetModel pet = new PetModel(100, 100, 0,1, name);
         databaseHelper.updateData(pet);

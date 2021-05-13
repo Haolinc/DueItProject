@@ -50,7 +50,7 @@ public class DailyFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        updateView();
+        updateView();    //Update the view every time resume from pause state
     }
 
     @Override
@@ -58,7 +58,7 @@ public class DailyFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.activity_daily,container,false);
         layoutView = rootView.findViewById(R.id.daily_routine_checkbox);
         databaseHelper = new DatabaseHelper(getActivity());
-        createCheckBox();
+        createCheckBox();            //Create checkbox in layout when startup
         TimePicker tp = rootView.findViewById(R.id.datePicker1);
 
         ConstraintLayout cl = rootView.findViewById(R.id.dailyLayout);
@@ -68,16 +68,6 @@ public class DailyFragment extends Fragment {
                 hideSoftKeyboard(v);
             }
         });
-
-        //**Back button might not be needed anymore
-
-        //Button btn_resetDatabase = (Button)rootView.findViewById(R.id.resetDatabaseBtn);
-//        btn_resetDatabase.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                databaseHelper.upgrade();
-//            }
-//        });
 
         //Check for hint btn
         ImageButton btn_hint = (ImageButton) rootView.findViewById(R.id.btn_daily_hint1);
@@ -104,6 +94,7 @@ public class DailyFragment extends Fragment {
                 DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
                 databaseHelper.addOneToDaily(edm);
 
+                //If the current time is already passed the due time
                 if (checkIfPassTime(edm)){
                     if (calendar.get(Calendar.DAY_OF_YEAR) == 365) {
                         calendar.set(Calendar.DAY_OF_YEAR, 1);
@@ -162,13 +153,19 @@ public class DailyFragment extends Fragment {
         cb.setLayoutParams(lp);
         cb.setGravity(Gravity.CENTER_VERTICAL);
 
+        //Set the checkbox to check status when the user is done with the scheduled event today
         if (checkIfDoneToday(edm)) {
             cb.setChecked(true);
         }
+
+        //Set the checkbox color to red if current time is over the scheduled time
         if (checkIfPassTime(edm) && !cb.isChecked()){
             cb.setTextColor(Color.RED);
         }
 
+        //If the scheduled time haven't passed today, then penalty -1
+        /*This is to prevent extra penalty when user has passed one day or above and start the
+           application within the 5 minute before the scheduled time */
         if (edm.getWaked() > 1 && !checkIfPassTime(edm)){
             databaseHelper.updateWakedStatusInDaily(edm.getID(), edm.getWaked()-1);
         }
@@ -186,7 +183,7 @@ public class DailyFragment extends Fragment {
     }
 
 
-
+    //Jump to penalty status in pop window activity
     private void dailyPenalty (int id, int wakedTimes) {
         Intent i = new Intent(getActivity(), PopWindow.class);
         i.putExtra("WakedTimes", wakedTimes);
@@ -195,6 +192,7 @@ public class DailyFragment extends Fragment {
         startActivity(i);
     }
 
+    //Make buttons for user to select, and this will grant user reward if they select yes
     private void dailyReward (CheckBox cb, EventDateModel edm) {
         cb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -251,6 +249,7 @@ public class DailyFragment extends Fragment {
         });
     }
 
+    //Method of dialogue to remove the checkbox
     public void deleteCheckBox(CheckBox cb, EventDateModel edm){
         AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
         alertDialog.setTitle("Remove");
@@ -281,6 +280,7 @@ public class DailyFragment extends Fragment {
         alertDialog.show();
     }
 
+    //Method to cancel notification and reminding alarm
     public void cancelAlarm(int requestedCode) {
         AlarmManager am = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(getActivity(), AlarmReceiver.class);
@@ -306,10 +306,12 @@ public class DailyFragment extends Fragment {
         createCheckBox();
     }
 
+    //A method to check if the scheduled time is passed today
     private boolean checkIfPassTime (EventDateModel edm) {
         return edm.getTimeForOrder() < Calendar.getInstance().get(Calendar.HOUR_OF_DAY)*100+Calendar.getInstance().get(Calendar.MINUTE);
     }
 
+    //A method to check if the user complete the task today
     private boolean checkIfDoneToday(EventDateModel edm){
         Calendar currentTime = Calendar.getInstance();
         return currentTime.get(Calendar.YEAR) * 1000 + currentTime.get(Calendar.DAY_OF_YEAR) == edm.getWakedTime();

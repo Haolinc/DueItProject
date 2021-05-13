@@ -31,6 +31,7 @@ public class Setting extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Set each setting item function base on position
                 switch(position) {
                     case 0:
                         resetAll();
@@ -52,7 +53,7 @@ public class Setting extends AppCompatActivity {
         });
     }
 
-
+    //Resetting database function
     private void resetAll(){
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle("Reset Database");

@@ -133,6 +133,7 @@ public class MainFragment extends Fragment {
             createCheckBoxInDueDate(list.get(i));
         }
 
+        //Make pop window immediately when the memo event due date has passed
         for (int i=0; i<list.size();i++){
             if (list.get(i).getWaked()==1){
                 Intent intent= new Intent(getActivity(), PopWindow.class);
@@ -145,6 +146,7 @@ public class MainFragment extends Fragment {
 
     }
 
+    //Use for updating reminder textviews
     private void updateReminder(){
         DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
         PetModel petModel = databaseHelper.getCurrentStat();
@@ -174,6 +176,7 @@ public class MainFragment extends Fragment {
         reminder.removeAllViews();
     }
 
+    //Function to create checkbox in memo due date scroll view
     private void createCheckBoxInDueDate(EventDateModel edm) {
         CheckBox cb = new CheckBox(getActivity());
         LinearLayout dueDate = getView().findViewById(R.id.dueDate_layout);
@@ -237,6 +240,7 @@ public class MainFragment extends Fragment {
 
     }
 
+    //Method for extra alert dialogue when selecting remove in checkbox
     public void deleteCheckBox(CheckBox cb, EventDateModel edm){
         AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
         alertDialog.setTitle("Remove");
@@ -247,6 +251,9 @@ public class MainFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         new DatabaseHelper(getActivity()).deleteOneFromDueDate(edm.getID());
                         cancelAlarm(edm.getID());
+                        cancelAlarm(edm.getID2());
+                        cancelAlarm(edm.getID3());
+                        cancelAlarm(edm.getID4());
                         updateCheckBox();
                     }
                 });
