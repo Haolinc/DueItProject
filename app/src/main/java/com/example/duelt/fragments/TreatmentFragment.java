@@ -149,6 +149,7 @@ public class TreatmentFragment extends Fragment {
         imageButton.setBackgroundDrawable(null);
         imageButton.setBackgroundResource(R.drawable.btn_go_321_list);
         go321Animation = (AnimationDrawable) imageButton.getBackground();
+        imageButton.setEnabled(false);
         btn_start.setVisibility(View.VISIBLE);
     }
 
