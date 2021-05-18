@@ -15,7 +15,9 @@ public class Calculation {
         HashMap<String, Integer> storing = new HashMap<>();      //0 as exp 1 as  currency
         long currentTime = java.util.Calendar.getInstance().getTime().getTime();
         long rewardTime = setDate + (long) ((double) Math.round((dueDate - setDate)*0.9));   //Going over 90% will be penalty
-        int penalty = (int) ((double) ((rewardTime - currentTime)/3600000)  * (mood/100));
+        int penalty = (int) ((rewardTime - currentTime)/3600000);
+        if (penalty > 0)
+            penalty= (int)((double)(penalty)*(mood/100));
         storing.put("exp", penalty);
         storing.put("currency", penalty);
         return storing;
