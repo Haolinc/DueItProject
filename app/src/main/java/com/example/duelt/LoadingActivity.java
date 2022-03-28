@@ -18,12 +18,14 @@ public class LoadingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loading_page);
 
+        //Condition to jump to PetNaming activity
         if (new DatabaseHelper(this).getCurrentStat().getName().equals("")) {
             Intent intent = new Intent(LoadingActivity.this, PetNaming.class);
             startActivity(intent);
             finish();
         }
         else {
+            //Otherwise wait for 2.5 seconds in loading page
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

@@ -34,11 +34,9 @@ public class treatmentpage extends AppCompatActivity {
     private Button mButtonStartPause;
     private ImageView gitImage;
     AnimationDrawable catAnimation;
-    //bug test****************************************************************************************
-//    private TextView mbug;
-//    private Button mTestButton;
-    //bug test****************************************************************************************
-    //MediaPlayer alarmSoundMP = MediaPlayer.create(this, R.raw.alarmclock);
+
+
+
     private CountDownTimer mCountDownTimer;
 
     private boolean mTimerRunning;
@@ -50,19 +48,7 @@ public class treatmentpage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_treatmentpage);
         final MediaPlayer alarmSoundMP = MediaPlayer.create(this, R.raw.alarmclock);
-        //bug test****************************************************************************************
-//        mbug = findViewById(R.id.text_bug);
-//        mTestButton = findViewById(R.id.test_button);
-//
-//        mTestButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(v.getContext(), PopWindow.class);
-//                i.putExtra("Table", "Treatment");
-//                startActivity(i);
-//            }
-//        });
-        //bug test****************************************************************************************
+
         mCountDown = findViewById(R.id.countdown_text);
         mCountDownDisplay = findViewById(R.id.countDown_distext);
         gitImage = findViewById(R.id.gifImageView);
@@ -76,10 +62,10 @@ public class treatmentpage extends AppCompatActivity {
         HintHelper hh = new HintHelper();
         hh.checkFirstTime(this,FIRST_TIME_KEY,btn_hint);
         ImageButton btn_hint2 = (ImageButton) findViewById(R.id.btn_treamentpage_hint3);
-        HintHelper hh2 = new HintHelper();
         hh.checkFirstTime(this,FIRST_TIME_KEY,btn_hint2);
 
 
+        //start and pause button
         mButtonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,6 +80,7 @@ public class treatmentpage extends AppCompatActivity {
         updateCountDownText();
     }
 
+    //this function will start the timer and triger the mp3 player
     private void startTimer(MediaPlayer alarmSoundMP){
         mCountDownTimer = new CountDownTimer(mTimeLeftInMillis,1000) {
             @Override
@@ -103,12 +90,10 @@ public class treatmentpage extends AppCompatActivity {
                 if (mTimeLeftInMillis > START_TIME_IN_MILLIS-(breakTime*tCount) && mTimeLeftInMillis < START_TIME_IN_MILLIS-(breakTime*tCount)+1000) {
                         updateText();
                         alarmSoundMP.start();
-                    //Toast.makeText(treatmentpage.this, "break" + tCount, Toast.LENGTH_SHORT).show();
                 }
                 if (mTimeLeftInMillis > START_TIME_IN_MILLIS-(workTime*tCount) && mTimeLeftInMillis < START_TIME_IN_MILLIS-(workTime*tCount)+1000) {
                         updateText2();
                         alarmSoundMP.start();
-                    //Toast.makeText(treatmentpage.this, "work" + tCount, Toast.LENGTH_SHORT).show();
                         tCount++;
                 }
 
@@ -117,12 +102,7 @@ public class treatmentpage extends AppCompatActivity {
                     i.putExtra("Table", "Treatment");
                     startActivity(i);
                 }
-                //bug test**************************************************************************************************************************
-                //long mtime = START_TIME_IN_MILLIS-(breakTime*tCount);
-                //Toast.makeText(treatmentpage.this, "time = " + mtime, Toast.LENGTH_SHORT).show();
-                //Toast.makeText(treatmentpage.this, "time2 = " + mTimeLeftInMillis, Toast.LENGTH_SHORT).show();
-                //mbug.setText("time = "+ mTimeLeftInMillis);
-                //bug test**************************************************************************************************************************
+
 
             }
 
@@ -136,13 +116,14 @@ public class treatmentpage extends AppCompatActivity {
         mButtonStartPause.setText("pause");
     }
 
+    //pause time button
     private void pauseTimer(){
         mCountDownTimer.cancel();
         mTimerRunning = false;
         mButtonStartPause.setText("Start");
     }
 
-
+    //this will update time on textview
     private void updateCountDownText(){
         int minutes = (int) mTimeLeftInMillis/ 1000/ 60;
         int seconds = (int) (mTimeLeftInMillis/ 1000) % 60;

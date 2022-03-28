@@ -17,6 +17,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         Calendar currentTime = Calendar.getInstance();
         String table = i.getStringExtra("Table");
         if (table != null) {
+            //Use for remind user with pop window if they are in the application
             if (table.equals("DailyReminder")) {
                 if (currentTime.get(Calendar.YEAR) * 1000 + currentTime.get(Calendar.DAY_OF_YEAR) !=
                         databaseHelper.getOneFromDaily(id).getWakedTime()) {
@@ -29,6 +30,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 }
             }
             else {
+                //Use to increment penalty if user skipped their scheduled time in daily routine
                 databaseHelper.updateWakedStatusInDueDate(id, databaseHelper.getOneFromDueDate(id).getWaked() + 1);
 
                 Intent i2 = new Intent(context, PopWindow.class);

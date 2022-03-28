@@ -81,6 +81,7 @@ public class MemoFragment extends Fragment {
         updateTextViewInDayLeft();
     }
 
+
     private void updateTextViewInDayLeft() {
         ArrayAdapter arrayAdapter1 = new ArrayAdapter(getActivity(),android.R.layout.simple_list_item_1, dayLeft_list);
         arrayAdapter1.clear();
@@ -88,7 +89,7 @@ public class MemoFragment extends Fragment {
         createTextsViewInDayLeft();
     }
 
-
+    //this will read the ID from database helper and use it to create a static arraylist
     public void createOneTextViewInDayLeft(EventDateModel edm){
         int days = edm.minusInDay(edm);
 
@@ -99,6 +100,7 @@ public class MemoFragment extends Fragment {
         mListView.setId(edm.getID());
         mListView.setAdapter(arrayAdapter);
 
+        //create button that use arraylist to get databasehelper table and pass this id to Memo_pop_window
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -109,21 +111,11 @@ public class MemoFragment extends Fragment {
                 Toast.makeText(getActivity(),"id passed in "+ edmID[(int)id], Toast.LENGTH_SHORT).show();
             }
         });
-        //mListView.setAdapter(ad);
-
     }
-//    private void createOneTextViewInDayLeft(EventDateModel edm) {
-//        TextView tv = new TextView(getActivity());
-//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-2, -2);  //wrap_content
-//
-//        int days = edm.minusInDay(edm);
-//
-//        tv.setText(edm.getEventTitle() + " ONLY " + days + " DAY LEFT !!");
-//        tv.setLayoutParams(lp);
-//        tv.setGravity(Gravity.CENTER_VERTICAL);
-//        layoutView.addView(tv);
-//    }
 
+
+
+    
     private void createTextsViewInDayLeft(){
         DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
         List<EventDateModel> list = databaseHelper.getDueDateReminder();

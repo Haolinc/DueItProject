@@ -11,29 +11,42 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Duelt">
-        <activity android:name=".PetNaming"/>
-        <activity android:name=".popWindows.Memo_pop_window" />
-        <activity android:name=".LoadingActivity">
+        <activity android:name=".PetNaming"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".popWindows.Memo_pop_window"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".LoadingActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".linechart" />
-        <activity android:name=".Profile" />
-        <activity android:name=".Setting" />
+        <activity android:name=".linechart"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Profile"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Setting"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".popWindows.ScheduleEventAddWindow"
-            android:theme="@style/AppTheme.CustomTheme" />
-        <activity android:name=".WeeklyScheduleActivity" /> <!-- This Activity is set to default display -->
-        <activity android:name=".fragments.TabActivity" />
-        <activity android:name=".treatmentpage" />
-        <activity android:name=".fragments.TextEntering" />
-        <activity android:name=".CalendarActivity" />
+            android:theme="@style/AppTheme.CustomTheme"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".WeeklyScheduleActivity"
+            android:screenOrientation="portrait"/> <!-- This Activity is set to default display -->
+        <activity android:name=".fragments.TabActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".treatmentpage"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".fragments.TextEntering"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".CalendarActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".popWindows.ShopPopWindow"
-            android:theme="@style/Theme.AppCompat.Translucent" />
+            android:theme="@style/Theme.AppCompat.Translucent"
+            android:screenOrientation="portrait"/>
 
         <receiver android:name=".alarm.AlarmReceiver">
             <intent-filter>
@@ -48,7 +61,8 @@
 
         <activity
             android:name=".popWindows.PopWindow"
-            android:theme="@style/AppTheme.CustomTheme" />
+            android:theme="@style/AppTheme.CustomTheme"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

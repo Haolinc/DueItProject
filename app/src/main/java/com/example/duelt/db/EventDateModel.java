@@ -92,6 +92,7 @@ public class EventDateModel {
         waked = 0;
     }
 
+    //put calendar information into EventDateModel
     public EventDateModel(Calendar calendar){
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);

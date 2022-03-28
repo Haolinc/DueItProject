@@ -39,7 +39,7 @@ public class TreatmentFragment extends Fragment {
     final Handler handler2 = new Handler(Looper.getMainLooper());
 
     private EditText mEditTimeInput;
-//    private Button mButtonSet;
+
 
     final private String FIRST_TIME_KEY = "TRAETMENT_FIRST_TIME_KEY12310";
 
@@ -76,37 +76,9 @@ public class TreatmentFragment extends Fragment {
             }
         });
 
-//        mButtonSet.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String input = mEditTimeInput.getText().toString();
-//                if(!input.matches("-?\\d+")) {
-//                    mEditTimeInput.setError("Please enter an integer");
-//                    return;
-//                }
-//                //test animation *********************************************************************************************************************************
-//                final Animation treatmentButton = AnimationUtils.loadAnimation(getActivity(),R.anim.treatment_button_bounce);
-//                mButtonSet.startAnimation(treatmentButton);
-//
-//                if(input.length() == 0) {
-//                    Toast.makeText(getActivity(), "Field can't be empty",Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                long millisInput = Long.parseLong(input);
-//                if (millisInput == 0) {
-//                    Toast.makeText(getActivity(), "please enter a positive number",Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                setTime(millisInput);
-//                //mEditTimeInput.setText("");
-//                Toast.makeText(getActivity(), "time set to " +mStartTimeInMillis + " minutes",Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
 
-        //onClick(ImageButton- go321) button function, consider better naming
+        //image button function
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,9 +98,7 @@ public class TreatmentFragment extends Fragment {
                     mEditTimeInput.setError("Please enter an integer");
                     return;
                 }
-                //test animation *********************************************************************************************************************************
-//                final Animation treatmentButton = AnimationUtils.loadAnimation(getActivity(),R.anim.treatment_button_bounce);
-//                mButtonSet.startAnimation(treatmentButton);
+
 
                 if(input.length() == 0) {
                     Toast.makeText(getActivity(), "Field can't be empty",Toast.LENGTH_SHORT).show();
@@ -142,7 +112,7 @@ public class TreatmentFragment extends Fragment {
                 }
 
                 setTime(millisInput);
-                //mEditTimeInput.setText("");
+
                 Toast.makeText(getActivity(), "time set to " +mStartTimeInMillis + " minutes",Toast.LENGTH_SHORT).show();
 
                 view.setVisibility(View.GONE);
@@ -170,11 +140,7 @@ public class TreatmentFragment extends Fragment {
     public static long getmStartTimeInMillis(){
         return mStartTimeInMillis;
     }
-    /*@Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        go321Animation.start();
-    }*/
+
 
     @Override
     public void onResume() {
@@ -183,6 +149,7 @@ public class TreatmentFragment extends Fragment {
         imageButton.setBackgroundDrawable(null);
         imageButton.setBackgroundResource(R.drawable.btn_go_321_list);
         go321Animation = (AnimationDrawable) imageButton.getBackground();
+        imageButton.setEnabled(false);
         btn_start.setVisibility(View.VISIBLE);
     }
 
