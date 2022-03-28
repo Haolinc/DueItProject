@@ -39,9 +39,10 @@
 > [https://github.com/Haolinc/DueItProject](https://github.com/Haolinc/DueItProject)
 
 ### App Screenshots:    
-
+<p align="center">
 <img src="images/dueIt_pet.jpg" width="338" height="600">
 <img src="images/dueIt_countdown.jpg" width="338" height="600">
 <img src="images/dueIt_memo.jpg" width="338" height="600">
 <img src="images/dueIt_schedule.jpg" width="338" height="600">
 <img src="images/dueIt_reward.jpg" width="338" height="600">
+</p>
