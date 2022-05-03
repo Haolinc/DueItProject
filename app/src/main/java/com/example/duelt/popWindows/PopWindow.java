@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.request.RequestListener;
@@ -182,6 +183,7 @@ public class PopWindow extends AppCompatActivity {
                     }
                 })
                 .fitCenter()
+                .skipMemoryCache(true)
                 .into(vWinnerCup);
     }
 
